@@ -41,9 +41,8 @@ router.post("/insert-demotable", async (req, res) => {
 
 router.post("/insert-recipe", async (req, res) => {
     try {
-    const { title, description, servings } = req.body;
+    const {rID, title, description, servings } = req.body;
     const userID = 1; //hardcoded for now (will fix later)
-    const rID = 10002; //hardcoded for now (will fix later)
     const insertResult = await appService.insertRecipe(rID, title, description, userID,  servings);
     if (insertResult) {
         res.json({ success: true });

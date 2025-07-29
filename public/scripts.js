@@ -98,6 +98,7 @@ async function insertRecipe(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+            rID: Math.floor(Math.random() * 100) + 1,  
             title: titleValue,
             description: descValue,
             servings: servValue, 
