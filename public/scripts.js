@@ -27,7 +27,6 @@ async function checkDbConnection() {
 
 
     recBut.addEventListener('click', () => (rForm.style.display = "block")); 
-    submitRecipe.addEventListener('click', () => (rForm.style.display = "none"))
 
     // Hide the loading GIF once the response is received.
     loadingGifElem.style.display = 'none';
@@ -86,6 +85,39 @@ async function resetAllTables() {
     }
 }
 
+// Inserts new recipe in recipe table 
+async function insertRecipe(event) {
+    event.preventDefault();
+
+    const titleValue = document.getElementById('titleID').value;
+    const descValue = document.getElementById('descID').value;
+    const servValue = document.getElementById('servID').value;
+
+    const response = await fetch('/insert-recipe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: titleValue,
+            description: descValue,
+            servings: servValue, 
+        })
+    });
+
+    const responseData = await response.json();
+    const rmessageElement = document.getElementById('insertRecipeResultMsg');
+
+    if (responseData.success) {
+        rmessageElement.textContent = "Recipe inserted successfully!";
+        rForm.style.display = "none"
+    } else {
+        rmessageElement.textContent = "Error inserting recipe!";
+    }
+
+    rForm.style.display = "none"
+}
+
 // Inserts new records into the demotable.
 async function insertDemotable(event) {
     event.preventDefault();
@@ -116,6 +148,7 @@ async function insertDemotable(event) {
 }
 
 // Updates names in the demotable.
+
 async function updateNameDemotable(event) {
     event.preventDefault();
 
@@ -173,6 +206,7 @@ window.onload = function() {
     document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
+    document.getElementById('submitRecipe').addEventListener("click", insertRecipe); 
 };
 
 // General function to refresh the displayed table data. 

@@ -75,7 +75,7 @@ async function fetchDemotableFromDb() {
 }
 async function initiateAllTables() {
     return await withOracleDB(async (connection) => {
-//-----------Arshia: let's keep it for our refrence-----------
+// -----------Arshia: let's keep it for our refrence-----------
         // try {
         //     await connection.execute(`DROP TABLE DEMOTABLE`);
         // } catch(err) {
@@ -87,7 +87,7 @@ async function initiateAllTables() {
         //         name VARCHAR2(20)
         //     )
         // `);
-//--------------------------------------
+// --------------------------------------
         try {
             await connection.execute(`DROP TABLE DEMOSRECIPE`);
         } catch(err) {
@@ -368,7 +368,8 @@ async function insertDemotable(id, name) {
             { autoCommit: true }
         );
         return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
+    }).catch((err) => {
+        console.error(err); 
         return false;
     });
 }
@@ -416,7 +417,8 @@ async function insertRecipe(rID, title, description, userID, servings) {
             { autoCommit: true }
         );
         return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
+    }).catch((err) => {
+        console.log(err); 
         return false;
     });
 }
@@ -624,6 +626,7 @@ async function countDemotable() {
 
 module.exports = {
     testOracleConnection,
+    insertRecipe,
     fetchDemotableFromDb,
     initiateAllTables, 
     insertDemotable, 

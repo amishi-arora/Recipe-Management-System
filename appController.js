@@ -40,12 +40,18 @@ router.post("/insert-demotable", async (req, res) => {
 });
 
 router.post("/insert-recipe", async (req, res) => {
+    try {
     const { title, description, servings } = req.body;
-    const uID = 1; 
-    const insertResult = await appService.insertDemotable(uID, title, description, servings);
+    const userID = 1; //hardcoded for now (will fix later)
+    const rID = 10001; //hardcoded for now (will fix later)
+    const insertResult = await appService.insertRecipe(rID, title, description, userID,  servings);
     if (insertResult) {
         res.json({ success: true });
     } else {
+        res.status(500).json({ success: false });
+    }
+    } catch (err) {
+        console.error("error", err); 
         res.status(500).json({ success: false });
     }
 });
