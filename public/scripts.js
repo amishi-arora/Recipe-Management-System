@@ -88,7 +88,6 @@ async function resetAllTables() {
 // Inserts new recipe in recipe table 
 async function insertRecipe(event) {
     event.preventDefault();
-
     const titleValue = document.getElementById('titleID').value;
     const descValue = document.getElementById('descID').value;
     const servValue = document.getElementById('servID').value;
@@ -110,12 +109,10 @@ async function insertRecipe(event) {
 
     if (responseData.success) {
         rmessageElement.textContent = "Recipe inserted successfully!";
-        rForm.style.display = "none"
     } else {
         rmessageElement.textContent = "Error inserting recipe!";
     }
 
-    rForm.style.display = "none"
 }
 
 // Inserts new records into the demotable.
