@@ -17,10 +17,17 @@
 async function checkDbConnection() {
     const statusElem = document.getElementById('dbStatus');
     const loadingGifElem = document.getElementById('loadingGif');
+    const rForm = document.getElementById('recipeFormDiv');
+    const recBut = document.getElementById('newRecBut'); 
+    const subBut = document.getElementById('submitRecipe')
 
     const response = await fetch('/check-db-connection', {
         method: "GET"
     });
+
+
+    recBut.addEventListener('click', () => (rForm.style.display = "block")); 
+    submitRecipe.addEventListener('click', () => (rForm.style.display = "none"))
 
     // Hide the loading GIF once the response is received.
     loadingGifElem.style.display = 'none';

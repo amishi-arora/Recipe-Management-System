@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
-    <!-- <link rel="stylesheet" href="styles.css">   -->
+    <link rel="stylesheet" href="styles.css"> 
 
     <title>Database Application</title>
 </head>
@@ -15,12 +15,37 @@
     <!-- Display the current status of the database connection. 
          !!HERE TO HELP U DEBUGGING, NOT REQUIRED IN YOUR OWN PROJECT!!
          -->
-    <h1>Database Connection Status: 
-        <!-- An in-line placeholder to display connection status. -->
-        <span id="dbStatus"> </span>
-        <!-- A loading GIF, will be hided once get the status. -->
-        <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
-    </h1>
+    <h1 id = 'title'>Recipe Management System</h1>
+
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <div>
+        <h2>Recipes</h2>
+        <button id = 'newRecBut'>Add new</button>
+        <div id = 'recipeFormDiv'>
+            <form id = 'recipeForm'>
+                <label for="title">Title:</label><br>
+                <input type="text"><br>
+                <label for="desc">Description:</label><br>
+                <input type="text"><br>
+                <label for="servings">Servings:</label><br>
+                <input type="number">
+            </form>
+            <button id = 'submitRecipe'>Submit</button>
+        </div>
+    </div>
+    
+
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+
+    <div>
+        <h2>Courses</h2>
+    </div>
+    
+
 
     <br><hr><br> <!-- ========================================================================= -->
 
@@ -80,6 +105,6 @@
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
-    <script src="scripts.js"></script>
+    <script src="scripts.js" defer></script>
 </body>
 </html>

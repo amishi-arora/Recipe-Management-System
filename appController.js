@@ -39,6 +39,17 @@ router.post("/insert-demotable", async (req, res) => {
     }
 });
 
+router.post("/insert-recipe", async (req, res) => {
+    const { title, description, servings } = req.body;
+    const uID = 1; 
+    const insertResult = await appService.insertDemotable(uID, title, description, servings);
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/update-name-demotable", async (req, res) => {
     const { oldName, newName } = req.body;
     const updateResult = await appService.updateNameDemotable(oldName, newName);
