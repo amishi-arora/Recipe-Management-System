@@ -621,3 +621,12 @@ async function countDemotable() {
         return -1;
     });
 }
+
+module.exports = {
+    testOracleConnection,
+    fetchDemotableFromDb,
+    initiateAllTables, 
+    insertDemotable, 
+    updateNameDemotable, 
+    countDemotable
+};
