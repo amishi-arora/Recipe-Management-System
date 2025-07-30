@@ -419,7 +419,6 @@ async function insertRecipe(title, description, userID, servings) {
         if (currID === null) rID = 101;
         else rID = currID + 1;
 
-        console.log(currID);
         const result = await connection.execute(
             `INSERT INTO RECIPE (rID, title, description, userID, servings) VALUES (:rID, :title, :description, :userID, :servings)`,
             [rID, title, description, userID, servings],
