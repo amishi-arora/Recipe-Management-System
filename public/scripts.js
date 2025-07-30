@@ -45,7 +45,7 @@ async function checkDbConnection() {
 async function fetchAndDisplayRecipes() {
     const recipeDisplay = document.getElementById('recipe-container'); 
 
-    const response = await fetch('/recipe', {
+    const response = await fetch('/recipes', {
         method: 'GET'
     });
 
@@ -64,11 +64,12 @@ async function fetchAndDisplayRecipes() {
         recipeDisplay.appendChild(r);
 
         r.addEventListener('click', () => {
-            const recipeInfo = document.createElement('div');
-            recipeInfo.id = 'recipeInfo';
-            recipeInfo.innerHTML = recipe[1] + '<br>' + 'Description: ' + recipe[2] + '<br>' + recipe[4] + ' servings<br>';
-            recipeDisplay.appendChild(recipeInfo);
-            const ingredients = document.createElement('div');
+            window.open(window.location.href + 'recipe/' + recipe[0])
+            // const recipeInfo = document.createElement('div');
+            // recipeInfo.id = 'recipeInfo';
+            // recipeInfo.innerHTML = recipe[1] + '<br>' + 'Description: ' + recipe[2] + '<br>' + recipe[4] + ' servings<br>';
+            // recipeDisplay.appendChild(recipeInfo);
+            // const ingredients = document.createElement('div');
         });
     })
 }
