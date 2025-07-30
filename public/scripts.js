@@ -56,17 +56,20 @@ async function fetchAndDisplayRecipes() {
     recipeDisplay.innerHTML = ''; 
 
     recipes.forEach(recipe => {
-        const r = document.createElement('div'); 
+        const r = document.createElement('button'); 
+
         console.log(recipe); 
         r.className = 'rDiv'; 
-        r.innerHTML = recipe[1]; 
-        recipeDisplay.appendChild(r); 
+        r.innerHTML = recipe[1];
+        recipeDisplay.appendChild(r);
 
-        // Added description and servings to the recipe display, will fix the description output and styling!
-        const r2 = document.createElement('div'); 
-        r2.className = 'rDescAndServings';
-        r2.innerHTML = recipe[2] + '<br>Servings: ' + recipe[4];
-        recipeDisplay.appendChild(r2);
+        r.addEventListener('click', () => {
+            const recipeInfo = document.createElement('div');
+            recipeInfo.id = 'recipeInfo';
+            recipeInfo.innerHTML = recipe[1] + '<br>' + 'Description: ' + recipe[2] + '<br>' + recipe[4] + ' servings<br>';
+            recipeDisplay.appendChild(recipeInfo);
+            const ingredients = document.createElement('div');
+        });
     })
 }
 
