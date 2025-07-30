@@ -57,8 +57,9 @@ async function fetchAndDisplayRecipes() {
 
     recipes.forEach(recipe => {
         const r = document.createElement('div'); 
+        console.log(recipe); 
         r.className = 'rDiv'; 
-        r.innerHTML = "title here"; 
+        r.innerHTML = recipe[1]; 
         recipeDisplay.appendChild(r); 
     })
 }
