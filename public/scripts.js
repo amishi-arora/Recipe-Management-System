@@ -104,6 +104,7 @@ async function insertRecipe(event) {
             servings: servValue, 
         })
     });
+    
 
     const responseData = await response.json();
     const rmessageElement = document.getElementById('insertRecipeResultMsg');

@@ -409,8 +409,17 @@ async function insertProfessionalTwo(userID, YOE, speciality) {
         return false;
     });
 }
-async function insertRecipe(rID, title, description, userID, servings) {
+async function insertRecipe(title, description, userID, servings) {
     return await withOracleDB(async (connection) => {
+
+
+        let rID;
+        const resultID = await connection.execute('SELECT MAX (rID) FROM RECIPE');
+        currID = resultID.rows[0][0];
+        if (currID === null) rID = 101;
+        else rID = currID + 1;
+
+        console.log(currID);
         const result = await connection.execute(
             `INSERT INTO RECIPE (rID, title, description, userID, servings) VALUES (:rID, :title, :description, :userID, :servings)`,
             [rID, title, description, userID, servings],

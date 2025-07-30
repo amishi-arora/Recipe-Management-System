@@ -43,7 +43,7 @@ router.post("/insert-recipe", async (req, res) => {
     try {
     const {rID, title, description, servings } = req.body;
     const userID = 1; //hardcoded for now (will fix later)
-    const insertResult = await appService.insertRecipe(rID, title, description, userID,  servings);
+    const insertResult = await appService.insertRecipe(title, description, userID,  servings);
     if (insertResult) {
         res.json({ success: true });
     } else {
