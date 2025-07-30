@@ -16,21 +16,19 @@
          !!HERE TO HELP U DEBUGGING, NOT REQUIRED IN YOUR OWN PROJECT!!
          -->
     <h1 id = 'title'>Recipe Management System</h1>
-
-
-    <br><hr><br> <!-- ========================================================================= -->
-
     <div>
-        <h1>Database Connection Status: 
+        <h1 id = 'title'>Database Connection Status: 
             <!-- An in-line placeholder to display connection status. -->
             <span id="dbStatus"> </span>
             <!-- A loading GIF, will be hided once get the status. -->
             <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
         </h1>
     </div>
+
+
+    <br><hr><br> <!-- ========================================================================= -->
     <div>
-        <h2>Recipes</h2>
-        <button id = 'newRecBut'>Add new</button>
+        <h2>Add New Recipe</h2>
         <div id = 'recipeFormDiv'>
             <form id = 'recipeForm'>
                 <label for="title">Title:</label><br>
@@ -49,6 +47,15 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
+    <div>
+        <h2>View Recipes</h2>
+        <div id = 'recipe-container'>
+        </div> 
+    </div>
+    
+
+
+    <br><hr><br> <!-- ========================================================================= -->
 
     <div>
         <h2>Courses</h2>
