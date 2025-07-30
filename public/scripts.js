@@ -42,6 +42,27 @@ async function checkDbConnection() {
     });
 }
 
+async function fetchAndDisplayRecipes() {
+    const recipeDisplay = document.getElementById('recipe-container'); 
+
+    const response = await fetch('/recipe', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const recipes = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    recipeDisplay.innerHTML = ''; 
+
+    recipes.forEach(recipe => {
+        const r = document.createElement('div'); 
+        r.className = 'rDiv'; 
+        r.innerHTML = "title here"; 
+        recipeDisplay.appendChild(r); 
+    })
+}
+
 // Fetches data from the demotable and displays it.
 async function fetchAndDisplayUsers() {
     const tableElement = document.getElementById('demotable');
@@ -111,6 +132,7 @@ async function insertRecipe(event) {
 
     if (responseData.success) {
         rmessageElement.textContent = "Recipe inserted successfully!";
+        fetchTableData();
     } else {
         rmessageElement.textContent = "Error inserting recipe!";
     }
@@ -212,4 +234,5 @@ window.onload = function() {
 // You can invoke this after any table-modifying operation to keep consistency.
 function fetchTableData() {
     fetchAndDisplayUsers();
+    fetchAndDisplayRecipes(); 
 }

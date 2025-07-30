@@ -65,6 +65,15 @@ async function testOracleConnection() {
         return false;
     });
 }
+async function fetchRecipesFromDb() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM RECIPE');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function fetchDemotableFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM DEMOTABLE');
@@ -73,6 +82,7 @@ async function fetchDemotableFromDb() {
         return [];
     });
 }
+
 async function initiateAllTables() {
     return await withOracleDB(async (connection) => {
 // -----------Arshia: let's keep it for our refrence-----------
@@ -636,6 +646,7 @@ module.exports = {
     testOracleConnection,
     insertRecipe,
     fetchDemotableFromDb,
+    fetchRecipesFromDb,
     initiateAllTables, 
     insertDemotable, 
     updateNameDemotable, 

@@ -88,3 +88,21 @@ input::placeholder, textarea::placeholder {
     height: 1em;
     vertical-align: middle;
 }
+
+.rDiv {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;  
+    width: 100px; 
+    height: 100px; 
+    padding: 20px; 
+    border-radius: 8px; 
+    font-family: sans-serif; 
+    color: black; 
+}
+
+#recipe-container {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+    flex-wrap: wrap; 
+}
