@@ -61,6 +61,12 @@ async function fetchAndDisplayRecipes() {
         r.className = 'rDiv'; 
         r.innerHTML = recipe[1]; 
         recipeDisplay.appendChild(r); 
+
+        // Added description and servings to the recipe display, will fix the description output and styling!
+        const r2 = document.createElement('div'); 
+        r2.className = 'rDescAndServings';
+        r2.innerHTML = recipe[2] + '<br>Servings: ' + recipe[4];
+        recipeDisplay.appendChild(r2);
     })
 }
 

@@ -422,7 +422,6 @@ async function insertProfessionalTwo(userID, YOE, speciality) {
 async function insertRecipe(title, description, userID, servings) {
     return await withOracleDB(async (connection) => {
 
-
         let rID;
         const resultID = await connection.execute('SELECT MAX (rID) FROM RECIPE');
         currID = resultID.rows[0][0];
