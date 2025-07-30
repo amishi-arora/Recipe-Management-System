@@ -25,6 +25,10 @@ router.get('/recipes', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.get('/recipe/\\d+$/', async (req, res) => {
+    res.sendfile('public/recipe.html');
+});
+
 router.post("/initiate-all-tables", async (req, res) => {
     const initiateResult = await appService.initiateAllTables();
     if (initiateResult) {
