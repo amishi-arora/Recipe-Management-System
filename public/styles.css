@@ -2,7 +2,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     padding: 40px;
-    max-width: 800px;
+    max-width: 1200px;
     margin: auto;
     line-height: 1.6;
     background-color: #fffef5f9;
@@ -117,4 +117,21 @@ input::placeholder, textarea::placeholder {
 
 #delRec {
     margin-top: 10px; 
+}
+
+#side-items {
+    float: right; 
+}
+
+.side-container {
+    text-align: center; 
+    border: 1px solid black;   
+    border-radius: 10px; 
+    margin: 20px; 
+    width: 20rem; 
+    height: 20rem; 
+}
+
+.side-container h2 {
+    margin-top: 0; 
 }

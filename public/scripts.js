@@ -63,7 +63,7 @@ async function fetchAndDisplayRecipes() {
 
         console.log(recipe); 
         r.className = 'rDiv'; 
-        r.innerHTML = recipe[1];
+        r.innerHTML = recipe[1]; 
         recipeDisplay.appendChild(r);
 
         r.addEventListener('click', () => {
