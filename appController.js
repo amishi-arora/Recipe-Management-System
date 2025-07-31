@@ -27,6 +27,13 @@ router.get('/recipes', async (req, res) => {
     res.json({data: tableContent});
 });
 
+
+router.post('/getrecipe', async (req, res) => {
+    const { rID } = req.body;
+    const recipe = await appService.fetchRecipe(rID);
+    res.json({data: recipe});
+});
+
 router.get('/recipe/:id', async (req, res) => {
     const id = req.params.id;
     if (!/^\d+$/.test(id)) {
@@ -34,7 +41,7 @@ router.get('/recipe/:id', async (req, res) => {
     }
   
     res.sendFile('recipe.html', { root: path.join(__dirname, 'public') });
-  });
+});
 
 router.post("/initiate-all-tables", async (req, res) => {
     const initiateResult = await appService.initiateAllTables();
