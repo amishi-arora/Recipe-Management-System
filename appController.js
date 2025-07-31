@@ -1,7 +1,9 @@
 const express = require('express');
 const appService = require('./appService');
+const path = require('path');
 
 const router = express.Router();
+
 
 // ----------------------------------------------------------
 // API endpoints
@@ -25,9 +27,14 @@ router.get('/recipes', async (req, res) => {
     res.json({data: tableContent});
 });
 
-router.get('/recipe/\\d+$/', async (req, res) => {
-    res.sendfile('public/recipe.html');
-});
+router.get('/recipe/:id', async (req, res) => {
+    const id = req.params.id;
+    if (!/^\d+$/.test(id)) {
+      return res.status(400).send('Invalid ID');
+    }
+  
+    res.sendFile('recipe.html', { root: path.join(__dirname, 'public') });
+  });
 
 router.post("/initiate-all-tables", async (req, res) => {
     const initiateResult = await appService.initiateAllTables();
