@@ -1,7 +1,9 @@
 const express = require('express');
 const appService = require('./appService');
+const path = require('path');
 
 const router = express.Router();
+
 
 // ----------------------------------------------------------
 // API endpoints
@@ -20,7 +22,7 @@ router.get('/demotable', async (req, res) => {
     res.json({data: tableContent});
 });
 
-router.get('/recipe', async (req, res) => {
+router.get('/recipes', async (req, res) => {
     const tableContent = await appService.fetchRecipesFromDb();
     res.json({data: tableContent});
 });
@@ -28,6 +30,21 @@ router.get('/recipe', async (req, res) => {
 router.get('/courseTwo', async (req, res) => {
     const tableContent = await appService.fetchCoursesFromDb();
     res.json({data: tableContent});
+});
+
+router.post('/getrecipe', async (req, res) => {
+    const { rID } = req.body;
+    const recipe = await appService.fetchRecipe(rID);
+    res.json({data: recipe});
+});
+
+router.get('/recipe/:id', async (req, res) => {
+    const id = req.params.id;
+    if (!/^\d+$/.test(id)) {
+      return res.status(400).send('Invalid ID');
+    }
+  
+    res.sendFile('recipe.html', { root: path.join(__dirname, 'public') });
 });
 
 router.post("/initiate-all-tables", async (req, res) => {
@@ -43,6 +60,16 @@ router.post("/insert-demotable", async (req, res) => {
     const { id, name } = req.body;
     const insertResult = await appService.insertDemotable(id, name);
     if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.post("/delete-recipe", async (req, res) => {
+    const { rID } = req.body;
+    const deleteResult = await appService.deleteRecipe(rID); 
+    if (deleteResult) {
         res.json({ success: true });
     } else {
         res.status(500).json({ success: false });

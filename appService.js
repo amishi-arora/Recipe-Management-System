@@ -83,6 +83,15 @@ async function fetchCoursesFromDb() {
     });
 }
 
+async function fetchRecipe(rID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM RECIPE WHERE rID = :rID', [rID]);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function fetchDemotableFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM DEMOTABLE');
@@ -240,7 +249,7 @@ async function initiateAllTables() {
             CREATE TABLE RECIPE (
                 rID NUMBER PRIMARY KEY, 
                 title VARCHAR2(50),
-                description CLOB, 
+                description VARCHAR2(500), 
                 userID NUMBER NOT NULL, 
                 servings NUMBER, 
                 FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE
@@ -651,9 +660,24 @@ async function countDemotable() {
 }
 
 
+async function deleteRecipe(rID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM RECIPE WHERE rID = :rID`,
+            [rID],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 module.exports = {
     testOracleConnection,
     insertRecipe,
+    deleteRecipe, 
     insertCourseTwo,
     fetchDemotableFromDb,
     fetchRecipesFromDb,
@@ -661,5 +685,6 @@ module.exports = {
     initiateAllTables, 
     insertDemotable, 
     updateNameDemotable, 
-    countDemotable
+    countDemotable,
+    fetchRecipe,
 };
