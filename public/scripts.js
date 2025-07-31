@@ -80,7 +80,7 @@ async function fetchAndDisplayRecipes() {
 async function fetchAndDisplayCourses() {
     
     const courseDisplay = document.getElementById('course-container');
-    const response = await fetch('/course', {
+    const response = await fetch('/courseTwo', {
         method: 'GET'
     });
 
@@ -96,7 +96,7 @@ async function fetchAndDisplayCourses() {
         c.addEventListener('click', () => {
             const courseInfo = document.createElement('div');
             courseInfo.id = 'courseInfo';
-            courseInfo.innerHTML = course[1] + '<br>' + 'Description: ' + course[2] + '<br>' + 'Duration: ' + course[3] + ' hours<br>';
+            courseInfo.innerHTML = course[1] + '<br>' + 'Duration: ' + course[3] + '<br>' + 'Difficulty: ' + course[4];
             courseDisplay.appendChild(courseInfo);
         });
     });
