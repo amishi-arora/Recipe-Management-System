@@ -17,6 +17,8 @@
 async function checkDbConnection() {
     const statusElem = document.getElementById('dbStatus');
     const loadingGifElem = document.getElementById('loadingGif');
+    const rDeleteBut = document.getElementById('delRec'); 
+    const rDelFormDiv = document.getElementById('rDelFormDiv'); 
     // const rForm = document.getElementById('recipeFormDiv');
     // const recBut = document.getElementById('newRecBut'); 
     // const subBut = document.getElementById('submitRecipe')
@@ -25,6 +27,7 @@ async function checkDbConnection() {
         method: "GET"
     });
 
+    rDeleteBut.addEventListener('click', () => (rDelFormDiv.style.display = "block")); 
 
     // recBut.addEventListener('click', () => (rForm.style.display = "block")); 
 
@@ -115,6 +118,34 @@ async function resetAllTables() {
     } else {
         alert("Error initiating table!");
     }
+}
+
+// deletedrecipe from recipe table 
+async function deleteRecipe(event) {
+    event.preventDefault();
+    const recipeID = document.getElementById('rID').value;
+
+    const response = await fetch('/delete-recipe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            rID: recipeID
+        })
+    });
+    
+
+    const responseData = await response.json();
+    const deleteMessageElement = document.getElementById('deleteRecipeResultMsg');
+
+    if (responseData.success) {
+        deleteMessageElement.textContent = "Recipe deleted successfully!";
+        fetchTableData();
+    } else {
+        deleteMessageElement.textContent = "Error deleting recipe!";
+    }
+
 }
 
 // Inserts new recipe in recipe table 
@@ -239,6 +270,7 @@ window.onload = function() {
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById('submitRecipe').addEventListener("click", insertRecipe); 
+    document.getElementById('deleteRecipe').addEventListener("click", deleteRecipe)
 };
 
 // General function to refresh the displayed table data. 

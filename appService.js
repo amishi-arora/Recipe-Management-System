@@ -641,9 +641,25 @@ async function countDemotable() {
     });
 }
 
+
+async function deleteRecipe(rID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM RECIPE WHERE rID = :rID`,
+            [rID],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 module.exports = {
     testOracleConnection,
     insertRecipe,
+    deleteRecipe, 
     fetchDemotableFromDb,
     fetchRecipesFromDb,
     initiateAllTables, 

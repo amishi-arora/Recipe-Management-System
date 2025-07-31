@@ -55,6 +55,16 @@ router.post("/insert-demotable", async (req, res) => {
     }
 });
 
+router.post("/delete-recipe", async (req, res) => {
+    const { rID } = req.body;
+    const deleteResult = await appService.deleteRecipe(rID); 
+    if (deleteResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/insert-recipe", async (req, res) => {
     try {
     const {title, description, servings } = req.body; // removed rID from here as it wasn't being used

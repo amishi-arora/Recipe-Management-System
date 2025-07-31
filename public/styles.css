@@ -106,3 +106,9 @@ input::placeholder, textarea::placeholder {
     justify-content: space-between;
     flex-wrap: wrap; 
 }
+
+#rDelFormDiv {
+    display: none; 
+    background-color: #d7d3abf9;
+    padding: 20px; 
+}
