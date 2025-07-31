@@ -166,7 +166,9 @@ async function deleteRecipe(event) {
 
     if (responseData.success) {
         deleteMessageElement.textContent = "Recipe deleted successfully!";
+        rDelFormDiv.style.display = "none"; 
         fetchTableData();
+        document.getElementById('rID').value = ''; 
     } else {
         deleteMessageElement.textContent = "Error deleting recipe!";
     }

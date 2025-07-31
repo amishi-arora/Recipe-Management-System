@@ -109,6 +109,12 @@ input::placeholder, textarea::placeholder {
 
 #rDelFormDiv {
     display: none; 
-    background-color: #d7d3abf9;
+    background-color: #dedcc5f9;
     padding: 20px; 
+    border-radius: 20px; 
+    margin-top: 20px; 
+}
+
+#delRec {
+    margin-top: 10px; 
 }
