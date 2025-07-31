@@ -95,7 +95,7 @@ router.post("/insert-recipe", async (req, res) => {
 router.post("/insert-course", async (req, res) => {
     try {
     const {cName, duration, difficulty } = req.body;
-    const teacherID = 100; // change
+    const teacherID = 1; // change
     const cID = 100; // change
     const insertResult = await appService.insertCourseTwo(cID, cName, teacherID, duration, difficulty);
     if (insertResult) {
