@@ -74,6 +74,15 @@ async function fetchRecipesFromDb() {
     });
 }
 
+async function fetchCoursesFromDb() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM courseTwo');
+        return result.rows;
+    }).catch(() => {
+        return []; 
+    });
+}
+
 async function fetchDemotableFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM DEMOTABLE');
@@ -641,11 +650,14 @@ async function countDemotable() {
     });
 }
 
+
 module.exports = {
     testOracleConnection,
     insertRecipe,
+    insertCourseTwo,
     fetchDemotableFromDb,
     fetchRecipesFromDb,
+    fetchCoursesFromDb,
     initiateAllTables, 
     insertDemotable, 
     updateNameDemotable, 

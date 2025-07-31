@@ -73,6 +73,31 @@ async function fetchAndDisplayRecipes() {
     })
 }
 
+async function fetchAndDisplayCourses() {
+    
+    const courseDisplay = document.getElementById('course-container');
+    const response = await fetch('/course', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const courses = responseData.data;
+    // Always clear old, already fetched data before new fetching process.
+    courseDisplay.innerHTML = '';
+    courses.forEach(course => {
+        const c = document.createElement('button');
+        c.className = 'cDiv';
+        c.innerHTML = course[1]; 
+        courseDisplay.appendChild(c);
+        c.addEventListener('click', () => {
+            const courseInfo = document.createElement('div');
+            courseInfo.id = 'courseInfo';
+            courseInfo.innerHTML = course[1] + '<br>' + 'Description: ' + course[2] + '<br>' + 'Duration: ' + course[3] + ' hours<br>';
+            courseDisplay.appendChild(courseInfo);
+        });
+    });
+}
+
 // Fetches data from the demotable and displays it.
 async function fetchAndDisplayUsers() {
     const tableElement = document.getElementById('demotable');
@@ -147,6 +172,38 @@ async function insertRecipe(event) {
         rmessageElement.textContent = "Error inserting recipe!";
     }
 
+}
+
+// Inserts new course in course table
+async function insertCourseTwo(event) { 
+    event.preventDefault();
+    const titleValue = document.getElementById('courseTitleID').value;
+    const durValue = document.getElementById('courseDurationID').value;
+    const diffValue = document.getElementById('courseDifficultyID').value;
+
+    const response = await fetch('/insert-courseTwo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            cID: Math.floor(Math.random() * 100) + 1,  
+            cName: titleValue,
+            teacherID: Math.floor(Math.random() * 100) + 1,
+            duration: durValue,
+            difficulty: diffValue, 
+        })
+    });
+    
+    const responseData = await response.json();
+    const rmessageElement = document.getElementById('insertCourseResultMsg');
+
+    if (responseData.success) {
+        rmessageElement.textContent = "Course inserted successfully!";
+        fetchTableData();
+    } else {
+        rmessageElement.textContent = "Error inserting course...";
+    }
 }
 
 // Inserts new records into the demotable.
@@ -238,6 +295,7 @@ window.onload = function() {
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById('submitRecipe').addEventListener("click", insertRecipe); 
+    document.getElementById('submitCourse').addEventListener("click", insertCourseTwo);
 };
 
 // General function to refresh the displayed table data. 
@@ -245,4 +303,5 @@ window.onload = function() {
 function fetchTableData() {
     fetchAndDisplayUsers();
     fetchAndDisplayRecipes(); 
+    fetchAndDisplayCourses();
 }

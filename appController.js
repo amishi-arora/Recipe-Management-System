@@ -25,6 +25,11 @@ router.get('/recipe', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.get('/courseTwo', async (req, res) => {
+    const tableContent = await appService.fetchCoursesFromDb();
+    res.json({data: tableContent});
+});
+
 router.post("/initiate-all-tables", async (req, res) => {
     const initiateResult = await appService.initiateAllTables();
     if (initiateResult) {
@@ -49,6 +54,23 @@ router.post("/insert-recipe", async (req, res) => {
     const {title, description, servings } = req.body; // removed rID from here as it wasn't being used
     const userID = 1; //hardcoded for now (will fix later)
     const insertResult = await appService.insertRecipe(title, description, userID,  servings);
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+    } catch (err) {
+        console.error("error", err); 
+        res.status(500).json({ success: false });
+    }
+});
+
+router.post("/insert-course", async (req, res) => {
+    try {
+    const {cName, duration, difficulty } = req.body;
+    const teacherID = 100; // change
+    const cID = 100; // change
+    const insertResult = await appService.insertCourseTwo(cID, cName, teacherID, duration, difficulty);
     if (insertResult) {
         res.json({ success: true });
     } else {
