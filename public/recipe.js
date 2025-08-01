@@ -210,6 +210,36 @@ async function insertTag(event) {
 
 }
 
+async function fetchAndDisplayEquipment() {
+    const eqDisplay = document.getElementById('eq-container');
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/requireseq', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            rID: recipeID
+        })
+    });
+
+    const responseData = await response.json();
+    const eqContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    eqDisplay.innerHTML = ''; 
+
+    eqContent.forEach(eq => {
+        const e = document.createElement('span'); 
+        e.className = "eqs"
+        e.innerHTML = eq[1]; 
+        eqDisplay.appendChild(e); 
+    });
+}
+
+
 async function fetchAndDisplayTags() {
     const tagDisplay = document.getElementById('tag-container');
     const url = window.location.href.split('/');
@@ -246,6 +276,7 @@ async function fetchAndDisplayTags() {
 function fetchTableData() {
     fetchAndDisplayTags(); 
     displayRecipe();
+    fetchAndDisplayEquipment();   
 }
 
 window.onload = function() {
@@ -254,7 +285,6 @@ window.onload = function() {
     document.getElementById('addEqButton').addEventListener("click", insertEquipment); 
     fetchTableData(); 
     displaySteps();
-    
 };
 
 

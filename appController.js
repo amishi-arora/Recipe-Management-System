@@ -28,6 +28,12 @@ router.post('/recipetags', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.post('/requireseq', async (req, res) => {
+    const { rID } = req.body;
+    const tableContent = await appService.fetchRecipeEquipmentFromDb(rID);
+    res.json({data: tableContent});
+});
+
 router.get('/recipes', async (req, res) => {
     const tableContent = await appService.fetchRecipesFromDb();
     res.json({data: tableContent});
