@@ -124,14 +124,30 @@ input::placeholder, textarea::placeholder {
 }
 
 .side-container {
-    text-align: center; 
     border: 1px solid black;   
     border-radius: 10px; 
+    padding: 10px; 
     margin: 20px; 
     width: 20rem; 
     height: 20rem; 
 }
 
 .side-container h2 {
+    text-align: center; 
     margin-top: 0; 
+}
+
+
+#tagName {
+    padding: 5px; 
+
+}
+
+#typeName {
+    padding: 5px; 
+}
+
+#addTagButton {
+    padding: 7px; 
+    font-size: 15px; 
 }

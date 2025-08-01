@@ -77,19 +77,81 @@ async function displayRecipe() {
     recipeDisplay.appendChild(name);
     recipeDisplay.appendChild(des);
     recipeDisplay.appendChild(creator);
-
-
-
-    
-    
+ 
 }
+
+
+
+async function insertTag(event) {
+    event.preventDefault();
+    const tagName = document.getElementById('tagName').value;
+    const typeName = document.getElementById('typeName').value;
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/insert-tag', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            type: typeName,  
+            tname: tagName, 
+            rID: recipeID
+        })
+    });
+    
+
+    const responseData = await response.json();
+
+    if (responseData.success) {
+        fetchTableData();
+        console.log('success'); 
+    } else {
+        console.log('error'); 
+    }
+
+}
+
+async function fetchAndDisplayTags() {
+    const tableDisplay = document.getElementById('tag-container');
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/recipetags', {
+        method: 'GET',
+        body: JSON.stringify({
+            rID: recipeID
+        })
+    });
+
+    const responseData = await response.json();
+    const tagContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    tableDisplay.innerHTML = ''; 
+
+    tagContent.forEach(tag => {
+        const t = document.createElement('span'); 
+        r.innerHTML = tag[0]; 
+    });
+}
+
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
 window.onload = function() {
     checkDbConnection();
     displayRecipe();
+    document.getElementById('addTagButton').addEventListener("click", insertTag); 
     
 };
+
+function fetchTableData() {
+    fetchAndDisplayTags(); 
+}
+
+
+
 
 
