@@ -117,6 +117,66 @@ async function displaySteps() {
  
 }
 
+async function insertIngredient(event) {
+    event.preventDefault();
+    const ingredientName = document.getElementById('ingredientName').value;
+    const ingredientType = document.getElementById('ingredientType').value;
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/insert-ingredient', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            iname: ingredientName, 
+            type: ingredientType,   
+            rID: recipeID
+        })
+    });
+    
+
+    const responseData = await response.json();
+
+    if (responseData.success) {
+        fetchTableData();
+        console.log('success'); 
+    } else {
+        console.log('error'); 
+    }
+}
+
+async function insertEquipment(event) {
+    event.preventDefault();
+    const equipmentName = document.getElementById('eqName').value;
+    const buyFrom = document.getElementById('buyFrom').value;
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/insert-equipment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            eName: equipmentName, 
+            whereToBuy: buyFrom,   
+            rID: recipeID
+        })
+    });
+    
+
+    const responseData = await response.json();
+
+    if (responseData.success) {
+        fetchTableData();
+        console.log('success'); 
+    } else {
+        console.log('error'); 
+    }
+
+}
 
 
 async function insertTag(event) {
@@ -191,6 +251,7 @@ function fetchTableData() {
 window.onload = function() {
     checkDbConnection();
     document.getElementById('addTagButton').addEventListener("click", insertTag); 
+    document.getElementById('addEqButton').addEventListener("click", insertEquipment); 
     fetchTableData(); 
     displaySteps();
     

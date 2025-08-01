@@ -117,7 +117,7 @@ router.post("/insert-tag", async (req, res) => {
         // insert into has tag table 
         const insertResult = await appService.insertHasTag(rID, tname)
         if (insertResult) {
-            res.json({ success: true });
+            res.json({ success: false});
         } else {
             res.status(500).json({ success: false });
         }
@@ -125,6 +125,30 @@ router.post("/insert-tag", async (req, res) => {
         console.error(err); 
         res.status(500).json({ success: false }); 
     }});
+
+router.post("/insert-equipment", async (req, res) => {
+try {
+    const {eName, whereToBuy, rID} = req.body;
+    const eqResult = await appService.getEq(eName);
+    if(eqResult.length === 0) {
+        const insertResult = await appService.insertEquipment(eName, whereToBuy)  // if equipment doesn't exist in equipment table, insert it
+        if (!insertResult) {
+            res.json({ success: false});
+        } 
+    }
+    // insert into requires table
+    const insertResult = await appService.insertRequiresEq(rID,eName)
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+} catch (err) {
+    console.error(err); 
+    res.status(500).json({ success: false }); 
+}});
+
+
 
 
 router.post("/insert-course", async (req, res) => {

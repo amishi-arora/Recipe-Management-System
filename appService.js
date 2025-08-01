@@ -689,6 +689,18 @@ async function getTag(tname) {
     });
 }
 
+async function getEq(ename) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT * FROM EQUIPMENT WHERE eName = :ename`, 
+            [ename], 
+            {autoCommit: true}
+        );
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 
 async function deleteRecipe(rID) {
     return await withOracleDB(async (connection) => {
@@ -722,4 +734,7 @@ module.exports = {
     insertHasTag, 
     fetchRecipeTagsFromDb,
     fetchSteps,
+    insertEquipment,
+    insertRequiresEq,
+    getEq
 };

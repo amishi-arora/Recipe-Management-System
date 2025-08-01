@@ -100,6 +100,10 @@ input::placeholder, textarea::placeholder {
     color: black; 
 }
 
+.rDiv:hover {
+    background-color: #eaeaea;
+}
+
 #recipe-container {
     display: flex; 
     flex-direction: row; 
@@ -109,9 +113,10 @@ input::placeholder, textarea::placeholder {
 
 #rDelFormDiv {
     display: none; 
-    background-color: #dedcc5f9;
+    background-color: #f5f2db;
+    border: 1px solid #e0e0e0; 
     padding: 20px; 
-    border-radius: 20px; 
+    border-radius: 15px; 
     margin-top: 20px; 
 }
 
@@ -138,19 +143,13 @@ input::placeholder, textarea::placeholder {
     margin-top: 0; 
 }
 
-
-#tagName {
-    padding: 5px; 
-
-}
-
-#typeName {
-    padding: 5px; 
-}
-
-#addTagButton {
+.insertButton {
     padding: 7px; 
     font-size: 15px; 
+}
+
+.recipeFormInputs {
+    padding: 5px; 
 }
 
 

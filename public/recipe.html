@@ -40,21 +40,31 @@
         <div class = "side-container">
             <h2>Tags</h2>
             <form id = "tagsForm" action="insertTag">
-                <input id = "typeName" placeholder = "Type"  type="text">
-                <input id = "tagName" placeholder = "Name"  type="text">
+                <input class = "recipeFormInputs" id = "typeName" placeholder = "Type"  type="text">
+                <input class = "recipeFormInputs" id = "tagName" placeholder = "Name"  type="text">
             </form>
-            <button id = "addTagButton">Add</button>
+            <button class = "insertButton" id = "addTagButton">Add</button>
             <div id = 'tag-container'></div>
         </div>
+
         <div class = "side-container">
             <h2>Ingredients</h2>
-            <input placeholder = "Add new" type="text">
-            <button>Add</button>
+            <form id = "ingredientsForm" action="insertIngredient">
+                <input class = "recipeFormInputs" id = "ingredientName" placeholder = "Name"  type="text">
+                <input class = "recipeFormInputs" id = "ingredientType" placeholder = "Type"  type="text">
+            </form>
+            <button class = "insertButton" id = "addIngredientButton">Add</button>
+            <div id = 'ingredient-container'></div>
         </div>
+
         <div class = "side-container">
             <h2>Equipment</h2>
-            <input placeholder = "Add new" type="text">
-            <button>Add</button>
+            <form id = "equipmentForm" action="insertEquipment">
+                <input class = "recipeFormInputs" id = "eqName" placeholder = "Name"  type="text">
+                <input class = "recipeFormInputs" id = "buyFrom" placeholder = "Type"  type="text">
+            </form>
+            <button class = "insertButton" id = "addEqButton">Add</button>
+            <div id = 'eq-container'></div>
         </div>
     </div>
 
