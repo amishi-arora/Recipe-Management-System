@@ -74,6 +74,15 @@ async function fetchRecipesFromDb() {
     });
 }
 
+async function fetchRecipeTagsFromDb(rID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM hasTag WHERE rID = :rID', [rID]);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function fetchCoursesFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM courseTwo');
@@ -668,6 +677,18 @@ async function countDemotable() {
     });
 }
 
+async function getTag(tname) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT * FROM TAG WHERE tName = :tname`, 
+            [tname], 
+            {autoCommit: true}
+        );
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 
 async function deleteRecipe(rID) {
     return await withOracleDB(async (connection) => {
@@ -696,5 +717,9 @@ module.exports = {
     updateNameDemotable, 
     countDemotable,
     fetchRecipe,
+    getTag, 
+    insertTag, 
+    insertHasTag, 
+    fetchRecipeTagsFromDb,
     fetchSteps,
 };

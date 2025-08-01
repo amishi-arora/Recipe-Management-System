@@ -38,13 +38,23 @@
 
     <div id = "side-items">
         <div class = "side-container">
-            <h2>Equipment</h2>
+            <h2>Tags</h2>
+            <form id = "tagsForm" action="insertTag">
+                <input id = "typeName" placeholder = "Type"  type="text">
+                <input id = "tagName" placeholder = "Name"  type="text">
+            </form>
+            <button id = "addTagButton">Add</button>
+            <div id = 'tag-container'></div>
         </div>
         <div class = "side-container">
             <h2>Ingredients</h2>
+            <input placeholder = "Add new" type="text">
+            <button>Add</button>
         </div>
         <div class = "side-container">
-            <h2>Tags</h2>
+            <h2>Equipment</h2>
+            <input placeholder = "Add new" type="text">
+            <button>Add</button>
         </div>
     </div>
 

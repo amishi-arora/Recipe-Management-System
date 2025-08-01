@@ -114,20 +114,90 @@ async function displaySteps() {
 
     recipeDisplay.appendChild(newstep);
 
-
-
-
-    
-    
+ 
 }
+
+
+
+async function insertTag(event) {
+    event.preventDefault();
+    const tagName = document.getElementById('tagName').value;
+    const typeName = document.getElementById('typeName').value;
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/insert-tag', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            type: typeName,  
+            tname: tagName, 
+            rID: recipeID
+        })
+    });
+    
+
+    const responseData = await response.json();
+
+    if (responseData.success) {
+        fetchTableData();
+        console.log('success'); 
+    } else {
+        console.log('error'); 
+    }
+
+}
+
+async function fetchAndDisplayTags() {
+    const tagDisplay = document.getElementById('tag-container');
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/recipetags', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            rID: recipeID
+        })
+    });
+
+    const responseData = await response.json();
+    const tagContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    tagDisplay.innerHTML = ''; 
+
+    tagContent.forEach(tag => {
+        const t = document.createElement('span'); 
+        t.className = "tags"
+        t.innerHTML = tag[1]; 
+        tagDisplay.appendChild(t); 
+    });
+}
+
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
+
+function fetchTableData() {
+    fetchAndDisplayTags(); 
+    displayRecipe();
+}
+
 window.onload = function() {
     checkDbConnection();
-    displayRecipe();
+    document.getElementById('addTagButton').addEventListener("click", insertTag); 
+    fetchTableData(); 
     displaySteps();
     
 };
+
+
+
+
 
 

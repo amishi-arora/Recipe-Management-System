@@ -22,6 +22,12 @@ router.get('/demotable', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.post('/recipetags', async (req, res) => {
+    const { rID } = req.body;
+    const tableContent = await appService.fetchRecipeTagsFromDb(rID);
+    res.json({data: tableContent});
+});
+
 router.get('/recipes', async (req, res) => {
     const tableContent = await appService.fetchRecipesFromDb();
     res.json({data: tableContent});
@@ -97,6 +103,29 @@ router.post("/insert-recipe", async (req, res) => {
         res.status(500).json({ success: false });
     }
 });
+
+router.post("/insert-tag", async (req, res) => {
+    try {
+        const {type, tname, rID} = req.body;
+        const tagResult = await appService.getTag(tname);
+        if(tagResult.length === 0) {
+            const insertResult = await appService.insertTag(tname, type)  // if tag doesn't exist in tags table, insert it
+            if (!insertResult) {
+                res.json({ success: true });
+            } 
+        }
+        // insert into has tag table 
+        const insertResult = await appService.insertHasTag(rID, tname)
+        if (insertResult) {
+            res.json({ success: true });
+        } else {
+            res.status(500).json({ success: false });
+        }
+    } catch (err) {
+        console.error(err); 
+        res.status(500).json({ success: false }); 
+    }});
+
 
 router.post("/insert-course", async (req, res) => {
     try {
