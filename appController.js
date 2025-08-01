@@ -130,7 +130,23 @@ router.post("/insert-tag", async (req, res) => {
     } catch (err) {
         console.error(err); 
         res.status(500).json({ success: false }); 
-    }});
+}});
+
+router.post("/insert-step", async (req, res) => {
+    try {
+        const {des, rID} = req.body;
+        
+        // insert into step table 
+        const insertResult = await appService.insertStep(rID, des)
+        if (insertResult) {
+            res.json({ success: false});
+        } else {
+            res.status(500).json({ success: false });
+        }
+    } catch (err) {
+        console.error(err); 
+        res.status(500).json({ success: false }); 
+}});
 
 router.post("/insert-equipment", async (req, res) => {
 try {

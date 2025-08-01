@@ -77,10 +77,13 @@ async function displayRecipe() {
     recipeDisplay.appendChild(name);
     recipeDisplay.appendChild(des);
     recipeDisplay.appendChild(creator); 
+
+    displaySteps();
 }
 
 async function displaySteps() {
     const recipeDisplay = document.getElementById('recipe'); 
+    
 
     const url = window.location.href.split('/');
     const rID = url[url.length - 1];
@@ -105,16 +108,10 @@ async function displaySteps() {
         s.innerHTML = step[1] + '. ' +step[3]; 
         recipeDisplay.appendChild(s);
     })
-    
-    const newstep = document.createElement('h3');
-
-    newstep.innerText = 'Add New Step';
 
     
-
-    recipeDisplay.appendChild(newstep);
-
- 
+    
+    
 }
 
 async function insertIngredient(event) {
@@ -274,6 +271,30 @@ async function fetchAndDisplayTags() {
     });
 }
 
+async function addStep(event) {
+    event.preventDefault();
+    const det = document.getElementById('detail').value;
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/insert-step', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            des: det,
+            rID: recipeID
+        })
+    });
+    
+
+    const responseData = await response.json();
+
+    fetchTableData();
+    
+
+}
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
@@ -288,8 +309,9 @@ window.onload = function() {
     checkDbConnection();
     document.getElementById('addTagButton').addEventListener("click", insertTag); 
     document.getElementById('addEqButton').addEventListener("click", insertEquipment); 
+    document.getElementById('addStepButton').addEventListener("click", addStep); 
     fetchTableData(); 
-    displaySteps();
+    
 };
 
 

@@ -663,10 +663,18 @@ async function insertRegisters(uID, cID, date) {
     });
 }
 
-async function insertStep(rID,  stepNumber, description , image) {
+async function insertStep(rID, description , image=null) {
+
     return await withOracleDB(async (connection) => {
+
+        let stepNumber;
+        const resultN = await connection.execute('SELECT MAX (stepNumber) FROM STEP WHERE rID = :rID', [rID]);
+        currN = resultN.rows[0][0];
+        if (currN === null) stepNumber = 1;
+        else stepNumber = currN + 1;
+
         const result = await connection.execute(
-            `INSERT INTO REVIEW (rID,  stepNumber, description , image) VALUES (:rID, :stepNumber, :description, :image)`,
+            `INSERT INTO STEP (rID,  stepNumber, description , image) VALUES (:rID, :stepNumber, :description, :image)`,
             [rID,  stepNumber, description , image],
             { autoCommit: true }
         );
@@ -758,5 +766,6 @@ module.exports = {
     insertEquipment,
     insertRequiresEq,
     getEq, 
-    fetchRecipeEquipmentFromDb
+    fetchRecipeEquipmentFromDb,
+    insertStep,
 };
