@@ -211,7 +211,7 @@ async function insertTag(event) {
 }
 
 async function fetchAndDisplayEquipment() {
-    const eqDisplay = document.getElementById('eq-container');
+    const eqDisplay = document.getElementById('equipment-container');
     const url = window.location.href.split('/');
     const recipeID = url[url.length - 1];
 
@@ -232,12 +232,17 @@ async function fetchAndDisplayEquipment() {
     eqDisplay.innerHTML = ''; 
 
     eqContent.forEach(eq => {
-        const e = document.createElement('span'); 
-        e.className = "eqs"
-        e.innerHTML = eq[1]; 
-        eqDisplay.appendChild(e); 
+        const tr = document.createElement('tr'); 
+        const nameCell = document.createElement("td"); 
+        nameCell.textContent = eq[0]; 
+        const buyCell = document.createElement("td"); 
+        buyCell.textContent = eq[1]; 
+        tr.appendChild(nameCell); 
+        tr.appendChild(buyCell); 
+        eqDisplay.appendChild(tr); 
     });
 }
+
 
 
 async function fetchAndDisplayTags() {

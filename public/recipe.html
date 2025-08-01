@@ -61,10 +61,19 @@
             <h2>Equipment</h2>
             <form id = "equipmentForm" action="insertEquipment">
                 <input class = "recipeFormInputs" id = "eqName" placeholder = "Name"  type="text">
-                <input class = "recipeFormInputs" id = "buyFrom" placeholder = "Type"  type="text">
+                <input class = "recipeFormInputs" id = "buyFrom" placeholder = "Where to buy"  type="text">
             </form>
             <button class = "insertButton" id = "addEqButton">Add</button>
-            <div id = 'eq-container'></div>
+                <table id="eqTable">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Buy from</th>
+                        </tr>
+                    </thead>
+                    <tbody id = 'equipment-container'>
+                    </tbody>
+                </table>
         </div>
     </div>
 

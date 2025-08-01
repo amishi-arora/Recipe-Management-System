@@ -85,7 +85,10 @@ async function fetchRecipeTagsFromDb(rID) {
 
 async function fetchRecipeEquipmentFromDb(rID) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM REQUIRESEQ WHERE rID = :rID', [rID]);
+        const result = await connection.execute(
+           `SELECT r.eName, e.whereToBuy
+            FROM REQUIRESEQ r, EQUIPMENT e
+            WHERE rID = :rID and r.eName = e.eName`, [rID]);
         return result.rows;
     }).catch(() => {
         return [];
