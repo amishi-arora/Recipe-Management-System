@@ -129,7 +129,8 @@ input::placeholder, textarea::placeholder {
     padding: 10px; 
     margin: 20px; 
     width: 20rem; 
-    height: 20rem; 
+    min-height: 20rem; 
+    max-height: none; 
 }
 
 .side-container h2 {
@@ -152,6 +153,16 @@ input::placeholder, textarea::placeholder {
     font-size: 15px; 
 }
 
+
 .tags {
-    padding: 10px; 
+    display: inline-block; 
+    background-color: #f0f0f0; 
+    padding: 8px; 
+    margin: 5px; 
+    border-radius: 15px; 
+}
+
+.tags:hover {
+    background-color: #d0d0d0; 
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);
 }
