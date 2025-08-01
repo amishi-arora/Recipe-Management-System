@@ -90,6 +90,7 @@ async function fetchAndDisplayCourses() {
     courseDisplay.innerHTML = '';
     courses.forEach(course => {
         const c = document.createElement('button');
+        console.log(course); 
         c.className = 'cDiv';
         c.innerHTML = course[1]; 
         courseDisplay.appendChild(c);
@@ -215,7 +216,7 @@ async function insertCourseTwo(event) {
     const durValue = document.getElementById('courseDurationID').value;
     const diffValue = document.getElementById('courseDifficultyID').value;
 
-    const response = await fetch('/insert-courseTwo', {
+    const response = await fetch('/insert-course', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -223,7 +224,7 @@ async function insertCourseTwo(event) {
         body: JSON.stringify({
             cID: Math.floor(Math.random() * 100) + 1,  
             cName: titleValue,
-            teacherID: Math.floor(Math.random() * 100) + 1,
+            teacherID: 1, // testing this out, update when users is implemented 
             duration: durValue,
             difficulty: diffValue, 
         })
