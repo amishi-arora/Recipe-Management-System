@@ -55,7 +55,7 @@ async function displayRecipe() {
     const name = document.createElement('div'); 
     const des = document.createElement('div');
     const creator = document.createElement('div');
-
+    
     id.className = 'rid'; 
     id.innerHTML = 'ID: '  + recipe[0];
     
@@ -76,7 +76,44 @@ async function displayRecipe() {
     recipeDisplay.appendChild(id);
     recipeDisplay.appendChild(name);
     recipeDisplay.appendChild(des);
-    recipeDisplay.appendChild(creator);
+    recipeDisplay.appendChild(creator); 
+}
+
+async function displaySteps() {
+    const recipeDisplay = document.getElementById('recipe'); 
+
+    const url = window.location.href.split('/');
+    const rID = url[url.length - 1];
+    const response = await fetch('/getsteps', {
+        
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            rID: rID
+        })
+        
+    });
+
+    const responseData = await response.json();
+    const steps = responseData.data;
+    console.log(steps);
+    
+    steps.forEach(step => {
+        const s = document.createElement('div'); 
+        s.innerHTML = step[1] + '. ' +step[3]; 
+        recipeDisplay.appendChild(s);
+    })
+    
+    const newstep = document.createElement('h3');
+
+    newstep.innerText = 'Add New Step';
+
+    
+
+    recipeDisplay.appendChild(newstep);
+
 
 
 
@@ -89,6 +126,7 @@ async function displayRecipe() {
 window.onload = function() {
     checkDbConnection();
     displayRecipe();
+    displaySteps();
     
 };
 

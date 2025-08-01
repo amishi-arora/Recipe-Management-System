@@ -92,6 +92,15 @@ async function fetchRecipe(rID) {
     });
 }
 
+async function fetchSteps(rID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM STEP WHERE rID = :rID', [rID]);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function fetchDemotableFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM DEMOTABLE');
@@ -687,4 +696,5 @@ module.exports = {
     updateNameDemotable, 
     countDemotable,
     fetchRecipe,
+    fetchSteps,
 };

@@ -38,6 +38,12 @@ router.post('/getrecipe', async (req, res) => {
     res.json({data: recipe});
 });
 
+router.post('/getsteps', async (req, res) => {
+    const { rID } = req.body;
+    const recipe = await appService.fetchSteps(rID);
+    res.json({data: recipe});
+});
+
 router.get('/recipe/:id', async (req, res) => {
     const id = req.params.id;
     if (!/^\d+$/.test(id)) {
