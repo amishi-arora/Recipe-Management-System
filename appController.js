@@ -33,7 +33,7 @@ router.get('/recipes', async (req, res) => {
     res.json({data: tableContent});
 });
 
-router.get('/courseTwo', async (req, res) => {
+router.get('/course', async (req, res) => {
     const tableContent = await appService.fetchCoursesFromDb();
     res.json({data: tableContent});
 });
