@@ -114,12 +114,15 @@ async function insertTag(event) {
 }
 
 async function fetchAndDisplayTags() {
-    const tableDisplay = document.getElementById('tag-container');
+    const tagDisplay = document.getElementById('tag-container');
     const url = window.location.href.split('/');
     const recipeID = url[url.length - 1];
 
     const response = await fetch('/recipetags', {
-        method: 'GET',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
             rID: recipeID
         })
@@ -129,27 +132,32 @@ async function fetchAndDisplayTags() {
     const tagContent = responseData.data;
 
     // Always clear old, already fetched data before new fetching process.
-    tableDisplay.innerHTML = ''; 
+    tagDisplay.innerHTML = ''; 
 
     tagContent.forEach(tag => {
         const t = document.createElement('span'); 
-        r.innerHTML = tag[0]; 
+        t.className = "tags"
+        t.innerHTML = tag[1]; 
+        tagDisplay.appendChild(t); 
     });
 }
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
-window.onload = function() {
-    checkDbConnection();
-    displayRecipe();
-    document.getElementById('addTagButton').addEventListener("click", insertTag); 
-    
-};
 
 function fetchTableData() {
     fetchAndDisplayTags(); 
+    displayRecipe();
 }
+
+window.onload = function() {
+    checkDbConnection();
+    document.getElementById('addTagButton').addEventListener("click", insertTag); 
+    fetchTableData(); 
+    
+};
+
 
 
 

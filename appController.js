@@ -22,7 +22,7 @@ router.get('/demotable', async (req, res) => {
     res.json({data: tableContent});
 });
 
-router.get('/recipetags', async (req, res) => {
+router.post('/recipetags', async (req, res) => {
     const { rID } = req.body;
     const tableContent = await appService.fetchRecipeTagsFromDb(rID);
     res.json({data: tableContent});

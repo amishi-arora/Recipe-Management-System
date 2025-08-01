@@ -151,3 +151,7 @@ input::placeholder, textarea::placeholder {
     padding: 7px; 
     font-size: 15px; 
 }
+
+.tags {
+    padding: 10px; 
+}
