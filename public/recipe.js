@@ -62,6 +62,12 @@ async function displayRecipe() {
         recipeDisplay.appendChild(detailDiv); 
     })
 
+    if (responseData.success) {
+        fetchTableData();
+    } else {
+        console.log('error'); 
+    }
+
 
 }
 
@@ -234,6 +240,48 @@ async function fetchAndDisplayEquipment() {
     });
 }
 
+async function fetchAndDisplayEquipmentByStore() {
+    const eqDisplay = document.getElementById('equipment-container');
+    const storeName = document.getElementById('store').value; 
+
+    if(storeName === "") {
+        fetchAndDisplayEquipment(); 
+    }
+    else {
+        const url = window.location.href.split('/');
+        const recipeID = url[url.length - 1];
+
+        const response = await fetch('/requireseqstore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                rID: recipeID,
+                store: storeName
+            })
+        });
+
+        const responseData = await response.json();
+        const eqContent = responseData.data;
+
+        // Always clear old, already fetched data before new fetching process.
+        eqDisplay.innerHTML = ''; 
+
+        eqContent.forEach(eq => {
+            const tr = document.createElement('tr'); 
+            const nameCell = document.createElement("td"); 
+            nameCell.textContent = eq[0]; 
+            const buyCell = document.createElement("td"); 
+            buyCell.textContent = eq[1]; 
+            tr.appendChild(nameCell); 
+            tr.appendChild(buyCell); 
+            eqDisplay.appendChild(tr); 
+        });
+}
+
+}
+
 async function fetchAndDisplayIngredient() {
     const ingDisplay = document.getElementById('ingredient-container');
     const url = window.location.href.split('/');
@@ -343,6 +391,7 @@ window.onload = function() {
     document.getElementById('addEqButton').addEventListener("click", insertEquipment); 
     document.getElementById('addStepButton').addEventListener("click", addStep); 
     document.getElementById('viewDetailsButton').addEventListener('click', displayRecipe); 
+    document.getElementById('searchStoreButton').addEventListener('click', fetchAndDisplayEquipmentByStore); 
     fetchTableData(); 
     
 };

@@ -108,6 +108,18 @@ async function fetchRecipeEquipmentFromDb(rID) {
     });
 }
 
+async function fetchFilteredRecipeEquipmentFromDb(rID, store) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+           `SELECT r.eName, e.whereToBuy
+            FROM REQUIRESEQ r, EQUIPMENT e
+            WHERE rID = :rID and r.eName = e.eName and whereToBuy = :store `, [rID, store]);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function fetchCoursesFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM courseTwo');
@@ -119,7 +131,6 @@ async function fetchCoursesFromDb() {
 
 async function fetchRecipe(rID, columns) {
     let columnString = columns.join(', '); 
-    console.log(columnString); 
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT ${columnString} FROM RECIPE WHERE rID = :rID`, [rID]);
         return result.rows;
@@ -799,5 +810,6 @@ module.exports = {
     insertContainsTwo, 
     insertIngredient, 
     getIngredient, 
-    fetchRecipeIngredientsFromDb
+    fetchRecipeIngredientsFromDb, 
+    fetchFilteredRecipeEquipmentFromDb
 };

@@ -34,6 +34,12 @@ router.post('/requireseq', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.post('/requireseqstore', async (req, res) => {
+    const { rID, store } = req.body;
+    const tableContent = await appService.fetchFilteredRecipeEquipmentFromDb(rID, store);
+    res.json({data: tableContent});
+}); 
+
 router.post('/recipeingredients', async (req, res) => {
     const { rID } = req.body;
     const tableContent = await appService.fetchRecipeIngredientsFromDb(rID);

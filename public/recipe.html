@@ -34,15 +34,15 @@
     <div id = "left-section">
         <h2>View Recipe Details</h2>
         <form id = "recipe-details-form">
-            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "rID">
+            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "rID" checked>
             <label>Recipe ID</label><br>
-            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "title">
+            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "title" checked>
             <label>Title</label><br>
-            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "description">
+            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "description" checked>
             <label>Description</label><br>
-            <input name = "recipeattributes" class = "checkboxes"  type="checkbox" value = "servings">
+            <input name = "recipeattributes" class = "checkboxes"  type="checkbox" value = "servings" checked>
             <label>Servings</label><br>
-            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "userID">
+            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "userID" checked>
             <label>Creator ID</label><br>
           </form>
           <button class = 'insertButton' id = "viewDetailsButton">Submit</button>
@@ -69,8 +69,8 @@
             <form id = "tagsForm" action="insertTag">
                 <input class = "recipeFormInputs" id = "tagName" placeholder = "Name"  type="text">
                 <input class = "recipeFormInputs" id = "typeName" placeholder = "Type"  type="text">
+                <button class = "insertButton" id = "addTagButton">Add</button>
             </form>
-            <button class = "insertButton" id = "addTagButton">Add</button>
             <div id = 'tag-container'></div>
         </div>
 
@@ -81,8 +81,8 @@
                 <input class = "recipeFormInputs" id = "inType" placeholder = "Type"  type="text">
                 <input class = "recipeFormInputs" id = "inAmount" placeholder = "Amount"  type="text">
                 <input class = "recipeFormInputs" id = "inCost" placeholder = "Cost ($)"  type="number">
+                <button class = "insertButton" id = "addIngredientButton">Add</button>
             </form>
-            <button class = "insertButton" id = "addIngredientButton">Add</button>
             <table id="ingTable">
                 <thead>
                     <tr>
@@ -101,8 +101,10 @@
             <form id = "equipmentForm" action="insertEquipment">
                 <input class = "recipeFormInputs" id = "eqName" placeholder = "Name"  type="text">
                 <input class = "recipeFormInputs" id = "buyFrom" placeholder = "Where to buy"  type="text">
+                <button class = "insertButton" id = "addEqButton">Add</button>
             </form>
-            <button class = "insertButton" id = "addEqButton">Add</button>
+            <input class = "recipeFormInputs" id = "store" placeholder = "Search Store"  type="text">
+            <button class = 'insertButton' id = 'searchStoreButton'>Search</button>
                 <table id="eqTable">
                     <thead>
                         <tr>
