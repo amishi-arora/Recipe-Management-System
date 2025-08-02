@@ -117,9 +117,11 @@ async function fetchCoursesFromDb() {
     });
 }
 
-async function fetchRecipe(rID) {
+async function fetchRecipe(rID, columns) {
+    let columnString = columns.join(', '); 
+    console.log(columnString); 
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM RECIPE WHERE rID = :rID', [rID]);
+        const result = await connection.execute(`SELECT ${columnString} FROM RECIPE WHERE rID = :rID`, [rID]);
         return result.rows;
     }).catch(() => {
         return [];
@@ -301,7 +303,7 @@ async function initiateAllTables() {
             CREATE TABLE RECIPE (
                 rID NUMBER PRIMARY KEY, 
                 title VARCHAR2(50),
-                description VARCHAR2(80), 
+                description VARCHAR(500), 
                 userID NUMBER NOT NULL, 
                 servings NUMBER, 
                 FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE
@@ -362,7 +364,7 @@ async function initiateAllTables() {
                 cName VARCHAR2(30),
                 teacherID NUMBER NOT NULL,
                 duration NUMBER,
-                difficulty VARCHAR(10),
+                difficulty VARCHAR2(10),
                 FOREIGN KEY (teacherID) REFERENCES PROFESSIONALS_TWO(userID) ON DELETE CASCADE
                 )
         `);

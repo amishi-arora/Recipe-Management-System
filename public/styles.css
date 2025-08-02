@@ -124,24 +124,7 @@ input::placeholder, textarea::placeholder {
     margin-top: 10px; 
 }
 
-#side-items {
-    float: right; 
-}
 
-.side-container {
-    border: 1px solid black;   
-    border-radius: 10px; 
-    padding: 10px; 
-    margin: 20px; 
-    width: 20rem; 
-    min-height: 20rem; 
-    max-height: none; 
-}
-
-.side-container h2 {
-    text-align: center; 
-    margin-top: 0; 
-}
 
 .insertButton {
     padding: 7px; 
@@ -190,3 +173,37 @@ input::placeholder, textarea::placeholder {
     background-color: transparent;
 }
 
+#main-content {
+    display: flex; 
+    align-items: flex-start; 
+    gap: 8rem; 
+}
+
+#left-section {
+    flex-grow: 1; 
+    min-width: 0; 
+    width: 45rem; 
+    flex-direction: column; 
+}
+
+#side-items {
+    display: flex; 
+    flex-direction: column; 
+    gap: 1.5rem; 
+}
+
+.side-container {
+    border: 1px solid black;   
+    border-radius: 10px; 
+    padding: 10px; 
+    width: 20rem; 
+    min-height: 20rem; 
+    max-height: none; 
+}
+
+
+
+.side-container h2 {
+    text-align: center; 
+    margin-top: 0; 
+}

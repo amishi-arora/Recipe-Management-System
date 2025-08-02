@@ -29,22 +29,23 @@
  
 
     <br><hr><br> <!-- ========================================================================= -->
-
+    <div id = "main-content">
     <div>
-        <h2>Recipe Details</h2>
-        <form>
-            <input class = "checkboxes" type="checkbox">
+    <div id = "left-section">
+        <h2>View Recipe Details</h2>
+        <form id = "recipe-details-form">
+            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "rID">
             <label>Recipe ID</label><br>
-            <input class = "checkboxes" type="checkbox">
+            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "title">
             <label>Title</label><br>
-            <input class = "checkboxes" type="checkbox">
+            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "description">
             <label>Description</label><br>
-            <input class = "checkboxes"  type="checkbox">
+            <input name = "recipeattributes" class = "checkboxes"  type="checkbox" value = "servings">
             <label>Servings</label><br>
-            <input class = "checkboxes" type="checkbox">
+            <input name = "recipeattributes" class = "checkboxes" type="checkbox" value = "userID">
             <label>Creator ID</label><br>
           </form>
-          <button class = 'insertButton'>Submit</button>
+          <button class = 'insertButton' id = "viewDetailsButton">Submit</button>
         <div id = 'recipe'>
         </div> 
     </div>
@@ -60,6 +61,7 @@
             <div id = 'steps'></div>
         </div> 
     </div>
+</div>
 
     <div id = "side-items">
         <div class = "side-container">
@@ -113,6 +115,7 @@
                 </table>
         </div>
     </div>
+</div>
 
 
     
