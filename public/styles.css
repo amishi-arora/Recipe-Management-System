@@ -166,7 +166,7 @@ input::placeholder, textarea::placeholder {
     box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);
 }
 
-#eqTable {
+#eqTable, #ingTable {
     width: 100%; 
     border-collapse:collapse; 
     margin-top: 1rem; 
@@ -175,6 +175,12 @@ input::placeholder, textarea::placeholder {
 
 #eqTable th, 
 #eqTable td {
+    padding: 5px; 
+    text-align: left;  
+}
+
+#ingTable th, 
+#ingTable td {
     padding: 5px; 
     text-align: left;  
 }

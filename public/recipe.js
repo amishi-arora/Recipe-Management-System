@@ -114,35 +114,6 @@ async function displaySteps() {
     
 }
 
-async function insertIngredient(event) {
-    event.preventDefault();
-    const ingredientName = document.getElementById('ingredientName').value;
-    const ingredientType = document.getElementById('ingredientType').value;
-    const url = window.location.href.split('/');
-    const recipeID = url[url.length - 1];
-
-    const response = await fetch('/insert-ingredient', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            iname: ingredientName, 
-            type: ingredientType,   
-            rID: recipeID
-        })
-    });
-    
-
-    const responseData = await response.json();
-
-    if (responseData.success) {
-        fetchTableData();
-        console.log('success'); 
-    } else {
-        console.log('error'); 
-    }
-}
 
 async function insertEquipment(event) {
     event.preventDefault();
@@ -166,6 +137,39 @@ async function insertEquipment(event) {
 
     const responseData = await response.json();
 
+    if (responseData.success) {
+        fetchTableData();
+        console.log('success'); 
+    } else {
+        console.log('error'); 
+    }
+
+}
+
+async function insertIngredient(event) {
+    event.preventDefault();
+    const ingredientName = document.getElementById('inName').value;
+    const ingredientType = document.getElementById('inType').value;
+    const ingredientAmount = document.getElementById('inAmount').value;
+    const ingredientCost = document.getElementById('inCost').value;
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/insert-ingredient', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            iName: ingredientName, 
+            iType:  ingredientType,  
+            iAmount: ingredientAmount,
+            iCost: parseFloat(ingredientCost),
+            rID: recipeID
+        })
+    });
+    
+    const responseData = await response.json();
     if (responseData.success) {
         fetchTableData();
         console.log('success'); 
@@ -240,6 +244,41 @@ async function fetchAndDisplayEquipment() {
     });
 }
 
+async function fetchAndDisplayIngredient() {
+    const ingDisplay = document.getElementById('ingredient-container');
+    const url = window.location.href.split('/');
+    const recipeID = url[url.length - 1];
+
+    const response = await fetch('/recipeingredients', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            rID: recipeID
+        })
+    });
+
+    const responseData = await response.json();
+    const ingContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    ingDisplay.innerHTML = ''; 
+
+    ingContent.forEach(ing => {
+        const tr = document.createElement('tr'); 
+        const nameCell = document.createElement("td"); 
+        nameCell.textContent = ing[0]; 
+        const costCell = document.createElement("td"); 
+        costCell.textContent = ing[1]; 
+        const amountCell = document.createElement("td"); 
+        amountCell.textContent = ing[2]; 
+        tr.appendChild(nameCell); 
+        tr.appendChild(costCell); 
+        tr.appendChild(amountCell); 
+        ingDisplay.appendChild(tr); 
+    });
+}
 
 
 async function fetchAndDisplayTags() {
@@ -300,14 +339,16 @@ async function addStep(event) {
 // Add or remove event listeners based on the desired functionalities.
 
 function fetchTableData() {
-    fetchAndDisplayTags(); 
+    fetchAndDisplayTags()
     displayRecipe();
     fetchAndDisplayEquipment();   
+    fetchAndDisplayIngredient(); 
 }
 
 window.onload = function() {
     checkDbConnection();
     document.getElementById('addTagButton').addEventListener("click", insertTag); 
+    document.getElementById('addIngredientButton').addEventListener("click", insertIngredient); 
     document.getElementById('addEqButton').addEventListener("click", insertEquipment); 
     document.getElementById('addStepButton').addEventListener("click", addStep); 
     fetchTableData(); 

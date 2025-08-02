@@ -34,6 +34,12 @@ router.post('/requireseq', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.post('/recipeingredients', async (req, res) => {
+    const { rID } = req.body;
+    const tableContent = await appService.fetchRecipeIngredientsFromDb(rID);
+    res.json({data: tableContent});
+});
+
 router.get('/recipes', async (req, res) => {
     const tableContent = await appService.fetchRecipesFromDb();
     res.json({data: tableContent});
@@ -115,29 +121,56 @@ router.post("/insert-tag", async (req, res) => {
         const {type, tname, rID} = req.body;
         const tagResult = await appService.getTag(tname);
         if(tagResult.length === 0) {
-            const insertResult = await appService.insertTag(tname, type)  // if tag doesn't exist in tags table, insert it
+            const insertResult = await appService.insertTag(tname, type);  // if tag doesn't exist in tags table, insert it
             if (!insertResult) {
-                res.json({ success: true });
+                return res.status(500).json({ success: false }); 
             } 
         }
         // insert into has tag table 
-        const insertResult = await appService.insertHasTag(rID, tname)
+        const insertResult = await appService.insertHasTag(rID, tname);
         if (insertResult) {
-            res.json({ success: false});
+            res.json({ success: true});
         } else {
-            res.status(500).json({ success: false });
+            return res.status(500).json({ success: false });
         }
     } catch (err) {
         console.error(err); 
-        res.status(500).json({ success: false }); 
+        return res.status(500).json({ success: false }); 
 }});
+
+
+router.post("/insert-ingredient", async (req, res) => {
+    try {
+        const {iName, iType, iAmount, iCost, rID} = req.body;
+        const ingResult = await appService.getIngredient(iName);
+        if(ingResult.length === 0) {
+            const insertResult = await appService.insertIngredient(iName, iType);  // if ingredient doesn't exist in ingredients table, insert it
+            if (!insertResult) {
+                return res.status(500).json({ success: false }); 
+            } 
+        }
+        // insert into contains one and contains two
+        const insertResultOne = await appService.insertContainsOne(iName, iAmount, iCost); 
+        if (!insertResultOne) {
+            return res.status(500).json({ success: false });
+        } 
+        const insertResultTwo = await appService.insertContainsTwo(iName, rID, iAmount); 
+        if (!insertResultTwo) {
+            return res.status(500).json({ success: false });
+        } 
+        return res.json({success: true}); 
+    } catch (err) {
+        console.error(err); 
+        return res.status(500).json({ success: false }); 
+}});
+
 
 router.post("/insert-step", async (req, res) => {
     try {
         const {des, rID} = req.body;
         
         // insert into step table 
-        const insertResult = await appService.insertStep(rID, des)
+        const insertResult = await appService.insertStep(rID, des);
         if (insertResult) {
             res.json({ success: false});
         } else {
@@ -155,7 +188,7 @@ try {
     if(eqResult.length === 0) {
         const insertResult = await appService.insertEquipment(eName, whereToBuy)  // if equipment doesn't exist in equipment table, insert it
         if (!insertResult) {
-            res.json({ success: false});
+            return res.status(500).json({ success: false }); 
         } 
     }
     // insert into requires table
@@ -163,11 +196,11 @@ try {
     if (insertResult) {
         res.json({ success: true });
     } else {
-        res.status(500).json({ success: false });
+        return res.status(500).json({ success: false });
     }
 } catch (err) {
     console.error(err); 
-    res.status(500).json({ success: false }); 
+    return res.status(500).json({ success: false }); 
 }});
 
 

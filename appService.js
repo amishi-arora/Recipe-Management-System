@@ -83,6 +83,19 @@ async function fetchRecipeTagsFromDb(rID) {
     });
 }
 
+async function fetchRecipeIngredientsFromDb(rID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT c2.iName, c2.amount, c1.cost
+             FROM containsTwo c2, containsOne c1
+             WHERE c2.iName = c1.iName and c2.rID = :rID`, [rID]);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+
 async function fetchRecipeEquipmentFromDb(rID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -718,6 +731,18 @@ async function getTag(tname) {
     });
 }
 
+async function getIngredient(iName) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT * FROM INGREDIENT WHERE iName = :iName`, 
+            [iName], 
+            {autoCommit: true}
+        );
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function getEq(ename) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT * FROM EQUIPMENT WHERE eName = :ename`, 
@@ -768,4 +793,9 @@ module.exports = {
     getEq, 
     fetchRecipeEquipmentFromDb,
     insertStep,
+    insertContainsOne, 
+    insertContainsTwo, 
+    insertIngredient, 
+    getIngredient, 
+    fetchRecipeIngredientsFromDb
 };

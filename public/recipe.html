@@ -61,11 +61,23 @@
         <div class = "side-container">
             <h2>Ingredients</h2>
             <form id = "ingredientsForm" action="insertIngredient">
-                <input class = "recipeFormInputs" id = "ingredientName" placeholder = "Name"  type="text">
-                <input class = "recipeFormInputs" id = "ingredientType" placeholder = "Type"  type="text">
+                <input class = "recipeFormInputs" id = "inName" placeholder = "Name"  type="text">
+                <input class = "recipeFormInputs" id = "inType" placeholder = "Type"  type="text">
+                <input class = "recipeFormInputs" id = "inAmount" placeholder = "Amount"  type="text">
+                <input class = "recipeFormInputs" id = "inCost" placeholder = "Cost ($)"  type="number">
             </form>
             <button class = "insertButton" id = "addIngredientButton">Add</button>
-            <div id = 'ingredient-container'></div>
+            <table id="ingTable">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Amount</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody id = 'ingredient-container'>
+                </tbody>
+            </table>
         </div>
 
         <div class = "side-container">
