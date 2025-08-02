@@ -78,11 +78,10 @@ async function displayRecipe() {
     recipeDisplay.appendChild(des);
     recipeDisplay.appendChild(creator); 
 
-    displaySteps();
 }
 
 async function displaySteps() {
-    const recipeDisplay = document.getElementById('recipe'); 
+    const stepDisplay = document.getElementById('steps'); 
     
 
     const url = window.location.href.split('/');
@@ -99,6 +98,8 @@ async function displaySteps() {
         
     });
 
+    stepDisplay.innerHTML = ''; 
+
     const responseData = await response.json();
     const steps = responseData.data;
     console.log(steps);
@@ -106,10 +107,14 @@ async function displaySteps() {
     steps.forEach(step => {
         const s = document.createElement('div'); 
         s.innerHTML = step[1] + '. ' +step[3]; 
-        recipeDisplay.appendChild(s);
+        stepDisplay.appendChild(s);
     })
 
-    
+    if (responseData.success) {
+        fetchTableData();
+    } else {
+        console.log('error'); 
+    }
     
     
 }
@@ -341,6 +346,7 @@ async function addStep(event) {
 function fetchTableData() {
     fetchAndDisplayTags()
     displayRecipe();
+    displaySteps(); 
     fetchAndDisplayEquipment();   
     fetchAndDisplayIngredient(); 
 }

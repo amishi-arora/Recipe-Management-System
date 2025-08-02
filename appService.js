@@ -88,7 +88,7 @@ async function fetchRecipeIngredientsFromDb(rID) {
         const result = await connection.execute(
             `SELECT c2.iName, c2.amount, c1.cost
              FROM containsTwo c2, containsOne c1
-             WHERE c2.iName = c1.iName and c2.rID = :rID`, [rID]);
+             WHERE c2.iName = c1.iName and c2.amount = c1.amount and c2.rID = :rID`, [rID]);
         return result.rows;
     }).catch(() => {
         return [];
