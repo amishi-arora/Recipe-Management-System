@@ -26,59 +26,68 @@ async function checkDbConnection() {
 
 
 
-async function displayRecipe() {
-    const recipeDisplay = document.getElementById('recipe'); 
+// async function displayRecipe() {
+//     const recipeDisplay = document.getElementById('recipe'); 
 
-    const url = window.location.href.split('/');
-    const rID = url[url.length - 1];
-    const response = await fetch('/getrecipe', {
+//     const url = window.location.href.split('/');
+//     const rID = url[url.length - 1];
+//     const response = await fetch('/getrecipe', {
         
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            rID: rID
-        })
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             rID: rID
+//         })
         
-    });
+//     });
 
-    const responseData = await response.json();
-    const recipe = responseData.data[0];
+//     const responseData = await response.json();
+//     const recipe = responseData.data[0];
     
 
-    // Always clear old, already fetched data before new fetching process.
-    recipeDisplay.innerHTML = ''; 
+//     // Always clear old, already fetched data before new fetching process.
+//     recipeDisplay.innerHTML = ''; 
 
     
-    const id = document.createElement('div'); 
-    const name = document.createElement('div'); 
-    const des = document.createElement('div');
-    const creator = document.createElement('div');
+//     const id = document.createElement('div'); 
+//     const name = document.createElement('div'); 
+//     const des = document.createElement('div');
+//     const creator = document.createElement('div');
+//     const servings = document.createElement('div');
+
+//     console.log(recipe)
     
-    id.className = 'rid'; 
-    id.innerHTML = 'ID: '  + recipe[0];
-    
-    
-    name.className = 'rname'; 
-    name.innerHTML = 'Name: '  + recipe[1];
-    
-    
-    des.className = 'rdes'; 
-    des.innerHTML = 'Description: '  + recipe[2];
+//     id.className = 'rid'; 
+//     id.innerHTML = 'ID: '  + recipe[0];
     
     
-    creator.className = 'rcreator'; 
-    creator.innerHTML = 'Creator ID: '  + recipe[3];
+//     name.className = 'rname'; 
+//     name.innerHTML = 'Title: '  + recipe[1];
+    
+    
+//     des.className = 'rdes'; 
+//     des.innerHTML = 'Description: '  + recipe[2];
+
+//     console.log(recipe[2]); 
+
+//     servings.className = 'rserv'; 
+//     servings.innerHTML = 'Servings: '  + recipe[4];
+    
+    
+//     creator.className = 'rcreator'; 
+//     creator.innerHTML = 'Creator ID: '  + recipe[3];
 
 
 
-    recipeDisplay.appendChild(id);
-    recipeDisplay.appendChild(name);
-    recipeDisplay.appendChild(des);
-    recipeDisplay.appendChild(creator); 
+//     recipeDisplay.appendChild(id);
+//     recipeDisplay.appendChild(name);
+//     recipeDisplay.appendChild(des);
+//     recipeDisplay.appendChild(creator); 
+//     recipeDisplay.appendChild(servings);
 
-}
+// }
 
 async function displaySteps() {
     const stepDisplay = document.getElementById('steps'); 

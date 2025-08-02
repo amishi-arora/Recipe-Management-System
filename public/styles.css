@@ -184,3 +184,9 @@ input::placeholder, textarea::placeholder {
     padding: 5px; 
     text-align: left;  
 }
+
+.checkboxes {
+    width: 12px; 
+    background-color: transparent;
+}
+

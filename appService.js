@@ -301,7 +301,7 @@ async function initiateAllTables() {
             CREATE TABLE RECIPE (
                 rID NUMBER PRIMARY KEY, 
                 title VARCHAR2(50),
-                description VARCHAR2(500), 
+                description VARCHAR2(80), 
                 userID NUMBER NOT NULL, 
                 servings NUMBER, 
                 FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE
