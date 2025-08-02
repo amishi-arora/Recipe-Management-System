@@ -110,12 +110,25 @@ async function fetchRecipeEquipmentFromDb(rID) {
 
 async function fetchCoursesFromDb() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM courseTwo');
+        const result = await connection.execute(
+            `SELECT c2.cID, c2.teacherID, c2.cName, c2.duration, c2.difficulty, c1.price
+            FROM courseOne c1, courseTwo c2
+            WHERE c1.teacherID = c2.teacherID and c1.duration = c2.duration and c1.difficulty = c2.difficulty`);
         return result.rows;
     }).catch(() => {
         return []; 
     });
 }
+
+async function postCoursesFromDb(cID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM COURSEONE, COURSE TWO');
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 
 async function fetchRecipe(rID) {
     return await withOracleDB(async (connection) => {
@@ -774,7 +787,9 @@ module.exports = {
     testOracleConnection,
     insertRecipe,
     deleteRecipe, 
+    insertCourseOne,
     insertCourseTwo,
+    postCoursesFromDb,
     fetchDemotableFromDb,
     fetchRecipesFromDb,
     fetchCoursesFromDb,

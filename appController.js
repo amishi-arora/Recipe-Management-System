@@ -45,7 +45,7 @@ router.get('/recipes', async (req, res) => {
     res.json({data: tableContent});
 });
 
-router.get('/courseTwo', async (req, res) => {
+router.get('/courses', async (req, res) => {
     const tableContent = await appService.fetchCoursesFromDb();
     res.json({data: tableContent});
 });
@@ -203,20 +203,19 @@ try {
     return res.status(500).json({ success: false }); 
 }});
 
-
-
-
 router.post("/insert-course", async (req, res) => {
     try {
-    const {cName, duration, difficulty } = req.body;
-    const teacherID = 1; // change
-    const cID = 100; // change
-    const insertResult = await appService.insertCourseTwo(cID, cName, teacherID, duration, difficulty);
-    if (insertResult) {
-        res.json({ success: true });
-    } else {
-        res.status(500).json({ success: false });
-    }
+        const {cName, duration, difficulty, price } = req.body;
+        const teacherID = 1; 
+        const cID = 100; // test value
+        const insertC1 = await appService.insertCourseOne(teacherID, duration, difficulty, price);
+        if (!insertC1) {
+            return res.status(500).json({ success: false });
+        }
+        const insertC2 = await appService.insertCourseTwo(cID, cName, teacherID, duration, difficulty);
+        if (!insertC2) {
+            res.status(500).json({ success: false });
+        }
     } catch (err) {
         console.error("error", err); 
         res.status(500).json({ success: false });

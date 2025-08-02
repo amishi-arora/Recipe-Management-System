@@ -80,7 +80,7 @@ async function fetchAndDisplayRecipes() {
 async function fetchAndDisplayCourses() {
     
     const courseDisplay = document.getElementById('course-container');
-    const response = await fetch('/courseTwo', {
+    const response = await fetch('/courses', {
         method: 'GET'
     });
 
@@ -92,12 +92,12 @@ async function fetchAndDisplayCourses() {
         const c = document.createElement('button');
         console.log(course); 
         c.className = 'cDiv';
-        c.innerHTML = course[1]; 
+        c.innerHTML = course[2]; 
         courseDisplay.appendChild(c);
         c.addEventListener('click', () => {
             const courseInfo = document.createElement('div');
             courseInfo.id = 'courseInfo';
-            courseInfo.innerHTML = course[1] + '<br>' + 'Duration: ' + course[3] + '<br>' + 'Difficulty: ' + course[4];
+            courseInfo.innerHTML = course[1] + '<br>' + 'Duration: ' + course[3] + '<br>' + 'Difficulty: ' + course[4] + 'Price: ' + course[5];
             courseDisplay.appendChild(courseInfo);
         });
     });
@@ -210,11 +210,12 @@ async function insertRecipe(event) {
 }
 
 // Inserts new course in course table
-async function insertCourseTwo(event) { 
+async function insertCourse(event) { 
     event.preventDefault();
     const titleValue = document.getElementById('courseTitleID').value;
     const durValue = document.getElementById('courseDurationID').value;
     const diffValue = document.getElementById('courseDifficultyID').value;
+    const priceValue = document.getElementById('coursePriceID').value;
 
     const response = await fetch('/insert-course', {
         method: 'POST',
@@ -227,6 +228,7 @@ async function insertCourseTwo(event) {
             teacherID: 1, // testing this out, update when users is implemented 
             duration: durValue,
             difficulty: diffValue, 
+            price: priceValue
         })
     });
     
@@ -237,7 +239,7 @@ async function insertCourseTwo(event) {
         rmessageElement.textContent = "Course inserted successfully!";
         fetchTableData();
     } else {
-        rmessageElement.textContent = "Error inserting course...";
+        rmessageElement.textContent = "Error inserting course!!";
     }
 }
 
@@ -330,7 +332,7 @@ window.onload = function() {
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById('submitRecipe').addEventListener("click", insertRecipe); 
-    document.getElementById('submitCourse').addEventListener("click", insertCourseTwo);
+    document.getElementById('submitCourse').addEventListener("click", insertCourse);
     document.getElementById('deleteRecipe').addEventListener("click", deleteRecipe)
 };
 
