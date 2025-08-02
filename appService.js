@@ -108,6 +108,18 @@ async function fetchRecipeEquipmentFromDb(rID) {
     });
 }
 
+async function fetchFilteredRecipeEquipmentFromDb(rID, store) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+           `SELECT r.eName, e.whereToBuy
+            FROM REQUIRESEQ r, EQUIPMENT e
+            WHERE rID = :rID and r.eName = e.eName and whereToBuy = :store `, [rID, store]);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function fetchCoursesFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -120,19 +132,10 @@ async function fetchCoursesFromDb() {
     });
 }
 
-async function postCoursesFromDb(cID) {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM COURSEONE, COURSE TWO');
-        return result.rows;
-    }).catch(() => {
-        return [];
-    });
-}
-
 
 async function fetchRecipe(rID) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM RECIPE WHERE rID = :rID', [rID]);
+        const result = await connection.execute(`SELECT ${columnString} FROM RECIPE WHERE rID = :rID`, [rID]);
         return result.rows;
     }).catch(() => {
         return [];
@@ -314,7 +317,7 @@ async function initiateAllTables() {
             CREATE TABLE RECIPE (
                 rID NUMBER PRIMARY KEY, 
                 title VARCHAR2(50),
-                description VARCHAR2(80), 
+                description VARCHAR(500), 
                 userID NUMBER NOT NULL, 
                 servings NUMBER, 
                 FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE
@@ -375,7 +378,7 @@ async function initiateAllTables() {
                 cName VARCHAR2(30),
                 teacherID NUMBER NOT NULL,
                 duration NUMBER,
-                difficulty VARCHAR(10),
+                difficulty VARCHAR2(10),
                 FOREIGN KEY (teacherID) REFERENCES PROFESSIONALS_TWO(userID) ON DELETE CASCADE
                 )
         `);
@@ -789,7 +792,6 @@ module.exports = {
     deleteRecipe, 
     insertCourseOne,
     insertCourseTwo,
-    postCoursesFromDb,
     fetchDemotableFromDb,
     fetchRecipesFromDb,
     fetchCoursesFromDb,
@@ -812,5 +814,6 @@ module.exports = {
     insertContainsTwo, 
     insertIngredient, 
     getIngredient, 
-    fetchRecipeIngredientsFromDb
+    fetchRecipeIngredientsFromDb, 
+    fetchFilteredRecipeEquipmentFromDb
 };

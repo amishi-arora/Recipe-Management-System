@@ -34,6 +34,12 @@ router.post('/requireseq', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.post('/requireseqstore', async (req, res) => {
+    const { rID, store } = req.body;
+    const tableContent = await appService.fetchFilteredRecipeEquipmentFromDb(rID, store);
+    res.json({data: tableContent});
+}); 
+
 router.post('/recipeingredients', async (req, res) => {
     const { rID } = req.body;
     const tableContent = await appService.fetchRecipeIngredientsFromDb(rID);
@@ -51,8 +57,8 @@ router.get('/courses', async (req, res) => {
 });
 
 router.post('/getrecipe', async (req, res) => {
-    const { rID } = req.body;
-    const recipe = await appService.fetchRecipe(rID);
+    const { rID, columns } = req.body;
+    const recipe = await appService.fetchRecipe(rID, columns);
     res.json({data: recipe});
 });
 

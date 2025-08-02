@@ -61,7 +61,6 @@ async function fetchAndDisplayRecipes() {
     recipes.forEach(recipe => {
         const r = document.createElement('button'); 
 
-        console.log(recipe); 
         r.className = 'rDiv'; 
         r.innerHTML = recipe[1]; 
         recipeDisplay.appendChild(r);

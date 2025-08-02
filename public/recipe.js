@@ -26,68 +26,50 @@ async function checkDbConnection() {
 
 
 
-// async function displayRecipe() {
-//     const recipeDisplay = document.getElementById('recipe'); 
+async function displayRecipe() {
+    const recipeDisplay = document.getElementById('recipe'); 
 
-//     const url = window.location.href.split('/');
-//     const rID = url[url.length - 1];
-//     const response = await fetch('/getrecipe', {
+    const url = window.location.href.split('/');
+    const rID = url[url.length - 1];
+
+    const selectedColumns = document.querySelectorAll('input[name = recipeattributes]:checked')
+    const columnNames = Array.from(selectedColumns).map(checkbox => checkbox.value); 
+    const response = await fetch ('/getrecipe', {
         
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//             rID: rID
-//         })
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            rID: rID, 
+            columns: columnNames
+        })
         
-//     });
+    });
 
-//     const responseData = await response.json();
-//     const recipe = responseData.data[0];
-    
-
-//     // Always clear old, already fetched data before new fetching process.
-//     recipeDisplay.innerHTML = ''; 
+    const responseData = await response.json();
+    const recipe = responseData.data[0]; 
 
     
-//     const id = document.createElement('div'); 
-//     const name = document.createElement('div'); 
-//     const des = document.createElement('div');
-//     const creator = document.createElement('div');
-//     const servings = document.createElement('div');
 
-//     console.log(recipe)
-    
-//     id.className = 'rid'; 
-//     id.innerHTML = 'ID: '  + recipe[0];
-    
-    
-//     name.className = 'rname'; 
-//     name.innerHTML = 'Title: '  + recipe[1];
-    
-    
-//     des.className = 'rdes'; 
-//     des.innerHTML = 'Description: '  + recipe[2];
-
-//     console.log(recipe[2]); 
-
-//     servings.className = 'rserv'; 
-//     servings.innerHTML = 'Servings: '  + recipe[4];
-    
-    
-//     creator.className = 'rcreator'; 
-//     creator.innerHTML = 'Creator ID: '  + recipe[3];
+    // Always clear old, already fetched data before new fetching process.
+    recipeDisplay.innerHTML = ''; 
 
 
+    columnNames.forEach((col, index) => {
+        const detailDiv = document.createElement('div'); 
+        detailDiv.innerHTML = `${col}: ${recipe[index]}`; 
+        recipeDisplay.appendChild(detailDiv); 
+    })
 
-//     recipeDisplay.appendChild(id);
-//     recipeDisplay.appendChild(name);
-//     recipeDisplay.appendChild(des);
-//     recipeDisplay.appendChild(creator); 
-//     recipeDisplay.appendChild(servings);
+    if (responseData.success) {
+        fetchTableData();
+    } else {
+        console.log('error'); 
+    }
 
-// }
+
+}
 
 async function displaySteps() {
     const stepDisplay = document.getElementById('steps'); 
@@ -258,6 +240,48 @@ async function fetchAndDisplayEquipment() {
     });
 }
 
+async function fetchAndDisplayEquipmentByStore() {
+    const eqDisplay = document.getElementById('equipment-container');
+    const storeName = document.getElementById('store').value; 
+
+    if(storeName === "") {
+        fetchAndDisplayEquipment(); 
+    }
+    else {
+        const url = window.location.href.split('/');
+        const recipeID = url[url.length - 1];
+
+        const response = await fetch('/requireseqstore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                rID: recipeID,
+                store: storeName
+            })
+        });
+
+        const responseData = await response.json();
+        const eqContent = responseData.data;
+
+        // Always clear old, already fetched data before new fetching process.
+        eqDisplay.innerHTML = ''; 
+
+        eqContent.forEach(eq => {
+            const tr = document.createElement('tr'); 
+            const nameCell = document.createElement("td"); 
+            nameCell.textContent = eq[0]; 
+            const buyCell = document.createElement("td"); 
+            buyCell.textContent = eq[1]; 
+            tr.appendChild(nameCell); 
+            tr.appendChild(buyCell); 
+            eqDisplay.appendChild(tr); 
+        });
+}
+
+}
+
 async function fetchAndDisplayIngredient() {
     const ingDisplay = document.getElementById('ingredient-container');
     const url = window.location.href.split('/');
@@ -366,6 +390,8 @@ window.onload = function() {
     document.getElementById('addIngredientButton').addEventListener("click", insertIngredient); 
     document.getElementById('addEqButton').addEventListener("click", insertEquipment); 
     document.getElementById('addStepButton').addEventListener("click", addStep); 
+    document.getElementById('viewDetailsButton').addEventListener('click', displayRecipe); 
+    document.getElementById('searchStoreButton').addEventListener('click', fetchAndDisplayEquipmentByStore); 
     fetchTableData(); 
     
 };
