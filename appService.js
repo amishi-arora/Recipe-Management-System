@@ -136,15 +136,18 @@ async function fetchFilteredRecipeEquipmentFromDb(rID, store) {
 
 async function fetchCoursesFromDb() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM courseTwo');
+        const result = await connection.execute(
+            `SELECT c2.cID, c2.teacherID, c2.cName, c2.duration, c2.difficulty, c1.price
+            FROM courseOne c1, courseTwo c2
+            WHERE c1.teacherID = c2.teacherID and c1.duration = c2.duration and c1.difficulty = c2.difficulty`);
         return result.rows;
     }).catch(() => {
         return []; 
     });
 }
 
-async function fetchRecipe(rID, columns) {
-    let columnString = columns.join(', '); 
+
+async function fetchRecipe(rID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT ${columnString} FROM RECIPE WHERE rID = :rID`, [rID]);
         return result.rows;
@@ -801,6 +804,7 @@ module.exports = {
     testOracleConnection,
     insertRecipe,
     deleteRecipe, 
+    insertCourseOne,
     insertCourseTwo,
     fetchDemotableFromDb,
     fetchRecipesFromDb,

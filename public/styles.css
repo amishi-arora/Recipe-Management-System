@@ -111,6 +111,13 @@ input::placeholder, textarea::placeholder {
     flex-wrap: wrap; 
 }
 
+#course-container {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+    flex-wrap: wrap; 
+}
+
 #rDelFormDiv {
     display: none; 
     background-color: #f5f2db;
