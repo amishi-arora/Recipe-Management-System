@@ -83,6 +83,20 @@ async function fetchRecipeTagsFromDb(rID) {
     });
 }
 
+async function fetchUsersInAllCourses() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT userID FROM USERS u
+            WHERE NOT EXISTS (
+                SELECT c.cID FROM courseTwo c
+                MINUS
+                SELECT r.cID FROM registers r WHERE r.userID = u.userID )`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function fetchRecipeIngredientsFromDb(rID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -811,5 +825,6 @@ module.exports = {
     insertIngredient, 
     getIngredient, 
     fetchRecipeIngredientsFromDb, 
-    fetchFilteredRecipeEquipmentFromDb
+    fetchFilteredRecipeEquipmentFromDb, 
+    fetchUsersInAllCourses
 };
