@@ -147,7 +147,8 @@ async function fetchCoursesFromDb() {
 }
 
 
-async function fetchRecipe(rID) {
+async function fetchRecipe(rID, columns) {
+    columnString = columns.join(', '); 
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT ${columnString} FROM RECIPE WHERE rID = :rID`, [rID]);
         return result.rows;
