@@ -19,6 +19,8 @@ async function checkDbConnection() {
     const loadingGifElem = document.getElementById('loadingGif');
     const rDeleteBut = document.getElementById('delRec'); 
     const rDelFormDiv = document.getElementById('rDelFormDiv'); 
+    const userDiv = document.getElementById('usersAllCoursesDiv'); 
+    const usersInCoursesBut = document.getElementById('viewUs')
     // const rForm = document.getElementById('recipeFormDiv');
     // const recBut = document.getElementById('newRecBut'); 
     // const subBut = document.getElementById('submitRecipe')
@@ -28,6 +30,7 @@ async function checkDbConnection() {
     });
 
     rDeleteBut.addEventListener('click', () => (rDelFormDiv.style.display = "block")); 
+    usersInCoursesBut.addEventListener('click', () => (userDiv.style.display = "block"));
 
     // recBut.addEventListener('click', () => (rForm.style.display = "block")); 
 
@@ -319,6 +322,29 @@ async function countDemotable() {
     }
 }
 
+async function fetchAndDisplayUsersInAllCourses() {
+    const usersInCoursesDisplay = document.getElementById('usersAllCourses');
+
+    const response = await fetch('/usersinallcourses', {
+        method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const userContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    usersInCoursesDisplay.innerHTML = ''; 
+
+    userContent.forEach(user => {
+        const tr = document.createElement('tr'); 
+        const idCell = document.createElement("td"); 
+        idCell.textContent = user[0]; 
+        tr.appendChild(idCell); 
+
+        usersInCoursesDisplay.appendChild(tr); 
+    });
+}
+
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
@@ -332,7 +358,8 @@ window.onload = function() {
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById('submitRecipe').addEventListener("click", insertRecipe); 
     document.getElementById('submitCourse').addEventListener("click", insertCourse);
-    document.getElementById('deleteRecipe').addEventListener("click", deleteRecipe)
+    document.getElementById('deleteRecipe').addEventListener("click", deleteRecipe); 
+    document.getElementById('viewUs').addEventListener("click", fetchAndDisplayUsersInAllCourses()); 
 };
 
 // General function to refresh the displayed table data. 
@@ -341,4 +368,5 @@ function fetchTableData() {
     fetchAndDisplayUsers();
     fetchAndDisplayRecipes(); 
     fetchAndDisplayCourses();
+    fetchAndDisplayUsersInAllCourses()
 }

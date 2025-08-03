@@ -62,6 +62,12 @@ router.post('/getrecipe', async (req, res) => {
     res.json({data: recipe});
 });
 
+router.get('/usersinallcourses', async (req, res) => {
+    const users = await appService.fetchUsersInAllCourses();
+    res.json({data: users});
+});
+
+
 router.post('/getsteps', async (req, res) => {
     const { rID } = req.body;
     const recipe = await appService.fetchSteps(rID);

@@ -207,6 +207,7 @@ async function insertTag(event) {
 
 }
 
+
 async function fetchAndDisplayEquipment() {
     const eqDisplay = document.getElementById('equipment-container');
     const url = window.location.href.split('/');
