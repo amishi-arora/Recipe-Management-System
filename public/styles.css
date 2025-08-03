@@ -100,7 +100,22 @@ input::placeholder, textarea::placeholder {
     color: black; 
 }
 
+.cDiv {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;  
+    width: 100px; 
+    height: 100px; 
+    padding: 20px; 
+    border-radius: 8px; 
+    font-family: sans-serif; 
+    color: black; 
+}
+
 .rDiv:hover {
+    background-color: #eaeaea;
+}
+
+.cDiv:hover {
     background-color: #eaeaea;
 }
 

@@ -211,15 +211,17 @@ try {
 
 router.post("/insert-course", async (req, res) => {
     try {
-        const {cName, duration, difficulty, price } = req.body;
+        const {cID, cName, duration, difficulty, price } = req.body;
         const teacherID = 1; 
-        const cID = 100; // test value
+        // const cID = 101; // test value
         const insertC1 = await appService.insertCourseOne(teacherID, duration, difficulty, price);
         if (!insertC1) {
+            console.error("Error inserting course one");
             return res.status(500).json({ success: false });
         }
         const insertC2 = await appService.insertCourseTwo(cID, cName, teacherID, duration, difficulty);
         if (!insertC2) {
+            console.error("Error inserting course two");
             res.status(500).json({ success: false });
         }
     } catch (err) {
