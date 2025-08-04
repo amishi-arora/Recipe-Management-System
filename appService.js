@@ -84,6 +84,15 @@ async function fetchRecipeTagsFromDb(rID) {
     });
 }
 
+async function recipeFilter(titleCon, fil1, fil2, serLess, serMore) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT * FROM RECIPE WHERE title LIKE '%${titleCon}%' ${fil1} servings > ${serMore} ${fil2} servings < ${serLess} `);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function fetchUsersInAllCourses() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -628,4 +637,5 @@ module.exports = {
     insertUser,
     insertProfessionalOne,
     insertProfessionalTwo,
+    recipeFilter,
 };

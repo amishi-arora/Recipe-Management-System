@@ -51,6 +51,12 @@ router.get('/recipes', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.post('/recipe-filter', async (req, res) => {
+    const { titleCon, fil1, fil2, serLess, serMore } = req.body;
+    const tableContent = await appService.recipeFilter(titleCon, fil1, fil2, serLess, serMore);
+    res.json({data: tableContent});
+});
+
 router.get('/courses', async (req, res) => {
     const tableContent = await appService.fetchCoursesFromDb();
     res.json({data: tableContent});
