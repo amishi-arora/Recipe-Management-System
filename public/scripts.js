@@ -99,7 +99,8 @@ async function fetchAndDisplayCourses() {
         c.addEventListener('click', () => {
             const courseInfo = document.createElement('div');
             courseInfo.id = 'courseInfo';
-            courseInfo.innerHTML = course[1] + '<br>' + 'Duration: ' + course[3] + '<br>' + 'Difficulty: ' + course[4] + 'Price: ' + course[5];
+            courseInfo.innerHTML = 'Course ID: ' + course[0] + '<br>' + 'Duration: ' 
+            + course[3] + '<br>' + 'Difficulty: ' + course[4] + '<br>'+ 'Price: ' + course[5] + '<br>' + 'Recipe ID: ' + course[6];
             courseDisplay.appendChild(courseInfo);
         });
     });
@@ -214,6 +215,7 @@ async function insertRecipe(event) {
 // Inserts new course in course table
 async function insertCourse(event) { 
     event.preventDefault();
+    const courseRecipeID = document.getElementById('recipeCourseID').value;
     const titleValue = document.getElementById('courseTitleID').value;
     const durValue = document.getElementById('courseDurationID').value;
     const diffValue = document.getElementById('courseDifficultyID').value;
@@ -225,12 +227,13 @@ async function insertCourse(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+            rID: courseRecipeID,
             cID: Math.floor(Math.random() * 100) + 1,  
             cName: titleValue,
             teacherID: 1, // testing this out, update when users is implemented 
             duration: durValue,
             difficulty: diffValue, 
-            price: priceValue
+            price: priceValue,
         })
     });
     

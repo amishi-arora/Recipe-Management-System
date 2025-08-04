@@ -83,6 +83,8 @@
         <h2>Add New Course</h2>
         <div id = 'courseFormDiv'>
             <form id = 'courseForm'>
+                <label for="rID">Recipe ID:</label><br>
+                <input type="number" id = "recipeCourseID"><br>
                 <label for="cName">Course Title:</label><br>
                 <input type="text" id = "courseTitleID"><br>
                 <label for="duration">Course Duration:</label><br>
@@ -93,7 +95,6 @@
                 <input type="number" id = "coursePriceID"><br>
             </form>
                 <button id = 'submitCourse'>Post Course</button>
-                <button id = 'registerCourse'>Register for Course</button>
             <div id="insertCourseResultMsg"></div>
         </div> 
     </div>
@@ -105,7 +106,7 @@
         <div id = 'course-container'>
         
         </div><br>
-        
+        <button id = 'registerCourse'>Register for Course</button>
         <div id = 'usersAllCoursesDiv'>
             <table>
                 <thead>
