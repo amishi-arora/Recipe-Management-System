@@ -442,12 +442,6 @@ async function insertCourseOne(teacherID, duration, difficulty, price) {
 async function insertCourseTwo(cID, cName, teacherID, duration, difficulty) {
     return await withOracleDB(async (connection) => {
 
-        let cID;
-        const resultID = await connection.execute('SELECT MAX (cID) FROM COURSETWO');
-        currID = resultID.rows[0][0];
-        if (currID === null) cID = 101;
-        else cID = currID + 1;
-
         const result = await connection.execute(
             `INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (:cID, :cName, :teacherID, :duration, :difficulty)`,
             [cID, cName, teacherID, duration, difficulty],

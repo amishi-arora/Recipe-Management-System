@@ -234,22 +234,19 @@ try {
 
 router.post("/insert-course", async (req, res) => {
     try {
-        const {rID, cID, cName, teacherID, duration, difficulty, price } = req.body;
-        const courseResult = await appService.getCourse(cID);
+        const {rID, cID, cName, duration, difficulty, price } = req.body;
 
-        if (courseResult.length === 0) {
-            const teacherID = 1; 
-            const insertC1 = await appService.insertCourseOne(teacherID, duration, difficulty, price);
-            if (!insertC1) {
-                console.error("Error inserting course one");
-                return res.status(500).json({ success: false });
-            }
-            const insertC2 = await appService.insertCourseTwo(cID, cName, teacherID, duration, difficulty);
-            if (!insertC2) {
-                console.error("Error inserting course two");
-                res.status(500).json({ success: false });
-            }
+        const insertC1 = await appService.insertCourseOne(teacherID, duration, difficulty, price);
+        if (!insertC1) {
+            console.error("Error inserting course one");
+            return res.status(500).json({ success: false });
         }
+        const insertC2 = await appService.insertCourseTwo(cID, cName, teacherID, duration, difficulty);
+        if (!insertC2) {
+            console.error("Error inserting course two");
+            res.status(500).json({ success: false });
+        }
+    
         const insertDemRec = await appService.insertDemosRecipe(rID, cID);
         if (!insertDemRec) {
             console.error("Error inserting demos recipe");
