@@ -127,6 +127,68 @@ async function updateRecipeUser(event) {
     }
 }
 
+async function updateRecipeServings(event) {
+    event.preventDefault();
+
+    const oldNameValue = document.getElementById('updateOldServing').value;
+    const newNameValue = document.getElementById('updateNewServing').value;
+    const url = window.location.href.split('/');
+    const rID = url[url.length - 1];
+
+    const response = await fetch('/update-serving', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            oldServing: oldNameValue,
+            newServing: newNameValue,
+            rID: rID
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('updateServingResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Servings updated successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error updating servings!";
+    }
+}
+
+async function updateRecipeDesc(event) {
+    event.preventDefault();
+
+    const oldNameValue = document.getElementById('updateOldDesc').value;
+    const newNameValue = document.getElementById('updateNewDesc').value;
+    const url = window.location.href.split('/');
+    const rID = url[url.length - 1];
+
+    const response = await fetch('/update-desc', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            oldDesc: oldNameValue,
+            newDesc: newNameValue,
+            rID: rID
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('updateDescResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Description updated successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error updating description!";
+    }
+}
+
 async function displaySteps() {
     const stepDisplay = document.getElementById('steps'); 
     
@@ -451,6 +513,8 @@ window.onload = function() {
     document.getElementById('searchStoreButton').addEventListener('click', fetchAndDisplayEquipmentByStore); 
     document.getElementById("updateTitleBtn").addEventListener("click", updateRecipeTitle);
     document.getElementById("updateUserBtn").addEventListener("click", updateRecipeUser);
+    document.getElementById("updateServingsBtn").addEventListener("click", updateRecipeServings);
+    document.getElementById("updateDescBtn").addEventListener("click", updateRecipeDesc);
     fetchTableData(); 
     
 };

@@ -61,15 +61,31 @@
         New Title: <input type="text" id="updateNewTitle" placeholder="Enter New Title" maxlength="30"> <br>
         <button class = 'updateButton' id = "updateTitleBtn"> Update Title </button> <br>
     </form>
-    <div id="updateTitleResultMsg"></div><br>
+    <div id="updateTitleResultMsg"></div>
+
+    <h3>Change Description: </h3>
+    <form id="updateRecipeDescForm">
+        Old Description: <input type="text" id="updateOldDesc" placeholder="Enter Old Description" required> <br>
+        New Description: <input type="text" id="updateNewDesc" placeholder="Enter New Description" maxlength="100"> <br>
+        <button class = 'updateButton' id = "updateDescBtn"> Update Description </button> <br>
+    </form>
+    <div id="updateDescResultMsg"></div>
+
+    <h3>Change Number of Servings: </h3>
+    <form id="updateRecipeServingForm">
+        Old Servings: <input type="number" id="updateOldServing" placeholder="Enter Old Serving" required> <br>
+        New Servings: <input type="number" id="updateNewServing" placeholder="Enter New Serving" maxlength="30"> <br>
+        <button class = 'updateButton' id = "updateServingsBtn"> Update Servings </button> <br>
+    </form>
+    <div id="updateServingResultMsg"></div>
 
     <h3>Change Recipe Owner (User): </h3>
     <form id="updateRecipeOwnerForm">
-        Old User: <input type="" id="updateOldUser" placeholder="Enter Old User ID" required> <br>
+        Old User: <input type="number" id="updateOldUser" placeholder="Enter Old User ID" required> <br>
         New User: <input type="number" id="updateNewUser" placeholder="Enter New User ID" maxlength="30"> <br>
         <button class = 'updateButton' id = "updateUserBtn"> Update User ID </button> <br>
     </form>
-    <div id="updateUserResultMsg"></div><br>
+    <div id="updateUserResultMsg"></div>
 
     <br><hr><br> <!-- ========================================================================= -->
 
