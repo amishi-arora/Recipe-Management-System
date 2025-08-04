@@ -83,7 +83,7 @@ router.get('/recipe/:id', async (req, res) => {
     res.sendFile('recipe.html', { root: path.join(__dirname, 'public') });
 });
 
-router.get('registrations', async (req, res) => {
+router.get('/registrations', async (req, res) => {
     const registrations = await appService.fetchRegistrations();
     res.json({data: registrations});
 });

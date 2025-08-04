@@ -117,7 +117,6 @@
                 <input type="number" id = "courseUserId">
             </form>
                 <button id = 'submitCourse'>Post Course</button>
-            <div id="insertCourseResultMsg"></div>
         </div> 
     </div>
 
@@ -125,9 +124,12 @@
 
     <div>
         <h2>Courses</h2>
-        <div id = 'course-container'>
+        <div id = 'course-container'></div>
         
-        </div><br>
+        <h2>Registered Courses</h2>
+        <div id = 'register-container'></div>
+
+    </div><br>
         <div>
             <div id = 'registerFormDiv'>
                 <form id = 'registrationForm'>
@@ -138,8 +140,8 @@
                     <label for="date" id = "dateID">Date of Registration: </label><br>
                     <input type="date" id = "dateRegID"><br>
                 </form>
+                <div id = 'registerResultMsg'></div>
                 <button id = 'regCourseButton'>Register!</button>
-                <div id="registerResultMsg"></div>
             </div> 
         </div>  
         <button id = 'registerCourseButton'>Register for Course</button>
@@ -154,7 +156,7 @@
                 </tbody>
             </table>
         </div>
-        <button id = 'viewUs'>View Users Registered For All Courses</button>
+        <button id = 'viewUs'>View Users Registered For All Courses</button><br>
     </div>
     
 

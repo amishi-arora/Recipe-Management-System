@@ -150,9 +150,8 @@ async function fetchCoursesFromDb() {
 async function fetchRegistrations() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT r.uID, r.cID, r.date, c.cName, c.duration, c.difficulty
-            FROM registers r, courseTwo c
-            WHERE r.cID = c.cID`);
+            `SELECT uID, cID, date 
+            FROM registers`);
         return result.rows;
     }).catch(() => {
         return [];

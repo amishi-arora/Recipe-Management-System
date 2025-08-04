@@ -108,8 +108,7 @@ async function fetchAndDisplayCourses() {
 }
 
 async function fetchAndDisplayRegistrations() {
-    const registrationDisplay = document.getElementById('registerFormDiv');
-
+    const registrationDisplay = document.getElementById('register-container');
     const response = await fetch('/registrations', {
         method: 'GET'
     });
@@ -120,15 +119,11 @@ async function fetchAndDisplayRegistrations() {
     registrations.forEach(registration => {
         const r = document.createElement('div');
         r.className = 'rDiv';
-        r.innerHTML = registration[0] + ' - ' + registration[1];
+        const registrationInfo = document.createElement('div');
+        registrationInfo.className = 'registrationInfo';
+        registrationInfo.innerHTML = 'User ID: ' + registration[0] + '<br>' + 'Course ID: ' + registration[1] + '<br>' + 'Date: ' + registration[2];
+        r.appendChild(registrationInfo);
         registrationDisplay.appendChild(r);
-
-        r.addEventListener('click', () => {
-            const registrationInfo = document.createElement('div');
-            registrationInfo.id = 'registrationInfo';
-            registrationInfo.innerHTML = 'User ID: ' + registration[0] + '<br>' + 'Course ID: ' + registration[1] + '<br>' + 'Date: ' + registration[2];
-            registrationDisplay.appendChild(registrationInfo);
-        });
     });
 }
 
