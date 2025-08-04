@@ -128,7 +128,21 @@
         <div id = 'course-container'>
         
         </div><br>
-        <button id = 'registerCourse'>Register for Course</button>
+        <div>
+            <div id = 'registerFormDiv'>
+                <form id = 'registrationForm'>
+                    <label for="cID">Course ID: </label><br>
+                    <input type="number" id = "courseRegID"><br>
+                    <label for="userID">Your User ID: </label><br>
+                    <input type="number" id = "userRegID"><br>
+                    <label for="date" id = "dateID">Date of Registration: </label><br>
+                    <input type="date" id = "dateRegID"><br>
+                </form>
+                <button id = 'regCourseButton'>Register!</button>
+                <div id="registerResultMsg"></div>
+            </div> 
+        </div>  
+        <button id = 'registerCourseButton'>Register for Course</button>
         <div id = 'usersAllCoursesDiv'>
             <table>
                 <thead>

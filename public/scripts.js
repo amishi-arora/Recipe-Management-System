@@ -31,6 +31,7 @@ async function checkDbConnection() {
 
     rDeleteBut.addEventListener('click', () => (rDelFormDiv.style.display = "block")); 
     usersInCoursesBut.addEventListener('click', () => (userDiv.style.display = "block"));
+    registerCourseButton.addEventListener('click', () => (registerFormDiv.style.display = "block"));
 
     // recBut.addEventListener('click', () => (rForm.style.display = "block")); 
 
@@ -106,6 +107,32 @@ async function fetchAndDisplayCourses() {
     });
 }
 
+async function fetchAndDisplayRegistrations() {
+    const registrationDisplay = document.getElementById('registerFormDiv');
+
+    const response = await fetch('/registrations', {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const registrations = responseData.data;
+
+    registrationDisplay.innerHTML = '';
+    registrations.forEach(registration => {
+        const r = document.createElement('div');
+        r.className = 'rDiv';
+        r.innerHTML = registration[0] + ' - ' + registration[1];
+        registrationDisplay.appendChild(r);
+
+        r.addEventListener('click', () => {
+            const registrationInfo = document.createElement('div');
+            registrationInfo.id = 'registrationInfo';
+            registrationInfo.innerHTML = 'User ID: ' + registration[0] + '<br>' + 'Course ID: ' + registration[1] + '<br>' + 'Date: ' + registration[2];
+            registrationDisplay.appendChild(registrationInfo);
+        });
+    });
+}
+
+
 // Fetches data from the demotable and displays it.
 async function fetchAndDisplayUsers() {
     const tableElement = document.getElementById('demotable');
@@ -177,6 +204,36 @@ async function deleteRecipe(event) {
         deleteMessageElement.textContent = "Error deleting recipe!";
     }
 
+}
+
+async function insertRegisterCourse(event) {
+    event.preventDefault();
+    const userID = document.getElementById('userRegID').value;
+    const courseID = document.getElementById('courseRegID').value;
+    const date = document.getElementById('dateRegID').value;
+
+    const response = await fetch('/insert-register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userID: userID,
+            cID: courseID,
+            date: date
+        })
+    });
+    const responseData = await response.json(); 
+    const messageElement = document.getElementById('registerResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "You have registered for the course!";
+        document.getElementById('courseID').value = ''; 
+        fetchTableData();
+    }
+    else {
+        messageElement.textContent = "Error registering for the course!";
+    }
 }
 
 // Inserts new recipe in recipe table 
@@ -418,6 +475,7 @@ window.onload = function() {
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById('submitRecipe').addEventListener("click", insertRecipe); 
     document.getElementById('submitCourse').addEventListener("click", insertCourse);
+    document.getElementById('regCourseButton').addEventListener("click", insertRegisterCourse);
     document.getElementById('deleteRecipe').addEventListener("click", deleteRecipe); 
     document.getElementById('viewUs').addEventListener("click", fetchAndDisplayUsersInAllCourses()); 
     document.getElementById('enterNewUser').addEventListener("click", insertUser); 
@@ -430,5 +488,6 @@ function fetchTableData() {
     fetchAndDisplayUsers();
     fetchAndDisplayRecipes(); 
     fetchAndDisplayCourses();
+    fetchAndDisplayRegistrations();
     fetchAndDisplayUsersInAllCourses()
 }

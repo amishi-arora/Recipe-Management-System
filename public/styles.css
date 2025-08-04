@@ -142,6 +142,15 @@ input::placeholder, textarea::placeholder {
     margin-top: 20px; 
 }
 
+#registerFormDiv {
+    display: none; 
+    background-color: #f5f2db;
+    border: 1px solid #e0e0e0; 
+    padding: 20px; 
+    border-radius: 15px; 
+    margin-top: 20px; 
+}
+
 #delRec {
     margin-top: 10px; 
 }

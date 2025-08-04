@@ -83,6 +83,11 @@ router.get('/recipe/:id', async (req, res) => {
     res.sendFile('recipe.html', { root: path.join(__dirname, 'public') });
 });
 
+router.get('registrations', async (req, res) => {
+    const registrations = await appService.fetchRegistrations();
+    res.json({data: registrations});
+});
+
 router.post("/initiate-all-tables", async (req, res) => {
     const initiateResult = await appService.initiateAllTables();
     if (initiateResult) {
@@ -273,6 +278,21 @@ router.post("/insert-course", async (req, res) => {
             res.json({ success: true });
         } else {
             return res.status(500).json({ success: false });
+        }
+    } catch (err) {
+        console.error("error", err); 
+        res.status(500).json({ success: false });
+    }
+});
+
+router.post("/insert-register", async (req, res) => {
+    try {
+        const {userID, cID, date } = req.body;
+        const insertResult = await appService.insertRegisters(userID, cID, date);
+        if (insertResult) {
+            res.json({ success: true });
+        } else {
+            res.status(500).json({ success: false });
         }
     } catch (err) {
         console.error("error", err); 
