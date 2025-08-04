@@ -45,7 +45,7 @@ create table PROFESSIONALS_TWO (
 create table RECIPE (
 	rID NUMBER PRIMARY KEY, 
 	title VARCHAR2(50),
-	description CLOB, 
+	description VARCHAR2(500), 
 	userID NUMBER NOT NULL, 
 	servings NUMBER, 
 	FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE
