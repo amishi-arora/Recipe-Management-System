@@ -205,7 +205,7 @@ async function insertRegisterCourse(event) {
     event.preventDefault();
     const userID = document.getElementById('userRegID').value;
     const courseID = document.getElementById('courseRegID').value;
-    const date = document.getElementById('dateRegID').value;
+    const dateID = document.getElementById('dateRegID').value;
 
     const response = await fetch('/insert-register', {
         method: 'POST',
@@ -215,7 +215,7 @@ async function insertRegisterCourse(event) {
         body: JSON.stringify({
             userID: userID,
             cID: courseID,
-            date: date
+            registryDate: dateID
         })
     });
     const responseData = await response.json(); 

@@ -150,8 +150,8 @@ async function fetchCoursesFromDb() {
 async function fetchRegistrations() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT uID, cID, date 
-            FROM registers`);
+            `SELECT * FROM REGISTERS r, USERS u, courseTwo c
+            WHERE r.userID = u.userID and r.cID = c.cID`);
         return result.rows;
     }).catch(() => {
         return [];
@@ -452,6 +452,11 @@ async function insertCourseOne(teacherID, duration, difficulty, price) {
 
 async function insertCourseTwo(cID, cName, teacherID, duration, difficulty) {
     return await withOracleDB(async (connection) => {
+        let cID;
+        const resultID = await connection.execute('SELECT MAX (cID) FROM COURSETWO');
+        currID = resultID.rows[0][0];
+        if (currID === null) cID = 101;
+        else cID = currID + 1;
 
         const result = await connection.execute(
             `INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (:cID, :cName, :teacherID, :duration, :difficulty)`,
@@ -465,11 +470,11 @@ async function insertCourseTwo(cID, cName, teacherID, duration, difficulty) {
     });
 }
 
-async function insertRegisters(uID, cID, date) {
+async function insertRegisters(userID, cID, registryDate) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `INSERT INTO registers (uID, cID, date) VALUES (:uID, :cID, :date)`,
-            [uID, cID, date],
+            `INSERT INTO registers (userID, cID, registryDate) VALUES (:userID, :cID, TO_DATE(:registryDate, 'YYYY-MM-DD'))`,
+            {userID, cID, registryDate},
             { autoCommit: true }
         );
 

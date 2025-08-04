@@ -287,8 +287,8 @@ router.post("/insert-course", async (req, res) => {
 
 router.post("/insert-register", async (req, res) => {
     try {
-        const {userID, cID, date } = req.body;
-        const insertResult = await appService.insertRegisters(userID, cID, date);
+        const {userID, cID, registryDate } = req.body;
+        const insertResult = await appService.insertRegisters(userID, cID, registryDate);
         if (insertResult) {
             res.json({ success: true });
         } else {
