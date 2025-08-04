@@ -458,6 +458,55 @@ async function insertPro(event) {
         rmessageElement.textContent = "Error inserting User!!";
     }
 }
+
+async function filterRecipe(event) { 
+    event.preventDefault();
+    const recipeDisplay = document.getElementById('recipe-container');
+
+    const titleCon = document.getElementById('titleCon').value;
+    const fil1 = document.getElementById('filter1').value;
+    const fil2 = document.getElementById('filter2').value;
+    const serLess = document.getElementById('servTo').value;
+    const serMore = document.getElementById('servFrom').value;
+    
+
+
+    
+
+    
+    // Always clear old, already fetched data before new fetching process.
+    
+    const response = await fetch('/recipe-filter', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            titleCon: titleCon,
+            fil1: fil1,
+            fil2: fil2,
+            serLess: serLess,
+            serMore: serMore
+        })
+    });
+    const responseData = await response.json();
+    const recipes = responseData.data;
+    
+    recipeDisplay.innerHTML = ''; 
+    recipes.forEach(recipe => {
+        const r = document.createElement('button'); 
+
+        r.className = 'rDiv'; 
+        r.innerHTML = recipe[1]; 
+        recipeDisplay.appendChild(r);
+
+
+        r.addEventListener('click', () => {
+            window.open(window.location.href + 'recipe/' + recipe[0])
+        });
+    })
+
+}
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
@@ -475,6 +524,7 @@ window.onload = function() {
     document.getElementById('viewUs').addEventListener("click", fetchAndDisplayUsersInAllCourses()); 
     document.getElementById('enterNewUser').addEventListener("click", insertUser); 
     document.getElementById('enterNewPro').addEventListener("click", insertPro); 
+    document.getElementById('submitFilter').addEventListener("click", filterRecipe); 
 };
 
 // General function to refresh the displayed table data. 
