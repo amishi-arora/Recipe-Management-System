@@ -348,7 +348,34 @@ async function fetchAndDisplayUsersInAllCourses() {
     });
 }
 
+async function insertUser(event) { 
+    event.preventDefault();
+    const email = document.getElementById('emailID').value;
+    const name = document.getElementById('usernameID').value;
+    
 
+    const response = await fetch('/insert-user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            name: name
+        })
+    });
+    console.log("yep")
+    
+    const responseData = await response.json();
+    const rmessageElement = document.getElementById('enterNewUserResultMsg');
+    if (responseData.success) {
+        let userId = responseData.userId;
+        rmessageElement.textContent = "User inserted successfully! Your Id is " + userId;
+        fetchTableData();
+    } else {
+        rmessageElement.textContent = "Error inserting User!!";
+    }
+}
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
@@ -363,6 +390,7 @@ window.onload = function() {
     document.getElementById('submitCourse').addEventListener("click", insertCourse);
     document.getElementById('deleteRecipe').addEventListener("click", deleteRecipe); 
     document.getElementById('viewUs').addEventListener("click", fetchAndDisplayUsersInAllCourses()); 
+    document.getElementById('enterNewUser').addEventListener("click", insertUser); 
 };
 
 // General function to refresh the displayed table data. 

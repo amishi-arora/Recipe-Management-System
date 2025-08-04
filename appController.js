@@ -128,6 +128,23 @@ router.post("/insert-recipe", async (req, res) => {
     }
 });
 
+router.post("/insert-user", async (req, res) => {
+    try {
+        const {email, name } = req.body; // removed rID from here as it wasn't being used
+        
+        const insertResult = await appService.insertUser(email, name);
+        if (insertResult) {
+            res.json({ success: true, userId:  insertResult});
+            
+        } else {
+            res.status(500).json({ success: false });
+        }
+    } catch (err) {
+        console.error("error", err); 
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/insert-tag", async (req, res) => {
     try {
         const {type, tname, rID} = req.body;

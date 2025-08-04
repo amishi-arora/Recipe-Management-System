@@ -236,14 +236,22 @@ async function insertDemotable(id, name) {
         return false;
     });
 }
-async function insertUser(userID, email, uName) {
+async function insertUser(email, uName) {
+
+    
     return await withOracleDB(async (connection) => {
+        let userId;
+        const resultID = await connection.execute('SELECT MAX (userID) FROM USERS');
+        currID = resultID.rows[0][0];
+        if (currID === null) userId = 101;
+        else userId = currID + 1;
+
         const result = await connection.execute(
             `INSERT INTO USERS (userId, email, uName) VALUES (:userId, :email, :uName)`,
             [userId, email, uName],
             { autoCommit: true }
         );
-        return result.rowsAffected && result.rowsAffected > 0;
+        return userId;
     }).catch(() => {
         return false;
     });
@@ -604,5 +612,6 @@ module.exports = {
     getIngredient, 
     fetchRecipeIngredientsFromDb, 
     fetchFilteredRecipeEquipmentFromDb, 
-    fetchUsersInAllCourses
+    fetchUsersInAllCourses,
+    insertUser,
 };
