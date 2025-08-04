@@ -1,6 +1,7 @@
 const oracledb = require('oracledb');
 const loadEnvFile = require('./utils/envUtil');
 const envVariables = loadEnvFile('./.env');
+const fs = require('fs').promises;
 // Database configuration setup. Ensure your .env file has the required database credentials.
 const dbConfig = {
     user: envVariables.ORACLE_USER,
@@ -200,272 +201,24 @@ async function initiateAllTables() {
         // `);
 // --------------------------------------
         try {
-            await connection.execute(`DROP TABLE DEMOSRECIPE`);
-        } catch(err) {
-            console.log('Table DEMOSRECIPE might not exist, proceeding to create...');
+
+            // const sqlScript = await fs.readFile('init.sql', 'utf8');
+            // const result = await connection.execute(sqlScript);
+            const sqlScript = await fs.readFile('init.sql', 'utf8');
+
+            // Split the script into individual statements (basic example, may need refinement for complex scripts)
+            // This example assumes statements are separated by semicolons and handles empty lines
+            const statements = sqlScript.split(';').map(s => s.trim()).filter(s => s.length > 0);
+
+            // Execute each statement
+            for (const statement of statements) {
+                console.log(`Executing: ${statement}`); // Log a snippet
+                await connection.execute(statement);
+            }
+            connection.commit();
+        } catch (err) {
+            console.error("Error executing SQL script:", err);
         }
-        
-        
-        try {
-            await connection.execute(`DROP TABLE registers`);
-        } catch(err) {
-            console.log('Table registers might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE courseOne`);
-        } catch(err) {
-            console.log('Table courseOne might not exist, proceeding to create...');
-        }
-        
-        try {
-            await connection.execute(`DROP TABLE courseTwo`);
-        } catch(err) {
-            console.log('Table courseTwo might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE FAVOURITES`);
-        } catch(err) {
-            console.log('Table FAVOURITES might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE hasTag`);
-        } catch(err) {
-            console.log('Table hasTag might not exist, proceeding to create...');
-        }
-        
-        try {
-            await connection.execute(`DROP TABLE step`);
-        } catch(err) {
-            console.log('Table step  might not exist, proceeding to create...');
-        }
-        try {  
-            await connection.execute(`DROP TABLE REVIEW`);
-        } catch(err) {  
-            console.log('Table REVIEW might not exist, proceeding to create...');
-        }
-        
-        try {
-            await connection.execute(`DROP TABLE PROFESSIONALS_ONE`);
-        } catch(err) {
-            console.log('Table PROFESSIONALS_ONE might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE PROFESSIONALS_TWO`);
-        } catch(err) {
-            console.log('Table PROFESSIONALS_TWO might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE CONTAINSONE`);
-        } catch(err) {
-            console.log('Table CONTAINSONE might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE CONTAINSTWO`);
-        } catch(err) {
-            console.log('Table CONTAINSTWO might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE INGREDIENT`);
-        } catch(err) {
-            console.log('Table INGREDIENT might not exist, proceeding to create...');
-        }
-        
-        
-        try {
-            await connection.execute(`DROP TABLE tag`);
-        } catch(err) {
-            console.log('Table tag might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE REQUIRESEQ`);
-        } catch(err) {
-            console.log('Table REQUIRESEQ might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE EQUIPMENT`);
-        } catch(err) {
-            console.log('Table EQUIPMENT might not exist, proceeding to create...');
-        }
-        
-        try {
-            await connection.execute(`DROP TABLE RECIPE`);
-        } catch(err) {
-            console.log('Table RECIPE might not exist, proceeding to create...');
-        }
-        try {
-            await connection.execute(`DROP TABLE USERS`);
-        } catch(err) {
-            console.log('Table USERS might not exist, proceeding to create...');
-        }
-        await connection.execute(`
-            CREATE TABLE USERS (
-                userID  NUMBER PRIMARY KEY,
-                email VARCHAR2(50) UNIQUE,
-                uName VARCHAR2(50)
-            )
-        `);
-        
-        await connection.execute(`
-            CREATE TABLE INGREDIENT (
-                iName	VARCHAR2(30) PRIMARY KEY,
-                type 	VARCHAR2(30)
-            )
-        `);
-        
-        await connection.execute(`
-            CREATE TABLE PROFESSIONALS_ONE (
-                YOE NUMBER PRIMARY KEY,
-                rank VARCHAR2(10) 
-            )
-        `);
-        await connection.execute(`
-            CREATE TABLE PROFESSIONALS_TWO (
-                userID  NUMBER PRIMARY KEY,
-                YOE NUMBER,
-                speciality VARCHAR2(30), 
-                FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE
-            )
-        `);
-        
-        
-        await connection.execute(`
-            CREATE TABLE RECIPE (
-                rID NUMBER PRIMARY KEY, 
-                title VARCHAR2(50),
-                description VARCHAR(500), 
-                userID NUMBER NOT NULL, 
-                servings NUMBER, 
-                FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE
-             )
-        `);
-        await connection.execute(`
-            CREATE TABLE step (
-            rID NUMBER,
-            stepNumber NUMBER,
-            image VARCHAR2 (50),
-            description VARCHAR2 (500),
-            PRIMARY KEY (rID, stepNumber),
-            FOREIGN KEY (rID) REFERENCES recipe (rID) ON DELETE CASCADE
-            )
-        `);
-        
-        await connection.execute(`
-            CREATE TABLE FAVOURITES (
-                rID NUMBER, 
-                userID NUMBER,
-                PRIMARY KEY (rID, userID),
-                FOREIGN KEY (userID) REFERENCES USERS(userID) ON DELETE CASCADE, 
-                FOREIGN KEY (rID) REFERENCES RECIPE(rID) ON DELETE CASCADE
-             )
-        `);
-        await connection.execute(`
-            CREATE TABLE tag (
-                tName VARCHAR2 (50) PRIMARY KEY,
-                type VARCHAR2 (50)
-                )
-        `);
-        
-        await connection.execute(`
-            CREATE TABLE hasTag (
-                rID NUMBER,
-                tName VARCHAR2 (30),
-                PRIMARY KEY (rID, tName),
-                FOREIGN KEY (rID) REFERENCES recipe(rID) ON DELETE CASCADE,
-                FOREIGN KEY (tName) REFERENCES tag(tName) ON DELETE CASCADE 
-                )
-        `);
-        
-        await connection.execute(`
-            CREATE TABLE courseOne (
-                teacherID NUMBER NOT NULL,
-                duration NUMBER,
-                difficulty VARCHAR2 (10),
-                price NUMBER,
-                PRIMARY KEY (teacherID, duration, difficulty),
-                FOREIGN KEY (teacherID) REFERENCES PROFESSIONALS_TWO(userID) ON DELETE CASCADE
-                )
-        `);
-        
-        
-        await connection.execute(`
-            CREATE TABLE courseTwo (
-                cID NUMBER PRIMARY KEY,
-                cName VARCHAR2(30),
-                teacherID NUMBER NOT NULL,
-                duration NUMBER,
-                difficulty VARCHAR2(10),
-                FOREIGN KEY (teacherID) REFERENCES PROFESSIONALS_TWO(userID) ON DELETE CASCADE
-                )
-        `);
-        
-        await connection.execute(`
-            CREATE TABLE DEMOSRECIPE (
-                rID NUMBER, 
-                cID NUMBER,
-                PRIMARY KEY (rID, cID),
-                FOREIGN KEY (cID) REFERENCES courseTwo(cID) ON DELETE CASCADE, 
-                FOREIGN KEY (rID) REFERENCES RECIPE(rID) ON DELETE CASCADE
-             )
-        `);
-        
-        await connection.execute(`
-            CREATE TABLE registers (
-                userID NUMBER,
-                cID NUMBER,
-                registryDate DATE,
-                PRIMARY KEY (userID, cID),
-                FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE,
-                FOREIGN KEY (cID) REFERENCES courseTwo(cID) ON DELETE CASCADE
-                )
-        `);
-        await connection.execute(`
-            CREATE TABLE CONTAINSONE (
-                iName	VARCHAR2(30),
-                amount	VARCHAR2(30),
-                cost 	NUMBER(5,2),
-                PRIMARY KEY (iName, amount),
-                FOREIGN KEY (iName) REFERENCES ingredient(iName)
-            )
-        `);
-        await connection.execute(`
-            CREATE TABLE CONTAINSTWO (
-                iName	VARCHAR2(30),
-                rID		NUMBER,
-                amount	VARCHAR2(30),
-                PRIMARY KEY (iName, rID),
-                FOREIGN KEY (iName) REFERENCES ingredient(iName),
-                FOREIGN KEY (rID) REFERENCES recipe(rID) ON DELETE CASCADE
-            )
-        `);
-        await connection.execute(`
-            CREATE TABLE EQUIPMENT (
-                eName		VARCHAR2(50),
-                whereToBuy	VARCHAR2(50),
-                PRIMARY KEY (eName)
-            )
-        `);
-        await connection.execute(`
-            CREATE TABLE REQUIRESEQ (
-                rID		NUMBER,
-                eName	VARCHAR2(50),
-                PRIMARY KEY (rID, eName),
-                FOREIGN KEY (rID) REFERENCES recipe(rID) ON DELETE CASCADE,
-                FOREIGN KEY (eName) REFERENCES equipment(eName)
-            )
-        `);
-        await connection.execute(`
-            CREATE TABLE REVIEW (
-                reviewID	NUMBER,
-                rID		NUMBER NOT NULL,
-                userID		NUMBER NOT NULL,
-                rating		NUMBER,
-                commentBody	VARCHAR2(500),
-                PRIMARY KEY (reviewID),
-                UNIQUE (rID, userID), 
-                FOREIGN KEY (rID) REFERENCES recipe(rID) ON DELETE CASCADE,
-                FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE
-            )
-        `);
         return true;
     }).catch(() => {
         return false;
