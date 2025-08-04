@@ -59,7 +59,12 @@ router.post('/recipe-filter', async (req, res) => {
 
 router.post('/reg-courses-num', async (req, res) => {
     const { num } = req.body;
-    const tableContent = await appService.courseRegNum(num);
+    const tableContent = await appService.filteredCourse(num);
+    res.json({data: tableContent});
+});
+
+router.get('/count-reg-num', async (req, res) => {
+    const tableContent = await appService.courseCount();
     res.json({data: tableContent});
 });
 

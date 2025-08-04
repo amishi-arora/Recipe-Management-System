@@ -251,3 +251,7 @@ input::placeholder, textarea::placeholder {
 #viewUs {
     margin-top: 10px; 
 }
+
+#countRegButton{
+    margin-top: 20px; 
+}

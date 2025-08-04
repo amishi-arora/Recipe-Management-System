@@ -93,13 +93,27 @@ async function recipeFilter(titleCon, fil1, fil2, serLess, serMore) {
     });
 }
 
-async function courseRegNum(num) {
+async function filteredCourse(num) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`
-            SELECT cID, count(userID)
+            SELECT cID
             FROM REGISTERS 
             GROUP BY cID
-            HAVING COUNT(userID) > ${num}
+            HAVING COUNT(*) > ${num}
+            `); 
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+
+async function courseCount() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`
+            SELECT cID, COUNT(*)
+            FROM REGISTERS 
+            GROUP BY cID
             `); 
         return result.rows;
     }).catch(() => {
@@ -681,5 +695,6 @@ module.exports = {
     recipeFilter,
     updateTitle,
     updateUser,
-    courseRegNum,
+    filteredCourse, 
+    courseCount
 };
