@@ -100,12 +100,23 @@ input::placeholder, textarea::placeholder {
     color: black; 
 }
 
+.regDiv{
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;  
+    width: 100px; 
+    height: 100px; 
+    padding: 10px; 
+    border-radius: 8px; 
+    font-family: sans-serif; 
+    color: black; 
+    font-size: 12px;
+}
+
 .cDiv {
     background-color: #f8f8f8;
     border: 1px solid #ccc;  
     width: 100px; 
     height: 100px; 
-    padding: 20px; 
     border-radius: 8px; 
     font-family: sans-serif; 
     color: black; 
@@ -120,6 +131,7 @@ input::placeholder, textarea::placeholder {
 }
 
 #recipe-container {
+    margin-top: 20px; 
     display: flex; 
     flex-direction: row; 
     justify-content: space-between;
@@ -131,6 +143,14 @@ input::placeholder, textarea::placeholder {
     flex-direction: row; 
     justify-content: space-between;
     flex-wrap: wrap; 
+}
+
+#register-container {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+    flex-wrap: wrap; 
+
 }
 
 #rDelFormDiv {
@@ -149,6 +169,14 @@ input::placeholder, textarea::placeholder {
     padding: 20px; 
     border-radius: 15px; 
     margin-top: 20px; 
+}
+
+#course-num-container {
+    margin-top: 10px; 
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+    flex-wrap: wrap; 
 }
 
 #delRec {
@@ -232,6 +260,11 @@ input::placeholder, textarea::placeholder {
     max-height: none; 
 }
 
+#recipeFilterDiv {
+    border: 1px solid black; 
+    padding: 10px; 
+    border-radius: 15px; 
+}
 
 
 .side-container h2 {
@@ -254,4 +287,13 @@ input::placeholder, textarea::placeholder {
 
 #countRegButton{
     margin-top: 20px; 
+}
+
+
+#steps {
+    margin: 20px; 
+    padding: 20px; 
+    background-color: #f5f2db; 
+    font-size: 20px; 
+    border-radius: 15px; 
 }

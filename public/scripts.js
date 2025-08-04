@@ -95,15 +95,9 @@ async function fetchAndDisplayCourses() {
         const c = document.createElement('button');
         console.log(course); 
         c.className = 'cDiv';
-        c.innerHTML = course[2]; 
+        c.innerHTML = course[2] + " ID:" + course[0]; 
         courseDisplay.appendChild(c);
-        c.addEventListener('click', () => {
-            const courseInfo = document.createElement('div');
-            courseInfo.id = 'courseInfo';
-            courseInfo.innerHTML = 'Course ID: ' + course[0] + '<br>' + 'Duration: ' 
-            + course[3] + '<br>' + 'Difficulty: ' + course[4] + '<br>'+ 'Price: ' + course[5] + '<br>' + 'Recipe ID: ' + course[6];
-            courseDisplay.appendChild(courseInfo);
-        });
+
     });
 }
 
@@ -118,7 +112,7 @@ async function fetchAndDisplayRegistrations() {
     registrationDisplay.innerHTML = '';
     registrations.forEach(registration => {
         const r = document.createElement('div');
-        r.className = 'rDiv';
+        r.className = 'regDiv';
         const registrationInfo = document.createElement('div');
         registrationInfo.className = 'registrationInfo';
         registrationInfo.innerHTML = 'User ID: ' + registration[0] + '<br>' + 'Course ID: ' + registration[1] + '<br>' + 'Date: ' + registration[2];
