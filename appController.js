@@ -337,6 +337,26 @@ router.post("/update-user", async (req, res) => {
     }
 });
 
+router.post("/update-serving", async (req, res) => {
+    const { oldServing, newServing, rID } = req.body;
+    const updateResult = await appService.updateServing(oldServing, newServing, rID);
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.post("/update-desc", async (req, res) => {
+    const { oldDesc, newDesc, rID } = req.body;
+    const updateResult = await appService.updateDesc(oldDesc, newDesc, rID);
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/update-name-demotable", async (req, res) => {
     const { oldName, newName } = req.body;
     const updateResult = await appService.updateNameDemotable(oldName, newName);
