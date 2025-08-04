@@ -251,7 +251,7 @@ try {
 
 router.post("/insert-course", async (req, res) => {
     try {
-        const {rID, cID, cName, duration, difficulty, price } = req.body;
+        const {rID, cID, cName, teacherID, duration, difficulty, price } = req.body;
 
         const insertC1 = await appService.insertCourseOne(teacherID, duration, difficulty, price);
         if (!insertC1) {

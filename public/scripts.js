@@ -222,6 +222,7 @@ async function insertCourse(event) {
     const durValue = document.getElementById('courseDurationID').value;
     const diffValue = document.getElementById('courseDifficultyID').value;
     const priceValue = document.getElementById('coursePriceID').value;
+    const userId = document.getElementById('courseUserId').value;
 
     const response = await fetch('/insert-course', {
         method: 'POST',
@@ -232,7 +233,7 @@ async function insertCourse(event) {
             rID: courseRecipeID,
             cID: Math.floor(Math.random() * 100) + 1,  
             cName: titleValue,
-            teacherID: 1, // testing this out, update when users is implemented 
+            teacherID: userId,  
             duration: durValue,
             difficulty: diffValue, 
             price: priceValue,
