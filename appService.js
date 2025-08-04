@@ -542,6 +542,19 @@ async function updateTitle(oldTitle, newTitle) {
     });
 }
 
+async function updateUser(oldUser, newUser) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `UPDATE RECIPE SET userID=:newUser where userID=:oldUser`,
+            [newUser, oldUser],
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 async function updateNameDemotable(oldName, newName) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -667,5 +680,6 @@ module.exports = {
     insertProfessionalTwo,
     recipeFilter,
     updateTitle,
+    updateUser,
     courseRegNum,
 };

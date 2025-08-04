@@ -54,13 +54,22 @@
 
     <h2>Update Recipe Attributes</h2>
     <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
+
+    <h3>Change Recipe Title: </h3>
     <form id="updateRecipeForm">
         Old Title: <input type="" id="updateOldTitle" placeholder="Enter Old Title" required> <br>
         New Title: <input type="text" id="updateNewTitle" placeholder="Enter New Title" maxlength="30"> <br>
-        <button class = 'updatetButton' id = "updateTitleBtn"> Update Title </button> <br>
+        <button class = 'updateButton' id = "updateTitleBtn"> Update Title </button> <br>
     </form>
-    <!-- A placeholder to display messages related to the update operation. -->
-    <div id="updateTitleResultMsg"></div>
+    <div id="updateTitleResultMsg"></div><br>
+
+    <h3>Change Recipe Owner (User): </h3>
+    <form id="updateRecipeOwnerForm">
+        Old User: <input type="" id="updateOldUser" placeholder="Enter Old User ID" required> <br>
+        New User: <input type="number" id="updateNewUser" placeholder="Enter New User ID" maxlength="30"> <br>
+        <button class = 'updateButton' id = "updateUserBtn"> Update User ID </button> <br>
+    </form>
+    <div id="updateUserResultMsg"></div><br>
 
     <br><hr><br> <!-- ========================================================================= -->
 

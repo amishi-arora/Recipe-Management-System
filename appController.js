@@ -322,6 +322,16 @@ router.post("/update-title", async (req, res) => {
     }
 });
 
+router.post("/update-user", async (req, res) => {
+    const { oldUser, newUser } = req.body;
+    const updateResult = await appService.updateUser(oldUser, newUser);
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/update-name-demotable", async (req, res) => {
     const { oldName, newName } = req.body;
     const updateResult = await appService.updateNameDemotable(oldName, newName);
