@@ -530,8 +530,32 @@ async function showRegNum(event) {
     courses.forEach(course => {
         const c = document.createElement('button');
         c.className = 'cDiv';
-        c.innerHTML = 'Course Number ' + course[0] + 'with ' + course[1] + 'Users Registered'; 
+        c.innerHTML = 'Course Number ' + course[0]; 
         courseDisplay.appendChild(c);
+    });
+
+}
+
+async function countRegNum(event) { 
+    event.preventDefault();
+    const courseDisplay = document.getElementById('course-count-table');
+    
+    const response = await fetch('/count-reg-num', {
+        method: "GET"
+    });
+    const responseData = await response.json();
+    const courses = responseData.data;
+    
+    courseDisplay.innerHTML = ''; 
+    courses.forEach(course => {
+        const tr = document.createElement('tr'); 
+        const courseCell = document.createElement("td"); 
+        courseCell.textContent = course[0]; 
+        const amountCell = document.createElement("td"); 
+        amountCell.textContent = course[1]; 
+        tr.appendChild(courseCell); 
+        tr.appendChild(amountCell); 
+        courseDisplay.appendChild(tr); 
     });
 
 }
@@ -549,11 +573,12 @@ window.onload = function() {
     document.getElementById('submitCourse').addEventListener("click", insertCourse);
     document.getElementById('regCourseButton').addEventListener("click", insertRegisterCourse);
     document.getElementById('deleteRecipe').addEventListener("click", deleteRecipe); 
-    document.getElementById('viewUs').addEventListener("click", fetchAndDisplayUsersInAllCourses()); 
+    document.getElementById('viewUs').addEventListener("click", fetchAndDisplayUsersInAllCourses); 
     document.getElementById('enterNewUser').addEventListener("click", insertUser); 
     document.getElementById('enterNewPro').addEventListener("click", insertPro); 
     document.getElementById('submitFilter').addEventListener("click", filterRecipe); 
     document.getElementById('submitRegNum').addEventListener("click", showRegNum); 
+    document.getElementById('countRegButton').addEventListener("click", countRegNum); 
 };
 
 // General function to refresh the displayed table data. 
