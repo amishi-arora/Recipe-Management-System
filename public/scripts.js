@@ -507,6 +507,34 @@ async function filterRecipe(event) {
     })
 
 }
+
+async function showRegNum(event) { 
+    event.preventDefault();
+    const courseDisplay = document.getElementById('course-num-container');
+
+    const num = document.getElementById('regNum').value;
+    
+    const response = await fetch('/reg-courses-num', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            num: num
+        })
+    });
+    const responseData = await response.json();
+    const courses = responseData.data;
+    
+    courseDisplay.innerHTML = ''; 
+    courses.forEach(course => {
+        const c = document.createElement('button');
+        c.className = 'cDiv';
+        c.innerHTML = 'Course Number ' + course[0] + 'with ' + course[1] + 'Users Registered'; 
+        courseDisplay.appendChild(c);
+    });
+
+}
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
 // Add or remove event listeners based on the desired functionalities.
@@ -525,6 +553,7 @@ window.onload = function() {
     document.getElementById('enterNewUser').addEventListener("click", insertUser); 
     document.getElementById('enterNewPro').addEventListener("click", insertPro); 
     document.getElementById('submitFilter').addEventListener("click", filterRecipe); 
+    document.getElementById('submitRegNum').addEventListener("click", showRegNum); 
 };
 
 // General function to refresh the displayed table data. 

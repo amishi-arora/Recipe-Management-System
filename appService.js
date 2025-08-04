@@ -93,6 +93,20 @@ async function recipeFilter(titleCon, fil1, fil2, serLess, serMore) {
     });
 }
 
+async function courseRegNum(num) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`
+            SELECT cID, count(userID)
+            FROM REGISTERS 
+            GROUP BY cID
+            HAVING COUNT(userID) > ${num}
+            `); 
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function fetchUsersInAllCourses() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -653,4 +667,5 @@ module.exports = {
     insertProfessionalTwo,
     recipeFilter,
     updateTitle,
+    courseRegNum,
 };
