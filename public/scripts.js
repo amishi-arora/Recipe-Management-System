@@ -364,13 +364,40 @@ async function insertUser(event) {
             name: name
         })
     });
-    console.log("yep")
-    
     const responseData = await response.json();
     const rmessageElement = document.getElementById('enterNewUserResultMsg');
     if (responseData.success) {
         let userId = responseData.userId;
         rmessageElement.textContent = "User inserted successfully! Your Id is " + userId;
+        fetchTableData();
+    } else {
+        rmessageElement.textContent = "Error inserting User!!";
+    }
+}
+
+async function insertPro(event) { 
+    event.preventDefault();
+    const userId = document.getElementById('userId').value;
+    const YOE = document.getElementById('YOEId').value;
+    const spec = document.getElementById('specialityId').value;
+
+    
+
+    const response = await fetch('/insert-pro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: userId,
+            YOE: YOE,
+            spec: spec
+        })
+    });
+    const responseData = await response.json();
+    const rmessageElement = document.getElementById('enterNewProResultMsg');
+    if (responseData.success) {
+        rmessageElement.textContent = "Pro inserted successfully!";
         fetchTableData();
     } else {
         rmessageElement.textContent = "Error inserting User!!";
@@ -391,6 +418,7 @@ window.onload = function() {
     document.getElementById('deleteRecipe').addEventListener("click", deleteRecipe); 
     document.getElementById('viewUs').addEventListener("click", fetchAndDisplayUsersInAllCourses()); 
     document.getElementById('enterNewUser').addEventListener("click", insertUser); 
+    document.getElementById('enterNewPro').addEventListener("click", insertPro); 
 };
 
 // General function to refresh the displayed table data. 

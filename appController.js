@@ -145,6 +145,24 @@ router.post("/insert-user", async (req, res) => {
     }
 });
 
+router.post("/insert-pro", async (req, res) => {
+    try {
+        const {userId, YOE, spec } = req.body; // removed rID from here as it wasn't being used
+        
+        const insertResult = await appService.insertProfessionalTwo(userId, YOE, spec);
+
+        if (insertResult) {
+            res.json({ success: true});
+            
+        } else {
+            res.status(500).json({ success: false });
+        }
+    } catch (err) {
+        console.error("error", err); 
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/insert-tag", async (req, res) => {
     try {
         const {type, tname, rID} = req.body;

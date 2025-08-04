@@ -608,4 +608,6 @@ module.exports = {
     fetchFilteredRecipeEquipmentFromDb, 
     fetchUsersInAllCourses,
     insertUser,
+    insertProfessionalOne,
+    insertProfessionalTwo,
 };
