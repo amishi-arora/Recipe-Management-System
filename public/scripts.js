@@ -185,6 +185,7 @@ async function insertRecipe(event) {
     const titleValue = document.getElementById('titleID').value;
     const descValue = document.getElementById('descID').value;
     const servValue = document.getElementById('servID').value;
+    const userId = document.getElementById('recUserId').value;
 
     const response = await fetch('/insert-recipe', {
         method: 'POST',
@@ -196,6 +197,7 @@ async function insertRecipe(event) {
             title: titleValue,
             description: descValue,
             servings: servValue, 
+            userId: userId
         })
     });
     

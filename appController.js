@@ -114,9 +114,8 @@ router.post("/delete-recipe", async (req, res) => {
 
 router.post("/insert-recipe", async (req, res) => {
     try {
-    const {title, description, servings } = req.body; // removed rID from here as it wasn't being used
-    const userID = 1; //hardcoded for now (will fix later)
-    const insertResult = await appService.insertRecipe(title, description, userID,  servings);
+    const {title, description, servings, userId } = req.body; 
+    const insertResult = await appService.insertRecipe(title, description, userId,  servings);
     if (insertResult) {
         res.json({ success: true });
     } else {
