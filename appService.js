@@ -515,6 +515,19 @@ async function insertStep(rID, description , image=null) {
     });
 }
 
+async function updateTitle(oldTitle, newTitle) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `UPDATE RECIPE SET title=:newTitle where title=:oldTitle`,
+            [newTitle, oldTitle],
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 async function updateNameDemotable(oldName, newName) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -527,6 +540,7 @@ async function updateNameDemotable(oldName, newName) {
         return false;
     });
 }
+
 async function countDemotable() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT Count(*) FROM DEMOTABLE');
@@ -638,4 +652,5 @@ module.exports = {
     insertProfessionalOne,
     insertProfessionalTwo,
     recipeFilter,
+    updateTitle,
 };

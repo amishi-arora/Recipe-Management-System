@@ -306,6 +306,16 @@ router.post("/insert-register", async (req, res) => {
     }
 });
 
+router.post("/update-title", async (req, res) => {
+    const { oldTitle, newTitle } = req.body;
+    const updateResult = await appService.updateTitle(oldTitle, newTitle);
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/update-name-demotable", async (req, res) => {
     const { oldName, newName } = req.body;
     const updateResult = await appService.updateNameDemotable(oldName, newName);

@@ -71,6 +71,34 @@ async function displayRecipe() {
 
 }
 
+async function updateRecipeTitle(event) {
+    event.preventDefault();
+
+    const oldNameValue = document.getElementById('updateOldTitle').value;
+    const newNameValue = document.getElementById('updateNewTitle').value;
+
+    const response = await fetch('/update-title', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            oldTitle: oldNameValue,
+            newTitle: newNameValue
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('updateTitleResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Title updated successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error updating title!";
+    }
+}
+
 async function displaySteps() {
     const stepDisplay = document.getElementById('steps'); 
     
@@ -393,6 +421,7 @@ window.onload = function() {
     document.getElementById('addStepButton').addEventListener("click", addStep); 
     document.getElementById('viewDetailsButton').addEventListener('click', displayRecipe); 
     document.getElementById('searchStoreButton').addEventListener('click', fetchAndDisplayEquipmentByStore); 
+    document.getElementById("updateTitleBtn").addEventListener("click", updateRecipeTitle);
     fetchTableData(); 
     
 };
