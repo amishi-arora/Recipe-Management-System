@@ -469,13 +469,21 @@ async function insertReview(reviewID, rID, userID, rating, comment) {
     });
 }
 
-async function insertHasTag(rID, tName) {
+async function insertHasTag(rID, tName, type) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `INSERT INTO hasTag (rID, tName) VALUES (:rID, :tName)`,
-            [rID, tName],
+        await connection.execute(
+            `INSERT INTO tag (tName, type) 
+             SELECT :tname, :type FROM dual
+             WHERE NOT EXISTS (SELECT 1 FROM tag WHERE tname = :tname)`,
+            [tName, type, tName],
             { autoCommit: true }
         );
+
+        const result = await connection.execute(
+            `INSERT INTO hasTag (rID, tName) VALUES (:rID, :tName)`, 
+            [rID, tName], 
+            { autoCommit: true }
+        )
 
         return result.rowsAffected && result.rowsAffected > 0;
     }).catch(() => {
@@ -483,19 +491,19 @@ async function insertHasTag(rID, tName) {
     });
 }
 
-async function insertTag(tName, type) {
-    return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
-            `INSERT INTO tag (tName, type) VALUES (:tName, :type)`,
-            [tName, type],
-            { autoCommit: true }
-        );
+// async function insertTag(tName, type) {
+//     return await withOracleDB(async (connection) => {
+//         const result = await connection.execute(
+//             `INSERT INTO tag (tName, type) VALUES (:tName, :type)`,
+//             [tName, type],
+//             { autoCommit: true }
+//         );
 
-        return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
-    });
-}
+//         return result.rowsAffected && result.rowsAffected > 0;
+//     }).catch(() => {
+//         return false;
+//     });
+// }
 
 async function insertCourseOne(teacherID, duration, difficulty, price) {
     return await withOracleDB(async (connection) => {
@@ -716,7 +724,6 @@ module.exports = {
     countDemotable,
     fetchRecipe,
     getTag, 
-    insertTag, 
     insertHasTag, 
     fetchRecipeTagsFromDb,
     fetchSteps,

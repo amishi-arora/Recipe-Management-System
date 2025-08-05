@@ -310,7 +310,7 @@ async function insertTag(event) {
         },
         body: JSON.stringify({
             type: typeName,  
-            tname: tagName, 
+            tName: tagName, 
             rID: recipeID
         })
     });

@@ -192,26 +192,20 @@ router.post("/insert-pro", async (req, res) => {
 
 router.post("/insert-tag", async (req, res) => {
     try {
-        const {type, tname, rID} = req.body;
-        const tagResult = await appService.getTag(tname);
-        if(tagResult.length === 0) {
-            const insertResult = await appService.insertTag(tname, type);  // if tag doesn't exist in tags table, insert it
-            if (!insertResult) {
-                return res.status(500).json({ success: false }); 
-            } 
-        }
-        // insert into has tag table 
-        const insertResult = await appService.insertHasTag(rID, tname);
+        const {type, tName, rID} = req.body; // removed rID from here as it wasn't being used
+        
+        const insertResult = await appService.insertHasTag(rID, tName, type); 
         if (insertResult) {
             res.json({ success: true});
+            
         } else {
-            return res.status(500).json({ success: false });
+            res.status(500).json({ success: false });
         }
     } catch (err) {
-        console.error(err); 
-        return res.status(500).json({ success: false }); 
-}});
-
+        console.error("error", err); 
+        res.status(500).json({ success: false });
+    }
+}); 
 
 router.post("/insert-ingredient", async (req, res) => {
     try {
