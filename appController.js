@@ -246,7 +246,7 @@ router.post("/insert-step", async (req, res) => {
         // insert into step table 
         const insertResult = await appService.insertStep(rID, des);
         if (insertResult) {
-            res.json({ success: false});
+            res.json({ success: true});
         } else {
             res.status(500).json({ success: false });
         }

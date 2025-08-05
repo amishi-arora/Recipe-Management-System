@@ -224,14 +224,6 @@ async function displaySteps() {
         s.innerHTML = step[1] + '. ' +step[3]; 
         stepDisplay.appendChild(s);
     })
-
-    if (responseData.success) {
-        fetchTableData();
-    } else {
-        console.log('error'); 
-    }
-    
-    
 }
 
 
@@ -256,12 +248,13 @@ async function insertEquipment(event) {
     
 
     const responseData = await response.json();
+    const messageElement = document.getElementById('addEqResultMsg');
 
     if (responseData.success) {
+        messageElement.textContent = "Equipment added!";
         fetchTableData();
-        console.log('success'); 
     } else {
-        console.log('error'); 
+        messageElement.textContent = "Error adding equipment!";
     }
 
 }
@@ -290,11 +283,12 @@ async function insertIngredient(event) {
     });
     
     const responseData = await response.json();
+    const messageElement = document.getElementById('addIngResultMsg');
     if (responseData.success) {
+        messageElement.textContent = "Ingredient added!";
         fetchTableData();
-        console.log('success'); 
     } else {
-        console.log('error'); 
+        messageElement.textContent = "Error adding ingredient!";
     }
 
 }
@@ -321,12 +315,13 @@ async function insertTag(event) {
     
 
     const responseData = await response.json();
+    const messageElement = document.getElementById('addTagResultMsg');
 
     if (responseData.success) {
+        messageElement.textContent = "Tag added!";
         fetchTableData();
-        console.log('success'); 
     } else {
-        console.log('error'); 
+        messageElement.textContent = "Error adding tag!";
     }
 
 }
@@ -492,10 +487,14 @@ async function addStep(event) {
     
 
     const responseData = await response.json();
+    const messageElement = document.getElementById('addStepResultMsg');
 
-    fetchTableData();
-    
-
+    if (responseData.success) {
+        messageElement.textContent = "Step added successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error adding step..";
+    }    
 }
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
