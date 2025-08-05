@@ -72,16 +72,16 @@
     <h3>Change Recipe Title: </h3>
     <form id="updateRecipeForm">
         Old Title: <input type="" id="updateOldTitle" placeholder="Enter Old Title" required> <br>
-        New Title: <input type="text" id="updateNewTitle" placeholder="Enter New Title" maxlength="30"> <br>
-        <button class = 'updateButton' id = "updateTitleBtn"> Update Title </button> <br>
+        New Title: <input type="text" id="updateNewTitle" placeholder="Enter New Title" maxlength="30" > <br>
+        <button type = "submit" class = 'updateButton' id = "updateTitleBtn"> Update Title </button> <br>
     </form>
     <div id="updateTitleResultMsg"></div>
 
     <h3>Change Description: </h3>
     <form id="updateRecipeDescForm">
         Old Description: <input type="text" id="updateOldDesc" placeholder="Enter Old Description" required> <br>
-        New Description: <input type="text" id="updateNewDesc" placeholder="Enter New Description" maxlength="100"> <br>
-        <button class = 'updateButton' id = "updateDescBtn"> Update Description </button> <br>
+        New Description: <input type="text" id="updateNewDesc" placeholder="Enter New Description" maxlength="100" > <br>
+        <button type = "submit" class = 'updateButton' id = "updateDescBtn"> Update Description </button> <br>
     </form>
     <div id="updateDescResultMsg"></div>
 
@@ -89,15 +89,15 @@
     <form id="updateRecipeServingForm">
         Old Servings: <input type="number" id="updateOldServing" placeholder="Enter Old Serving" required> <br>
         New Servings: <input type="number" id="updateNewServing" placeholder="Enter New Serving" maxlength="30"> <br>
-        <button class = 'updateButton' id = "updateServingsBtn"> Update Servings </button> <br>
+        <button type = "submit" class = 'updateButton' id = "updateServingsBtn"> Update Servings </button> <br>
     </form>
     <div id="updateServingResultMsg"></div>
 
     <h3>Change Recipe Owner (User): </h3>
     <form id="updateRecipeOwnerForm">
         Old User: <input type="number" id="updateOldUser" placeholder="Enter Old User ID" required> <br>
-        New User: <input type="number" id="updateNewUser" placeholder="Enter New User ID" maxlength="30"> <br>
-        <button class = 'updateButton' id = "updateUserBtn"> Update User ID </button> <br>
+        New User: <input type="number" id="updateNewUser" placeholder="Enter New User ID" maxlength="30" required> <br>
+        <button type = "submit" class = 'updateButton' id = "updateUserBtn"> Update User ID </button> <br>
     </form>
     <div id="updateUserResultMsg"></div>
 
@@ -107,9 +107,9 @@
         <div class = "side-container">
             <h2>Tags</h2>
             <form id = "tagsForm" action="insertTag">
-                <input class = "recipeFormInputs" id = "tagName" placeholder = "Name"  type="text">
+                <input class = "recipeFormInputs" id = "tagName" placeholder = "Name"  type="text" required> 
                 <input class = "recipeFormInputs" id = "typeName" placeholder = "Type"  type="text">
-                <button class = "insertButton" id = "addTagButton">Add</button>
+                <button type = "submit" class = "insertButton" id = "addTagButton">Add</button>
                 <div id="addTagResultMsg"></div>
             </form>
             <div id="newTagResultMsg"></div>
@@ -119,11 +119,11 @@
         <div class = "side-container">
             <h2>Ingredients</h2>
             <form id = "ingredientsForm" action="insertIngredient">
-                <input class = "recipeFormInputs" id = "inName" placeholder = "Name"  type="text">
+                <input class = "recipeFormInputs" id = "inName" placeholder = "Name"  type="text" required>
                 <input class = "recipeFormInputs" id = "inType" placeholder = "Type"  type="text">
-                <input class = "recipeFormInputs" id = "inAmount" placeholder = "Amount"  type="text">
+                <input class = "recipeFormInputs" id = "inAmount" placeholder = "Amount"  type="text" required>
                 <input class = "recipeFormInputs" id = "inCost" placeholder = "Cost ($)"  type="number">
-                <button class = "insertButton" id = "addIngredientButton">Add</button>
+                <button class = "insertButton" id = "addIngredientButton" type ="submit">Add</button>
                 <div id="addIngResultMsg"></div>
             </form>
             <div id="newIngResultMsg"></div>
@@ -143,9 +143,9 @@
         <div class = "side-container">
             <h2>Equipment</h2>
             <form id = "equipmentForm" action="insertEquipment">
-                <input class = "recipeFormInputs" id = "eqName" placeholder = "Name"  type="text">
+                <input class = "recipeFormInputs" id = "eqName" placeholder = "Name"  type="text" required>
                 <input class = "recipeFormInputs" id = "buyFrom" placeholder = "Where to buy"  type="text">
-                <button class = "insertButton" id = "addEqButton">Add</button>
+                <button class = "insertButton" id = "addEqButton" type="submit">Add</button>
                 <div id="addEqResultMsg"></div>
             </form>
             <input class = "recipeFormInputs" id = "store" placeholder = "Search Store"  type="text">

@@ -247,8 +247,8 @@ window.onload = function() {
     // document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     // document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     // document.getElementById("countDemotable").addEventListener("click", countDemotable);
-    document.getElementById('submitCourse').addEventListener("click", insertCourse);
-    document.getElementById('regCourseButton').addEventListener("click", insertRegisterCourse);
+    document.getElementById('courseForm').addEventListener("submit", insertCourse);
+    document.getElementById('registrationForm').addEventListener("submit", insertRegisterCourse);
     document.getElementById('viewUs').addEventListener("click", fetchAndDisplayUsersInAllCourses); 
     document.getElementById('submitRegNum').addEventListener("click", showRegNum); 
     document.getElementById('avgRegButton').addEventListener("click", avgRegNum); 

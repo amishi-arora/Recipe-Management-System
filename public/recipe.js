@@ -511,16 +511,16 @@ function fetchTableData() {
 
 window.onload = function() {
     checkDbConnection();
-    document.getElementById('addTagButton').addEventListener("click", insertTag); 
-    document.getElementById('addIngredientButton').addEventListener("click", insertIngredient); 
-    document.getElementById('addEqButton').addEventListener("click", insertEquipment); 
+    document.getElementById('tagsForm').addEventListener("submit", insertTag); 
+    document.getElementById('ingredientsForm').addEventListener("submit", insertIngredient); 
+    document.getElementById('equipmentForm').addEventListener("submit", insertEquipment); 
     document.getElementById('addStepButton').addEventListener("click", addStep); 
     document.getElementById('viewDetailsButton').addEventListener('click', displayRecipe); 
     document.getElementById('searchStoreButton').addEventListener('click', fetchAndDisplayEquipmentByStore); 
-    document.getElementById("updateTitleBtn").addEventListener("click", updateRecipeTitle);
-    document.getElementById("updateUserBtn").addEventListener("click", updateRecipeUser);
-    document.getElementById("updateServingsBtn").addEventListener("click", updateRecipeServings);
-    document.getElementById("updateDescBtn").addEventListener("click", updateRecipeDesc);
+    document.getElementById("updateRecipeForm").addEventListener("submit", updateRecipeTitle);
+    document.getElementById("updateRecipeOwnerForm").addEventListener("submit", updateRecipeUser);
+    document.getElementById("updateRecipeServingForm").addEventListener("submit", updateRecipeServings);
+    document.getElementById("updateRecipeDescForm").addEventListener("submit", updateRecipeDesc);
     fetchTableData(); 
     
 };

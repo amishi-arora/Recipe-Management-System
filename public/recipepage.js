@@ -179,7 +179,7 @@ window.onload = function() {
     // document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     // document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     // document.getElementById("countDemotable").addEventListener("click", countDemotable);
-    document.getElementById('submitRecipe').addEventListener("click", insertRecipe); 
+    document.getElementById('recipeForm').addEventListener("submit", insertRecipe); 
     document.getElementById('deleteRecipe').addEventListener("click", deleteRecipe); 
     document.getElementById('submitFilter').addEventListener("click", filterRecipe); 
 };

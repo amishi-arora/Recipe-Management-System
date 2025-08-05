@@ -324,7 +324,7 @@ async function insertUser(email, uName) {
             { autoCommit: true }
         );
         return userId;
-    }).catch(() => {
+    }).catch((err) => {
         return false;
     });
 }

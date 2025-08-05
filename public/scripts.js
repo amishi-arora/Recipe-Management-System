@@ -236,7 +236,7 @@ window.onload = function() {
     // document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     // document.getElementById("countDemotable").addEventListener("click", countDemotable);
     document.getElementById('enterNewUser').addEventListener("click", insertUser); 
-    document.getElementById('enterNewPro').addEventListener("click", insertPro); 
+    document.getElementById('proForm').addEventListener("submit", insertPro); 
 };
 
 // General function to refresh the displayed table data. 

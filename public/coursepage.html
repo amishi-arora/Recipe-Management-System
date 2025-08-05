@@ -32,19 +32,19 @@
         <div id = 'courseFormDiv'>
             <form id = 'courseForm'>
                 <label for="rID">Recipe ID:</label><br>
-                <input type="number" id = "recipeCourseID"><br>
+                <input type="number" id = "recipeCourseID" required><br>
                 <label for="cName">Course Title:</label><br>
                 <input type="text" id = "courseTitleID"><br>
-                <label for="duration">Course Duration:</label><br>
-                <input type="number" id = "courseDurationID"><br>
+                <label for="duration" >Course Duration:</label><br>
+                <input type="number" id = "courseDurationID" required><br>
                 <label for="difficulty">Course Difficulty:</label><br>
-                <input type="text" id = "courseDifficultyID"><br>
+                <input type="text" id = "courseDifficultyID" required><br>
                 <label for="price">Price:</label><br>
                 <input type="number" id = "coursePriceID"><br>
                 <label for="userId">Teacher ID:</label><br>
-                <input type="number" id = "courseUserId">
+                <input type="number" id = "courseUserId" required><br>
+                <button id = 'submitCourse' type ="submit">Post Course</button>
             </form>
-                <button id = 'submitCourse'>Post Course</button>
                 <div id = 'insertCourseResultMsg'></div>
         </div> 
     </div>
@@ -60,13 +60,13 @@
             <div id = 'registerFormDiv'>
                 <form id = 'registrationForm'>
                     <label for="cID">Course ID: </label><br>
-                    <input type="number" id = "courseRegID"><br>
+                    <input type="number" id = "courseRegID" required><br>
                     <label for="userID">Your User ID: </label><br>
-                    <input type="number" id = "userRegID"><br>
+                    <input type="number" id = "userRegID" required><br>
                     <label for="date">Date of Registration: </label><br>
                     <input type="date" id = "dateRegID"><br>
+                    <button id = 'regCourseButton' type = "submit">Register!</button>
                 </form>
-                <button id = 'regCourseButton'>Register!</button>
                 <div id = 'registerResultMsg'></div>
             </div> 
         </div>  
