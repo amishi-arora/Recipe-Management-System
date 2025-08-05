@@ -302,3 +302,8 @@ input::placeholder, textarea::placeholder {
 #avgRegButton {
     margin-top: 20px; 
 }
+
+#pagebuttons {
+    display: flex; 
+    justify-content: space-between; 
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This meta tag ensures that the website renders correctly across different device sizes, enhancing mobile responsiveness. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
+    <link rel="stylesheet" href="styles.css"> 
+
+    <title>Database Application</title>
+</head>
+<body>
+    <!-- ===================================================================================== -->
+    <!-- Display the current status of the database connection. 
+         !!HERE TO HELP U DEBUGGING, NOT REQUIRED IN YOUR OWN PROJECT!!
+         -->
+    <h1 id = 'title'>Recipe Management System</h1>
+    <div>
+        <h1 id = 'title'>Database Connection Status: 
+            <!-- An in-line placeholder to display connection status. -->
+            <span id="dbStatus"> </span>
+            <!-- A loading GIF, will be hided once get the status. -->
+            <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
+        </h1>
+        <button onclick = "window.history.back()">Back</button>
+    </div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+    <div>
+        <h2>Add New Course</h2>
+        <div id = 'courseFormDiv'>
+            <form id = 'courseForm'>
+                <label for="rID">Recipe ID:</label><br>
+                <input type="number" id = "recipeCourseID"><br>
+                <label for="cName">Course Title:</label><br>
+                <input type="text" id = "courseTitleID"><br>
+                <label for="duration">Course Duration:</label><br>
+                <input type="number" id = "courseDurationID"><br>
+                <label for="difficulty">Course Difficulty:</label><br>
+                <input type="text" id = "courseDifficultyID"><br>
+                <label for="price">Price:</label><br>
+                <input type="number" id = "coursePriceID"><br>
+                <label for="userId">Teacher ID:</label><br>
+                <input type="number" id = "courseUserId">
+            </form>
+                <button id = 'submitCourse'>Post Course</button>
+                <div id = 'insertCourseResultMsg'></div>
+        </div> 
+    </div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <div>
+        <h2>Courses</h2>
+        <div id = 'course-container'></div><br>
+        <button id = 'registerCourseButton'>Register for Course</button>
+
+        <div>
+            <div id = 'registerFormDiv'>
+                <form id = 'registrationForm'>
+                    <label for="cID">Course ID: </label><br>
+                    <input type="number" id = "courseRegID"><br>
+                    <label for="userID">Your User ID: </label><br>
+                    <input type="number" id = "userRegID"><br>
+                    <label for="date">Date of Registration: </label><br>
+                    <input type="date" id = "dateRegID"><br>
+                </form>
+                <button id = 'regCourseButton'>Register!</button>
+                <div id = 'registerResultMsg'></div>
+            </div> 
+        </div>  
+        <br><hr><br> <!-- ========================================================================= -->
+
+        <h2>Registered Courses</h2>
+        <div id = 'register-container'></div>
+
+    </div><br>
+    <button id = 'viewUs'>View Users Registered For All Courses</button><br>
+        <div id = 'usersAllCoursesDiv'>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                    </tr>
+                </thead>
+                <tbody id = 'usersAllCourses'>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <div>
+        <div id = 'numRegCoursesDiv'>
+            <form id = 'numRegCourses'>
+                <label for="numReg">Show courses with registration more than: </label>
+                <input type="number" id = "regNum"><br>
+            </form>
+            <button id = 'submitRegNum'>Show</button> <br>
+        </div>
+        <div id = 'course-num-container'>
+        </div>
+        <button id = 'countRegButton'>Count Registrations for each Course</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Course:</th>
+                    <th>Students registered:</th>
+                </tr>
+            </thead>
+            <tbody id="course-count-table">
+            </tbody>
+        </table>
+        <button id = 'avgRegButton'>Average Registration By Course Difficulty</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Difficulty:</th>
+                    <th>Average Registration:</th>
+                </tr>
+            </thead>
+            <tbody id="course-avg-table">
+            </tbody>
+        </table>
+    </div>
+    
+
+    <!-- Show 'Demotable'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+<!--    <h2>Show Demotable</h2>
+    <table id="demotable" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table> -->
+
+
+
+<!--     <h2> Insert Values into DemoTable </h2>
+    <form id="insertDemotable">
+        ID: <input type="number" id="insertId" placeholder="Enter ID" required> <br><br>
+        Name: <input type="text" id="insertName" placeholder="Enter Name" maxlength="20"> <br><br>
+
+        <button type="submit"> insert </button> <br>
+    </form>
+    <div id="insertResultMsg"></div> -->
+
+
+<!--     <h2>Update Name in DemoTable</h2>
+    <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
+    <form id="updataNameDemotable">
+        Old Name: <input type="text" id="updateOldName" placeholder="Enter Old Name" required> <br><br>
+        New Name: <input type="text" id="updateNewName" placeholder="Enter New Name" maxlength="20"> <br><br>
+
+        <button type="submit"> update </button> <br>
+    </form>
+    <div id="updateNameResultMsg"></div> -->
+
+
+
+<!--     <h2>Count the Tuples in DemoTable</h2>
+    <button id="countDemotable"> count </button> <br><br>
+    <div id="countResultMsg"></div> <br> -->
+
+    <!-- ===================================================================================== -->
+    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
+    <script src="coursepage.js" defer></script>
+</body>
+</html> 

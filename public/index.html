@@ -23,9 +23,12 @@
             <!-- A loading GIF, will be hided once get the status. -->
             <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
         </h1>
+    <div id = 'pagebuttons'>
+        <button onclick = "window.location.href = 'recipepage.html'">Recipes</button>
+        <button onclick = "window.location.href = 'coursepage.html'">Courses</button>
     </div>
-
-<br><hr><br> <!-- ========================================================================= -->
+    </div>
+    <br><hr><br> <!-- ========================================================================= -->
     <div>
         <h2>User Registration</h2>
         <div id = 'userFormDiv'>
@@ -57,220 +60,13 @@
         </div> 
     </div>
 
-
     <br><hr><br> <!-- ========================================================================= -->
-    <div>
-        <h2>Add New Recipe</h2>
-        <div id = 'recipeFormDiv'>
-            <form id = 'recipeForm'>
-                <label for="title">Title:</label><br>
-                <input type="text" id = "titleID"><br>
-                <label for="desc">Description:</label><br>
-                <input type="text" id = "descID"><br>
-                <label for="servings">Servings:</label><br>
-                <input type="number" id = "servID"><br>
-                <label for="userId">User ID:</label><br>
-                <input type="number" id = "recUserId">
-            </form>
-            <button id = 'submitRecipe'>Submit Recipe</button>
-            <div id="insertRecipeResultMsg"></div>
-        </div> 
-    </div>
-    
-
-
-    <br><hr><br> <!-- ========================================================================= -->
-
-    <div>
-        <h2>Recipes</h2>
-        <div id = 'recipeFilterDiv'>
-            <form id = 'recipeFilter'>
-                <label for="title">Title contains: </label>
-                <input type="text" id = "titleCon"><br>
-                <select name="type" id="filter1">
-                  <option value="AND">And</option>
-                  <option value="OR">Or</option>
-                </select> <br>
-                <label for="secFrom">Serving more than: </label>
-                <input type="number" id = "servFrom"><br>
-                <select name="type" id="filter2">
-                    <option value="AND">And</option>
-                    <option value="OR">Or</option>
-                  </select> <br>
-                <label for="servings">Serving less than: </label>
-                <input type="number" id = "servTo"><br>
-            </form>
-            <button id = 'submitFilter'>Filter</button> <br>
-        </div>
-        <div id = 'recipe-container'>
-        </div>
-        <button id = 'delRec'>Delete Recipe</button>
-        <div>
-            <div id = 'rDelFormDiv'>
-                <form id = 'recipeDeletionForm'>
-                    <label for="title">Recipe ID: </label><br>
-                    <input type="number" id = "rID"><br>
-                </form>
-                <div id="deleteRecipeResultMsg"></div>
-                <button id = 'deleteRecipe'>Submit</button>
-            </div> 
-        </div>
-    </div>
-    
-    <br><hr><br> <!-- ========================================================================= -->
-    <div>
-        <h2>Add New Course</h2>
-        <div id = 'courseFormDiv'>
-            <form id = 'courseForm'>
-                <label for="rID">Recipe ID:</label><br>
-                <input type="number" id = "recipeCourseID"><br>
-                <label for="cName">Course Title:</label><br>
-                <input type="text" id = "courseTitleID"><br>
-                <label for="duration">Course Duration:</label><br>
-                <input type="number" id = "courseDurationID"><br>
-                <label for="difficulty">Course Difficulty:</label><br>
-                <input type="text" id = "courseDifficultyID"><br>
-                <label for="price">Price:</label><br>
-                <input type="number" id = "coursePriceID"><br>
-                <label for="userId">Teacher ID:</label><br>
-                <input type="number" id = "courseUserId">
-            </form>
-                <button id = 'submitCourse'>Post Course</button>
-                <div id = 'insertCourseResultMsg'></div>
-        </div> 
-    </div>
-
-    <br><hr><br> <!-- ========================================================================= -->
-
-    <div>
-        <h2>Courses</h2>
-        <div id = 'course-container'></div><br>
-        <button id = 'registerCourseButton'>Register for Course</button>
-
-        <div>
-            <div id = 'registerFormDiv'>
-                <form id = 'registrationForm'>
-                    <label for="cID">Course ID: </label><br>
-                    <input type="number" id = "courseRegID"><br>
-                    <label for="userID">Your User ID: </label><br>
-                    <input type="number" id = "userRegID"><br>
-                    <label for="date">Date of Registration: </label><br>
-                    <input type="date" id = "dateRegID"><br>
-                </form>
-                <button id = 'regCourseButton'>Register!</button>
-                <div id = 'registerResultMsg'></div>
-            </div> 
-        </div>  
-        <br><hr><br> <!-- ========================================================================= -->
-
-        <h2>Registered Courses</h2>
-        <div id = 'register-container'></div>
-
-    </div><br>
-    <button id = 'viewUs'>View Users Registered For All Courses</button><br>
-        <div id = 'usersAllCoursesDiv'>
-            <table>
-                <thead>
-                    <tr>
-                        <th>User ID</th>
-                    </tr>
-                </thead>
-                <tbody id = 'usersAllCourses'>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-
-
-    <br><hr><br> <!-- ========================================================================= -->
-
-    <div>
-        <div id = 'numRegCoursesDiv'>
-            <form id = 'numRegCourses'>
-                <label for="numReg">Show courses with registration more than: </label>
-                <input type="number" id = "regNum"><br>
-            </form>
-            <button id = 'submitRegNum'>Show</button> <br>
-        </div>
-        <div id = 'course-num-container'>
-        </div>
-        <button id = 'countRegButton'>Count Registrations for each Course</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Course:</th>
-                    <th>Students registered:</th>
-                </tr>
-            </thead>
-            <tbody id="course-count-table">
-            </tbody>
-        </table>
-        <button id = 'avgRegButton'>Average Registration By Course Difficulty</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Difficulty:</th>
-                    <th>Average Registration:</th>
-                </tr>
-            </thead>
-            <tbody id="course-avg-table">
-            </tbody>
-        </table>
-    </div>
-    
-    <br><hr><br> <!-- ========================================================================= -->
-
-    <!-- Show 'Demotable'. 
-        Data will be fetched and inserted here dynamically using JavaScript. -->
-<!--    <h2>Show Demotable</h2>
-    <table id="demotable" border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table> -->
-
-
     <h2>Reset All Tables</h2>
     <p>If you wish to reset the table press on the reset button. If this is the first time you're running this page, you MUST use reset</p>
     <button id="resetAllTables"> reset </button> <br>
     <div id="resetResultMsg"></div>
 
 
-
-<!--     <h2> Insert Values into DemoTable </h2>
-    <form id="insertDemotable">
-        ID: <input type="number" id="insertId" placeholder="Enter ID" required> <br><br>
-        Name: <input type="text" id="insertName" placeholder="Enter Name" maxlength="20"> <br><br>
-
-        <button type="submit"> insert </button> <br>
-    </form>
-    <div id="insertResultMsg"></div> -->
-
-
-<!--     <h2>Update Name in DemoTable</h2>
-    <p>The values are case sensitive and if you enter in the wrong case, the update statement will not do anything.</p>
-    <form id="updataNameDemotable">
-        Old Name: <input type="text" id="updateOldName" placeholder="Enter Old Name" required> <br><br>
-        New Name: <input type="text" id="updateNewName" placeholder="Enter New Name" maxlength="20"> <br><br>
-
-        <button type="submit"> update </button> <br>
-    </form>
-    <div id="updateNameResultMsg"></div> -->
-
-
-
-<!--     <h2>Count the Tuples in DemoTable</h2>
-    <button id="countDemotable"> count </button> <br><br>
-    <div id="countResultMsg"></div> <br> -->
-
-    <!-- ===================================================================================== -->
-    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
     <script src="scripts.js" defer></script>
 </body>
 </html> 
