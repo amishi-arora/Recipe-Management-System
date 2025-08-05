@@ -562,11 +562,11 @@ async function insertStep(rID, description , image=null) {
     });
 }
 
-async function updateTitle(oldTitle, newTitle) {
+async function updateTitle(oldTitle, newTitle, rID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `UPDATE RECIPE SET title=:newTitle where title=:oldTitle`,
-            [newTitle, oldTitle],
+            `UPDATE RECIPE SET title=:newTitle where title=:oldTitle and rID = :rID`,
+            [newTitle, oldTitle, rID],
             { autoCommit: true }
         );
         return result.rowsAffected && result.rowsAffected > 0;
@@ -601,11 +601,11 @@ async function updateDesc(oldDesc, newDesc, rID) {
     });
 }
 
-async function updateUser(oldUser, newUser) {
+async function updateUser(oldUser, newUser, rID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `UPDATE RECIPE SET userID=:newUser where userID=:oldUser`,
-            [newUser, oldUser],
+            `UPDATE RECIPE SET userID=:newUser where userID=:oldUser and rID = :rID`,
+            [newUser, oldUser, rID],
             { autoCommit: true }
         );
         return result.rowsAffected && result.rowsAffected > 0;

@@ -76,6 +76,8 @@ async function updateRecipeTitle(event) {
 
     const oldNameValue = document.getElementById('updateOldTitle').value;
     const newNameValue = document.getElementById('updateNewTitle').value;
+    const url = window.location.href.split('/');
+    const rID = url[url.length - 1];
 
     const response = await fetch('/update-title', {
         method: 'POST',
@@ -84,7 +86,8 @@ async function updateRecipeTitle(event) {
         },
         body: JSON.stringify({
             oldTitle: oldNameValue,
-            newTitle: newNameValue
+            newTitle: newNameValue,
+            rID: rID
         })
     });
 
@@ -104,6 +107,8 @@ async function updateRecipeUser(event) {
 
     const oldNameValue = document.getElementById('updateOldUser').value;
     const newNameValue = document.getElementById('updateNewUser').value;
+    const url = window.location.href.split('/');
+    const rID = url[url.length - 1];
 
     const response = await fetch('/update-user', {
         method: 'POST',
@@ -112,7 +117,8 @@ async function updateRecipeUser(event) {
         },
         body: JSON.stringify({
             oldUser: oldNameValue,
-            newUser: newNameValue
+            newUser: newNameValue,
+            rID: rID
         })
     });
 

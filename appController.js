@@ -324,8 +324,8 @@ router.post("/insert-register", async (req, res) => {
 });
 
 router.post("/update-title", async (req, res) => {
-    const { oldTitle, newTitle } = req.body;
-    const updateResult = await appService.updateTitle(oldTitle, newTitle);
+    const { oldTitle, newTitle, rID } = req.body;
+    const updateResult = await appService.updateTitle(oldTitle, newTitle, rID);
     if (updateResult) {
         res.json({ success: true });
     } else {
@@ -334,8 +334,8 @@ router.post("/update-title", async (req, res) => {
 });
 
 router.post("/update-user", async (req, res) => {
-    const { oldUser, newUser } = req.body;
-    const updateResult = await appService.updateUser(oldUser, newUser);
+    const { oldUser, newUser, rID } = req.body;
+    const updateResult = await appService.updateUser(oldUser, newUser, rID);
     if (updateResult) {
         res.json({ success: true });
     } else {
