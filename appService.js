@@ -183,6 +183,23 @@ async function fetchCoursesFromDb() {
     });
 }
 
+async function avgUsersCourseDifficulty() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT difficulty, AVG(user_count)
+            FROM (
+                SELECT courseTwo.cID, difficulty, COUNT(uID) AS user_count
+                FROM registers, courseTwo
+                WHERE registers.cID = courseTwo.cID
+                GROUP BY courseTwo.cID, difficulty
+            )
+            GROUP BY difficulty`);
+        return result.rows;
+    }).catch(() => {
+        return []; 
+    });
+}
+
 async function fetchRegistrations() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -718,5 +735,6 @@ module.exports = {
     updateServing,
     updateDesc,
     filteredCourse, 
-    courseCount
+    courseCount, 
+    avgUsersCourseDifficulty, 
 };

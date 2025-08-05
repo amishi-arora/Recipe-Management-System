@@ -73,6 +73,12 @@ router.get('/courses', async (req, res) => {
     res.json({data: tableContent});
 });
 
+router.get('/avgreg', async (req, res) => {
+    const tableContent = await appService.avgUsersCourseDifficulty();
+    res.json({data: tableContent});
+});
+
+
 router.post('/getrecipe', async (req, res) => {
     const { rID, columns } = req.body;
     const recipe = await appService.fetchRecipe(rID, columns);

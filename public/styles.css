@@ -297,3 +297,7 @@ input::placeholder, textarea::placeholder {
     font-size: 20px; 
     border-radius: 15px; 
 }
+
+#avgRegButton {
+    margin-top: 20px; 
+}

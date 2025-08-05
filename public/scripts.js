@@ -122,6 +122,7 @@ async function fetchAndDisplayRegistrations() {
 }
 
 
+
 // Fetches data from the demotable and displays it.
 // async function fetchAndDisplayUsers() {
 //     const tableElement = document.getElementById('demotable');
@@ -530,11 +531,37 @@ async function showRegNum(event) {
 
 }
 
+
+
 async function countRegNum(event) { 
     event.preventDefault();
     const courseDisplay = document.getElementById('course-count-table');
     
     const response = await fetch('/count-reg-num', {
+        method: "GET"
+    });
+    const responseData = await response.json();
+    const courses = responseData.data;
+    
+    courseDisplay.innerHTML = ''; 
+    courses.forEach(course => {
+        const tr = document.createElement('tr'); 
+        const courseCell = document.createElement("td"); 
+        courseCell.textContent = course[0]; 
+        const amountCell = document.createElement("td"); 
+        amountCell.textContent = course[1]; 
+        tr.appendChild(courseCell); 
+        tr.appendChild(amountCell); 
+        courseDisplay.appendChild(tr); 
+    });
+
+}
+
+async function avgRegNum(event) { 
+    event.preventDefault();
+    const courseDisplay = document.getElementById('course-avg-table');
+    
+    const response = await fetch('/avgreg', {
         method: "GET"
     });
     const responseData = await response.json();
@@ -572,6 +599,7 @@ window.onload = function() {
     document.getElementById('enterNewPro').addEventListener("click", insertPro); 
     document.getElementById('submitFilter').addEventListener("click", filterRecipe); 
     document.getElementById('submitRegNum').addEventListener("click", showRegNum); 
+    document.getElementById('avgRegButton').addEventListener("click", avgRegNum); 
     document.getElementById('countRegButton').addEventListener("click", countRegNum); 
 };
 
