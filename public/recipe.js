@@ -246,15 +246,15 @@ async function insertEquipment(event) {
         })
     });
     
-
     const responseData = await response.json();
     const messageElement = document.getElementById('addEqResultMsg');
 
     if (responseData.success) {
-        messageElement.textContent = "Equipment added!";
+        messageElement.textContent = "Equipment inserted!";
         fetchTableData();
     } else {
-        messageElement.textContent = "Error adding equipment!";
+        messageElement.textContent = "Error inserting equipment!";
+        console.log('error'); 
     }
 
 }
@@ -283,12 +283,14 @@ async function insertIngredient(event) {
     });
     
     const responseData = await response.json();
-    const messageElement = document.getElementById('addIngResultMsg');
+    const messageElement = document.getElementById('newIngResultMsg');
+
     if (responseData.success) {
-        messageElement.textContent = "Ingredient added!";
+        messageElement.textContent = "Ingredient inserted!";
         fetchTableData();
     } else {
-        messageElement.textContent = "Error adding ingredient!";
+        messageElement.textContent = "Error inserting ingredient!";
+        console.log('error'); 
     }
 
 }
@@ -315,13 +317,13 @@ async function insertTag(event) {
     
 
     const responseData = await response.json();
-    const messageElement = document.getElementById('addTagResultMsg');
-
+    const messageElement = document.getElementById('newTagResultMsg');
     if (responseData.success) {
-        messageElement.textContent = "Tag added!";
+        messageElement.textContent = "Tag inserted!";
         fetchTableData();
     } else {
-        messageElement.textContent = "Error adding tag!";
+        messageElement.textContent = "Error inserting tag!";
+        console.log('error'); 
     }
 
 }

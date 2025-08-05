@@ -187,7 +187,6 @@ async function deleteRecipe(event) {
 
     if (responseData.success) {
         deleteMessageElement.textContent = "Recipe deleted successfully!";
-        rDelFormDiv.style.display = "none"; 
         fetchTableData();
         document.getElementById('rID').value = ''; 
     } else {
@@ -418,7 +417,7 @@ async function insertUser(event) {
     const rmessageElement = document.getElementById('enterNewUserResultMsg');
     if (responseData.success) {
         let userId = responseData.userId;
-        rmessageElement.textContent = "User inserted successfully! Your Id is " + userId;
+        rmessageElement.textContent = "User inserted successfully! Your ID is " + userId;
         fetchTableData();
     } else {
         rmessageElement.textContent = "Error inserting User!!";
@@ -447,10 +446,10 @@ async function insertPro(event) {
     const responseData = await response.json();
     const rmessageElement = document.getElementById('enterNewProResultMsg');
     if (responseData.success) {
-        rmessageElement.textContent = "Pro inserted successfully!";
+        rmessageElement.textContent = "Registered as a professional!";
         fetchTableData();
     } else {
-        rmessageElement.textContent = "Error inserting User!!";
+        rmessageElement.textContent = "Error registering as a professional!!";
     }
 }
 
