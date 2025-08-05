@@ -115,6 +115,7 @@ create table registers (
 	FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE,
 	FOREIGN KEY (cID) REFERENCES courseTwo(cID) ON DELETE CASCADE
 );
+ 
 
 create table CONTAINSONE (
 	iName	VARCHAR2(30),
@@ -158,6 +159,8 @@ create table REVIEW (
 	FOREIGN KEY (rID) REFERENCES recipe(rID) ON DELETE CASCADE,
 	FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE
 );
+
+-- Would need assertions to model total participation for recipe in contains relationship, and recipe in consists of relationship
 
 INSERT INTO users (userID, email, uName) VALUES (101, 'johnsmith@ubc.ca', 'John Smith');
 INSERT INTO users (userID, email, uName) VALUES (102, 'maryjane@gmail.com', 'Mary Jane');
@@ -241,6 +244,7 @@ INSERT INTO registers(userID, cID, registryDate) VALUES (101, 103, '3 aug 25');
 INSERT INTO registers(userID, cID, registryDate) VALUES (102, 102, '3 aug 25');
 INSERT INTO registers(userID, cID, registryDate) VALUES (101, 105, '3 aug 25');
 INSERT INTO registers(userID, cID, registryDate) VALUES (101, 104, '3 aug 25');
+INSERT INTO registers(userID, cID, registryDate) VALUES (102, 104, '3 aug 25');
 
 INSERT INTO demosRecipe(rID, cID) VALUES (101, 101);
 INSERT INTO demosRecipe(rID, cID) VALUES (105, 103);

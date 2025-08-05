@@ -471,6 +471,7 @@ async function insertReview(reviewID, rID, userID, rating, comment) {
 
 async function insertHasTag(rID, tName, type) {
     return await withOracleDB(async (connection) => {
+        //If doesn't exist in tags table, inserts it
         await connection.execute(
             `INSERT INTO tag (tName, type) 
              SELECT :tname, :type FROM dual
@@ -478,7 +479,7 @@ async function insertHasTag(rID, tName, type) {
             [tName, type, tName],
             { autoCommit: true }
         );
-
+        // inserts into has tag table
         const result = await connection.execute(
             `INSERT INTO hasTag (rID, tName) VALUES (:rID, :tName)`, 
             [rID, tName], 
