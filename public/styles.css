@@ -93,7 +93,7 @@ input::placeholder, textarea::placeholder {
     background-color: #f8f8f8;
     border: 1px solid #ccc;  
     width: 100px; 
-    height: 100px; 
+    min-height: 100px; 
     padding: 20px; 
     border-radius: 8px; 
     font-family: sans-serif; 
@@ -104,7 +104,7 @@ input::placeholder, textarea::placeholder {
     background-color: #f8f8f8;
     border: 1px solid #ccc;  
     width: 100px; 
-    height: 100px; 
+    min-height: 100px; 
     padding: 10px; 
     border-radius: 8px; 
     font-family: sans-serif; 
@@ -116,7 +116,8 @@ input::placeholder, textarea::placeholder {
     background-color: #f8f8f8;
     border: 1px solid #ccc;  
     width: 100px; 
-    height: 100px; 
+    min-height: 100px; 
+    font-size: 12px; 
     border-radius: 8px; 
     font-family: sans-serif; 
     color: black; 

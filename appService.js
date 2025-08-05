@@ -175,8 +175,9 @@ async function fetchFilteredRecipeEquipmentFromDb(rID, store) {
 async function fetchCoursesFromDb() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT c2.cID, c2.cName
-            FROM courseTwo c2`);
+            `SELECT c2.cID, c2.cName, c2.difficulty, c1.price, c2.teacherID
+            FROM courseTwo c2, courseOne c1
+            WHERE c2.teacherID = c1.teacherID and c1.duration = c2.duration and c1.difficulty = c2.difficulty`);
         return result.rows;
     }).catch(() => {
         return []; 
