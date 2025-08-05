@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This meta tag ensures that the website renders correctly across different device sizes, enhancing mobile responsiveness. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
+    <link rel="stylesheet" href="styles.css"> 
+
+    <title>Database Application</title>
+</head>
+<body>
+    <!-- ===================================================================================== -->
+    <!-- Display the current status of the database connection. 
+         !!HERE TO HELP U DEBUGGING, NOT REQUIRED IN YOUR OWN PROJECT!!
+         -->
+    <h1 id = 'title'>Recipe Management System</h1>
+    <div>
+        <h1 id = 'title'>Database Connection Status: 
+            <!-- An in-line placeholder to display connection status. -->
+            <span id="dbStatus"> </span>
+            <!-- A loading GIF, will be hided once get the status. -->
+            <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
+        </h1>
+        <button onclick = "window.history.back()">Back</button>
+    </div>
+    <br><hr><br> <!-- ========================================================================= -->
+    <div>
+
+    <div>
+        <h2>Add New Recipe</h2>
+        <div id = 'recipeFormDiv'>
+            <form id = 'recipeForm'>
+                <label for="title">Title:</label><br>
+                <input type="text" id = "titleID"><br>
+                <label for="desc">Description:</label><br>
+                <input type="text" id = "descID"><br>
+                <label for="servings">Servings:</label><br>
+                <input type="number" id = "servID"><br>
+                <label for="userId">User ID:</label><br>
+                <input type="number" id = "recUserId">
+            </form>
+            <button id = 'submitRecipe'>Submit Recipe</button>
+            <div id="insertRecipeResultMsg"></div>
+        </div> 
+    </div>
+    
+
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <div>
+        <h2>Recipes</h2>
+        <div id = 'recipeFilterDiv'>
+            <form id = 'recipeFilter'>
+                <label for="title">Title contains: </label>
+                <input type="text" id = "titleCon"><br>
+                <select name="type" id="filter1">
+                  <option value="AND">And</option>
+                  <option value="OR">Or</option>
+                </select> <br>
+                <label for="secFrom">Serving more than: </label>
+                <input type="number" id = "servFrom"><br>
+                <select name="type" id="filter2">
+                    <option value="AND">And</option>
+                    <option value="OR">Or</option>
+                  </select> <br>
+                <label for="servings">Serving less than: </label>
+                <input type="number" id = "servTo"><br>
+            </form>
+            <button id = 'submitFilter'>Filter</button> <br>
+        </div>
+        <div id = 'recipe-container'>
+        </div>
+        <button id = 'delRec'>Delete Recipe</button>
+        <div>
+            <div id = 'rDelFormDiv'>
+                <form id = 'recipeDeletionForm'>
+                    <label for="title">Recipe ID: </label><br>
+                    <input type="number" id = "rID"><br>
+                </form>
+                <div id="deleteRecipeResultMsg"></div>
+                <button id = 'deleteRecipe'>Submit</button>
+            </div> 
+        </div>
+    </div>
+    
+    <script src="recipepage.js" defer></script>
+</body>
+</html> 
