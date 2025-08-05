@@ -221,7 +221,7 @@ INSERT INTO hasTag (rID, tName) VALUES (101, 'Dessert');
 INSERT INTO courseOne (teacherID, duration, difficulty, price) VALUES (101, 10, 'easy', 9.99);
 INSERT INTO courseOne (teacherID, duration, difficulty, price) VALUES (102, 20, 'hard', 99.99);
 INSERT INTO courseOne (teacherID, duration, difficulty, price) VALUES (103, 10, 'easy', 4.99);
-INSERT INTO courseOne (teacherID, duration, difficulty, price) VALUES (102, 5, 'medium', 44.99);
+INSERT INTO courseOne (teacherID, duration, difficulty, price) VALUES (104, 5, 'medium', 44.99);
 INSERT INTO courseOne (teacherID, duration, difficulty, price) VALUES (105, 15, 'medium', 19.99);
 
 
@@ -229,7 +229,7 @@ INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (101,
 INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (102, 'Meals for Students', 103, 10, 'easy');
 INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (103, 'Everything Veggie', 102, 5, 'medium');
 INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (104, 'A Nice Meal for a Nice Date', 105, 15, 'medium');
-INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (105, 'Cook It and Lean It', 102, 20, 'hard');
+INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (105, 'Cook It and Learn It', 102, 20, 'hard');
 
 
 INSERT INTO registers(userID, cID, registryDate) VALUES (101, 101, '1 aug 25');
