@@ -159,7 +159,7 @@ async function resetAllTables() {
 
     if (responseData.success) {
         const messageElement = document.getElementById('resetResultMsg');
-        messageElement.textContent = "demotable initiated successfully!";
+        messageElement.textContent = "Tables reset!";
         fetchTableData();
     } else {
         alert("Error initiating table!");

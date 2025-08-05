@@ -85,8 +85,12 @@ async function fetchRecipeTagsFromDb(rID) {
 }
 
 async function recipeFilter(titleCon, fil1, fil2, serLess, serMore) {
+    const allowed = ['AND', 'OR', ''];
+    if(!allowed.includes(fil1)) fil1 = ''; 
+    if(!allowed.includes(fil2)) fil2 = ''; 
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT * FROM RECIPE WHERE title LIKE '%${titleCon}%' ${fil1} servings > ${serMore} ${fil2} servings < ${serLess} `);
+        const result = await connection.execute(`SELECT * FROM RECIPE WHERE title LIKE :title ${fil1} servings > :serMore ${fil2} servings < :serLess`,
+             [`%${titleCon}%`, serMore, serLess])
         return result.rows;
     }).catch(() => {
         return [];
@@ -99,8 +103,8 @@ async function filteredCourse(num) {
             SELECT cID
             FROM REGISTERS 
             GROUP BY cID
-            HAVING COUNT(*) > ${num}
-            `); 
+            HAVING COUNT(*) > :num
+            `,  {num}); 
         return result.rows;
     }).catch(() => {
         return [];
@@ -213,7 +217,10 @@ async function fetchRegistrations() {
 }
 
 async function fetchRecipe(rID, columns) {
-    columnString = columns.join(', '); 
+    const allowedColumns = ['rID', 'title', 'description', 'userID', 'servings']; 
+    const filteredColumns = columns.filter(col => allowedColumns.includes(col)); 
+    const columnString = filteredColumns.join(', ')
+
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT ${columnString} FROM RECIPE WHERE rID = :rID`, [rID]);
         return result.rows;
