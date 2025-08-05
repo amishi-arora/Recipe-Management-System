@@ -493,14 +493,13 @@ async function addStep(event) {
 
     if (responseData.success) {
         messageElement.textContent = "Step added successfully!";
+        console.log("hi")
         fetchTableData();
     } else {
         messageElement.textContent = "Error adding step..";
     }    
 }
-// ---------------------------------------------------------------
-// Initializes the webpage functionalities.
-// Add or remove event listeners based on the desired functionalities.
+
 
 function fetchTableData() {
     fetchAndDisplayTags()

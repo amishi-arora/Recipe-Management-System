@@ -164,6 +164,7 @@ INSERT INTO users (userID, email, uName) VALUES (102, 'maryjane@gmail.com', 'Mar
 INSERT INTO users (userID, email, uName) VALUES (103, 'jpark@yahoo.ca', 'Jerry Park');
 INSERT INTO users (userID, email, uName) VALUES (104, 'bobbuilder@ubc.ca', 'Bob Builder');
 INSERT INTO users (userID, email, uName) VALUES (105, 'ssunnypatch@sfu.ca', 'Sarah Sunnypatch');
+INSERT INTO users (userID, email, uName) VALUES (106, 'coolgirl@sfu.ca', 'Cool Person');
     
 
 INSERT INTO ingredient (iName, type) VALUES ('corn', 'vegetable'); 
@@ -227,7 +228,7 @@ INSERT INTO courseOne (teacherID, duration, difficulty, price) VALUES (105, 15, 
 
 INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (101, 'Desserts', 101, 10, 'easy');
 INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (102, 'Meals for Students', 103, 10, 'easy');
-INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (103, 'Everything Veggie', 102, 5, 'medium');
+INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (103, 'Everything Veggie', 102, 20, 'hard');
 INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (104, 'A Nice Meal for a Nice Date', 105, 15, 'medium');
 INSERT INTO courseTwo (cID, cName, teacherID, duration, difficulty) VALUES (105, 'Cook It and Learn It', 102, 20, 'hard');
 
@@ -237,7 +238,9 @@ INSERT INTO registers(userID, cID, registryDate) VALUES (102, 101, '1 aug 25');
 INSERT INTO registers(userID, cID, registryDate) VALUES (101, 102, '2 aug 25');
 INSERT INTO registers(userID, cID, registryDate) VALUES (103, 101, '3 aug 25');
 INSERT INTO registers(userID, cID, registryDate) VALUES (101, 103, '3 aug 25');
-
+INSERT INTO registers(userID, cID, registryDate) VALUES (102, 102, '3 aug 25');
+INSERT INTO registers(userID, cID, registryDate) VALUES (101, 105, '3 aug 25');
+INSERT INTO registers(userID, cID, registryDate) VALUES (101, 104, '3 aug 25');
 
 INSERT INTO demosRecipe(rID, cID) VALUES (101, 101);
 INSERT INTO demosRecipe(rID, cID) VALUES (105, 103);
@@ -264,13 +267,16 @@ INSERT INTO equipment (eName, whereToBuy) VALUES ('handmixer', 'Home Depot');
 INSERT INTO equipment (eName, whereToBuy) VALUES ('cast iron skillet', 'Ikea');
 INSERT INTO equipment (eName, whereToBuy) VALUES ('mandolin', 'Canadian Tire');
 INSERT INTO equipment (eName, whereToBuy) VALUES ('ladle', 'Ikea');
+INSERT INTO equipment (eName, whereToBuy) VALUES ('spoon', 'Ikea');
 
 
 INSERT INTO REQUIRESEQ (rID, eName) VALUES (104, 'mandolin');
 INSERT INTO REQUIRESEQ (rID, eName) VALUES (101, 'handmixer');
 INSERT INTO REQUIRESEQ (rID, eName) VALUES (105, 'whisk');
 INSERT INTO REQUIRESEQ (rID, eName) VALUES (104, 'cast iron skillet');
-INSERT INTO REQUIRESEQ (rID, eName) VALUES (103, 'ladle');
+INSERT INTO REQUIRESEQ (rID, eName) VALUES (101, 'ladle');
+INSERT INTO REQUIRESEQ (rID, eName) VALUES (101, 'whisk');
+INSERT INTO REQUIRESEQ (rID, eName) VALUES (101, 'spoon');
 
 
 INSERT INTO review (reviewID, rID, userID, rating, commentBody) VALUES (101, 101, 102, 4, 'It was too sweet');

@@ -46,7 +46,7 @@ async function fetchAndDisplayCourses() {
         const c = document.createElement('button');
         console.log(course); 
         c.className = 'cDiv';
-        c.innerHTML = course[1] + '<br>' +" ID: " + course[0] + '<br>' + " Teacher: " + course[4] + '<br>' + "Difficulty: " + course[2] + '<br>' + " $" + Math.floor(course[3]);  
+        c.innerHTML = '<b>' + course[1] + '</b>' + '<br>' +" ID: " + course[0] + '<br>' + " Teacher: " + course[4] + '<br>' + "Difficulty: " + course[2] + '<br>' + " $" + Math.floor(course[3]);  
         courseDisplay.appendChild(c);
 
     });
