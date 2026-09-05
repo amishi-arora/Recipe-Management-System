@@ -1,5 +1,24 @@
-# Recipe Management Project 
-This project is a recipe management system. Users can upload and search for various recipes. Recipes have ingredients, equipment, steps, and different tags (like dietary restrictions and cuisine types). Users can also sign up for courses taught by professional chefs who demo some of their recipes. 
+# Recipe Management System
 
-Credits: 
+A full-stack recipe management system that allows users to upload, browse, favourite, and review recipes. The application also includes a course management system where chefs can create courses based on recipes and users can browse and register for available courses.
+
+## Features
+
+* Upload and browse recipes
+* Favourite and review recipes
+* Organize recipes with ingredients, equipment, instructions, and categories
+* Create and manage recipe-based courses
+* Browse and register for courses
+
+## Tech Stack
+
+* HTML
+* CSS
+* JavaScript
+* Node.js
+* Express.js
+* Oracle SQL
+
+
+## Credits: 
 This project is based on starter code provided by the University of British Columbia
